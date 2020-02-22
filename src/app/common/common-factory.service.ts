@@ -7,6 +7,18 @@ export interface IComponetProperties {
   outputs?: { [key: string]: any };
 }
 
+// {
+//   ref: this.tableTmpl,
+//   properties: {
+//     data: this.gridData,
+//     columns: this.columnDef
+//   },
+// },
+export interface ITemplates {
+  ref: any;
+  properties: any;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,9 +64,10 @@ export class CommonFactoryService {
   getEmbeddedView(templateRef: TemplateRef<any>, templateProperties: {}) {
     const embeddedView = templateRef.createEmbeddedView(templateProperties);
     embeddedView.detectChanges();
-    this.embeddedViews.push(embeddedView);
+    this.embeddedViews.push(embeddedView.rootNodes);
     return [embeddedView.rootNodes];
   }
+
   setInputProperties(componentRef: ComponentRef<any>, inputProperties: {}) {
     for (const key in inputProperties) {
       if (inputProperties.hasOwnProperty(key)) {
@@ -90,10 +103,38 @@ export class CommonFactoryService {
     console.log('componentRef', this.componentRef);
   }
 
+  loadTemplatesWithinComponent(templates: Array<ITemplates>, componentType: Type<any>, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string) {
+    // if (styleSheetName) {
+    //   this.loadStyle(styleSheetName);
+    // }
+    this.isPopup = isPopup || false;
+    this.componetProperties = componetProperties;
+    const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);    
+    vcRef.clear();
+    templates.forEach(tmpl => {
+      if (tmpl.ref instanceof TemplateRef) {
+        const ngContent = this.getEmbeddedView(tmpl.ref, tmpl.properties);
+        vcRef.createEmbeddedView(tmpl.ref, tmpl.properties);
+      }
+    });
+    const componentRef = vcRef.createComponent(factory, 0, undefined, this.embeddedViews);
+    this.setInputProperties(componentRef, componetProperties.inputs);
+    if (isPopup) {
+      componentRef.instance['visible'] = true;
+    }
+    componentRef.hostView.detectChanges();
+    const { nativeElement } = componentRef.location;
+    this.document.body.appendChild(nativeElement);
+    this.componentRef = componentRef;
+    console.log('componentRef', this.componentRef);
+  }
+
 
   public destroyComponet() {
     if (this.componentRef) {
       // this.componentRef.hostView.detectChanges();
+      this.embeddedViews = [];
+      this.componetProperties = null;
       this.componentRef.changeDetectorRef.detach();
       this.componentRef.destroy();
       console.log('destroyComponet', this.componentRef);

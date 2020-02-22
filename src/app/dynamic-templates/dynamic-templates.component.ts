@@ -178,33 +178,24 @@ export class DynamicTemplatesComponent implements OnInit {
         title: 'Dynamically Component & Template Binding',
       }
     };
-    // const templateProperties = [
-    //   {
-    //     data: this.gridData,
-    //     columns: this.columnDef
-    //   },
-    //   {
-    //     data: this.information
-    //   }
-    // ];
-    // const templates = [
-    //   {
-    //     ref: this.tableTmpl,
-    //     properties: {
-    //       data: this.gridData,
-    //       columns: this.columnDef
-    //     },
-    //   },
-    //   {
-    //     ref: this.informationTmpl,
-    //     properties: {
-    //       data: this.information
-    //     },
-    //   }
-    // ];
+    const templates = [
+      {
+        ref: this.tableTmpl,
+        properties: {
+          data: this.gridData,
+          columns: this.columnDef
+        },
+      },
+      {
+        ref: this.informationTmpl,
+        properties: {
+          data: this.information
+        },
+      }
+    ];
     // const tblDiv: HTMLElement = this.document.getElementById('popup');
-    this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css');
-    // this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
+    // this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css');
+    this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
   }
 
   // private applyHingEffect() {
