@@ -1,0 +1,60 @@
+<h1>Dynamic Template:</h1>
+
+<div class="links">
+  <!-- <button type="submit" (click)="openPopup(true)">Open Popup</button> -->
+  <a href="#test-popup" (click)="openPopup(true)" class="hinge">Open Popup</a>
+
+</div>
+
+<ng-template #loader [ngIf]="isLoading">
+  <div class="loader">Loading...</div>
+</ng-template>
+
+<!-- <select data-loader="btncountry" style="height: 25px; width: 130px;;" (change)="loadoncountry('country')">
+    <option value="select">-- select Country --</option>
+    <option value="USA">USA</option>
+    <option value="India">India</option>
+</select> -->
+
+
+<ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
+  <div data-loader="loadingDiv"></div>
+</ng-container>
+
+
+<!-- <div data-loader="loadingDiv"> -->
+<ng-template #tableTmpl let-data="data" let-columns="columns">
+  <div class="table-scroll" id="popup">
+    <div class="table-wrap">
+      <table class="main-table" id="main-table">
+        <thead>
+          <tr>
+            <th *ngFor="let item of columns" scope="col" [class]='item?.class'>{{item.header}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of data; let ind=index">
+            <ng-container *ngFor="let column of columns">
+              <ng-container *ngIf="!column?.type">
+                <td [class]='column?.class'>{{element[column.field]}}</td>
+              </ng-container>
+              <ng-container *ngIf="column?.type === 'TEXT_BOX'">
+                <ng-container [ngTemplateOutlet]="cellTemplate"
+                  [ngTemplateOutletContext]="{element:element, column: column, ind:ind}">
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #cellTemplate let-element='element' let-column='column' let-ind='ind'>
+  <td>
+    <input type="text" name='text-box-{{ind}}' [(ngModel)]="element[column.field]"
+      (blur)='onBlur(element, column, ind)' />
+  </td>
+</ng-template>

@@ -1,0 +1,28 @@
+$table-header: #1976D2;
+$table-header-border: #1565C0;
+$table-border: #d9d9d9;
+$row-bg: #f4f2f1;
+$header-bg: #1565C0;
+
+.model-dynamic-body{
+	table>tbody tr:nth-child(even){background-color: #d2f376 !important;}
+	table th{background-color: $table-header; color: white}
+	
+	table {
+		// padding: 20px;
+		padding: 5px 0 10px 0;
+		margin:auto;
+		border-collapse:separate;
+		border-spacing:0;
+	}
+	table th, table td {
+		padding:5px 10px;
+		border:1px solid #000;
+		// background:#fff;
+		white-space:nowrap;
+		vertical-align:top;
+	}
+	table thead, table tfoot {
+		background:#f9f9f9;
+	}
+}

@@ -1,0 +1,15 @@
+<ng-container >
+  <div class="modal-container" id="modalContainer">
+    <div class="modal-backdrop"></div>
+    <div class="model-content mfp-with-anim mfp-hide" id="modalContent">
+      <div class="model-heaer row-align">
+        <span class="title">&nbsp;{{title}}&nbsp;</span>
+        <span class="close" title="close" (click)="close()">&times;</span>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <ng-content></ng-content>
+      </div>
+      <div class="model-footer"></div>
+    </div>
+  </div>
+</ng-container>

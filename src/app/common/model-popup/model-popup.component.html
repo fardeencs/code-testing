@@ -1,0 +1,19 @@
+<div class="model-popup">
+  <!-- <button (click)="togglePopup(true)">Show modal</button> -->
+
+  <div id="popupBackGround" class="popupModal-backdrop" *ngIf="showModal"></div>
+
+  <div id="popupBackGroundDialog" class="popupModal-dialog">
+    <div class="popupModal-content">
+      <div class="popupModal-body">
+        <div class="row-align">
+          <span>&nbsp;</span>
+          <span class="close" title="close" (click)="togglePopup(false)">&times;</span>
+        </div>
+        <div class="model-dynamic-body">  
+        <ng-content #modelPopup></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

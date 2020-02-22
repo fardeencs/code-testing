@@ -1,0 +1,196 @@
+<!-- <button type="button" onClick = "document.getElementById('chartdiv').style.height = '200px';">Click Me!</button>
+    <div id="chartdiv" style="width: 100%; height: 50px; background-color:#E8EDF2"></div> -->
+<!-- 
+<div id="popDiv" class="ontop">
+  <span><a href="#" (click)="hide('popDiv')">Close</a></span>
+  <hr>
+  <table  >
+				<tr>
+					<td>
+						This is can be used as a popup window
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Click Close OR escape button to close it
+						<a href="#" (click)="hide('popDiv')">Close</a>
+					</td>
+				</tr>
+      </table>
+</div>
+<div>
+  <a href="#" (click)="pop('popDiv')">Click here to open a popup div</a>
+</div> -->
+
+
+<!-- <div>
+  <button (click)="togglePopup(true)">Show modal</button>
+  <div id="popupBackGround" class="popupModal-backdrop" *ngIf="showModal"></div>
+  <div id="popupBackGroundDialog" class="popupModal-dialog">
+    <div class="popupModal-content">
+      <div class="popupModal-body">
+        <div class="row-align">
+          <span>&nbsp;</span>
+          <span class="close" title="close" (click)="togglePopup(false)">&times;</span>
+        </div>
+        <div class="model-dynamic-body">  
+             <ng-template #dynamicComponent></ng-template>
+            <ng-content #modelBody></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div>
+  <!-- <button (click)="togglePopup(true)">Show modal</button> -->
+  <br>
+  <!-- <ng-template appInsertion>
+  </ng-template> -->
+</div>
+
+
+
+<!-- <ng-container  *ngTemplateOutlet="tblTmpl; context:'text'"> </ng-container> -->
+<ng-template #dynamicComponent>
+      <table class="main-table" id="main-table">
+          <thead>
+            <tr class="flex-table header" role="rowgroup">
+              <th class="flex-row first" role="columnheader">Country</th>
+              <th class="flex-row" role="columnheader">Events</th>
+              <th class="flex-row" role="columnheader">Time</th>
+              <th class="flex-row" role="columnheader">Fees</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="flex-table row" role="rowgroup">
+              <td class="flex-row first" role="cell"><span class="flag-icon flag-icon-gb"></span> United Kingdom</td>
+              <td class="flex-row" role="cell">Stonehenge, Windsor and Bath with Pub Lunch </td>
+              <td class="flex-row" role="cell">19 Sep, 1p.m.</td>
+              <td class="flex-row" role="cell">US$500</td>
+            </tr>
+        
+            <tr class="flex-table row" role="rowgroup">
+              <td class="flex-row first" role="cell"><span class="flag-icon flag-icon-ca"></span> Canada</td>
+              <td class="flex-row" role="cell">Vancouver to Victoria and Butchart Gardens Tour </td>
+              <td class="flex-row" role="cell">23 Sep, 1:30p.m.</td>
+              <td class="flex-row" role="cell">US$387</td>
+            </tr>
+            <tr>
+              <td class="flex-row rowspan first" rowspan="4"><span class="flag-icon flag-icon-us"></span> United States</td>
+            </tr>
+        
+            <tr>
+              <td class="flex-row" role="cell">Napa and Sonoma Wine Country Tour</td>
+              <td class="flex-row" role="cell">5 Sep, 9p.m.</td>
+              <td class="flex-row" role="cell">US$600</td>
+            </tr>
+        
+            <tr>
+              <td class="flex-row" role="cell">Day Trip to Martha's Vineyard</td>
+              <td class="flex-row" role="cell">12 Sep, 5p.m.</td>
+              <td class="flex-row" role="cell">US$600</td>
+            </tr>
+            </tbody>
+      </table>
+</ng-template>
+
+<ng-template [ngIf]="showTmpl" #tblTmpl>
+  <div class="table-scroll" id="popup">
+    <div class="table-wrap">
+      <table class="main-table" id="main-table">
+        <thead>
+          <tr>
+            <th class="fixed-side sticky-col first-col" scope="col">&nbsp;Actions</th>
+            <th scope="col">Header 2</th>
+            <th scope="col">Header 3</th>
+            <th scope="col">Header 4</th>
+            <th scope="col">Header 5</th>
+            <th scope="col">Header 6</th>
+            <th scope="col">Header 7</th>
+            <th scope="col">Header 8</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of gridData; let ind=index">
+            <td class="fixed-side sticky-col first-col">{{item.header1}}</td>
+            <td><a href="#">{{item.header2}}</a></td>
+            <td>{{item.header3}} <br> {{item.header3}}</td>
+            <td>{{item.header4}}</td>
+            <td>{{item.header5}}</td>
+            <td>{{item.header6}}</td>
+            <td>{{item.header7}}</td>
+            <td><input type="text" [(ngModel)]="item.header8" name="lname-{{ind}}" id="lname-{{ind}}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+
+<!-- <table class="table-container" width="100%" role="table" aria-label="Destinations">
+  <caption>Day Trip Tours</caption>
+  <thead>
+    <tr class="flex-table header" role="rowgroup">
+      <th class="flex-row first" role="columnheader">Country</th>
+      <th class="flex-row" role="columnheader">Events</th>
+      <th class="flex-row" role="columnheader">Time</th>
+      <th class="flex-row" role="columnheader">Fees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="flex-table row" role="rowgroup">
+      <td class="flex-row first" role="cell"><span class="flag-icon flag-icon-gb"></span> United Kingdom</td>
+      <td class="flex-row" role="cell">Stonehenge, Windsor and Bath with Pub Lunch </td>
+      <td class="flex-row" role="cell">19 Sep, 1p.m.</td>
+      <td class="flex-row" role="cell">US$500</td>
+    </tr>
+
+    <tr class="flex-table row" role="rowgroup">
+      <td class="flex-row first" role="cell"><span class="flag-icon flag-icon-ca"></span> Canada</td>
+      <td class="flex-row" role="cell">Vancouver to Victoria and Butchart Gardens Tour </td>
+      <td class="flex-row" role="cell">23 Sep, 1:30p.m.</td>
+      <td class="flex-row" role="cell">US$387</td>
+    </tr>
+    <tr>
+      <td class="flex-row rowspan first" rowspan="4"><span class="flag-icon flag-icon-us"></span> United States</td>
+    </tr>
+
+    <tr>
+      <td class="flex-row" role="cell">Napa and Sonoma Wine Country Tour</td>
+      <td class="flex-row" role="cell">5 Sep, 9p.m.</td>
+      <td class="flex-row" role="cell">US$600</td>
+    </tr>
+
+    <tr>
+      <td class="flex-row" role="cell">Day Trip to Martha's Vineyard</td>
+      <td class="flex-row" role="cell">12 Sep, 5p.m.</td>
+      <td class="flex-row" role="cell">US$600</td>
+    </tr>
+    <tr>
+      <td class="flex-row" role="cell">Grand Canyon West Rim and Hoover Dam Tour</td>
+      <td class="flex-row" role="cell">5 Sep, 2p.m.</td>
+      <td class="flex-row" role="cell">US$550</td>
+    </tr>
+
+    <tr class="flex-table row" role="rowgroup">
+      <td class="flex-row first" role="cell"><span class="flag-icon flag-icon-au"></span> Australia</td>
+      <td class="flex-row" role="cell">Blue Mountains Tours</td>
+      <td class="flex-row" role="cell">9 Sep, 2p.m.</td>
+      <td class="flex-row" role="cell">US$400</td>
+    </tr>
+    <tr class="flex-table row" role="rowgroup">
+      <td class="flex-row first" role="cell"><span class="flag-icon flag-icon-nz"></span> New Zealand</td>
+      <td class="flex-row" role="cell">Milford Sound Coach & Cruise</td>
+      <td class="flex-row" role="cell">12 Sep, 2p.m.</td>
+      <td class="flex-row" role="cell">US$400</td>
+    </tr>
+  </tbody>
+</table> -->

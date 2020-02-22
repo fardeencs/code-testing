@@ -1,0 +1,133 @@
+.row-align{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-container {
+  font-family: cursive;
+  transition: all 400ms ease-in-out; 
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  // height: 100vh;
+  padding: 30px;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .modal-backdrop {
+      content: "";
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+  }
+  .model-content{
+      // border:2px solid red;
+      box-shadow: inset -2px -3px 3px 0px #4e85f4;
+      // box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-radius: 7px;
+      max-height: 100%;
+      max-width: 100%;
+      background: white;
+      min-height: 160px;
+      position: relative;
+      // transform: none;
+      transform: scale(0.8); 
+      opacity: 1;
+      // animation-duration: 1s;
+      // animation-name: hinge;
+      animation: open 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+      // animation: close 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+      // transition: all 400ms ease-in-out; 
+      min-width: 200px;
+      padding: 1em;
+      z-index: 10041;
+      span{
+          &.title{
+              font-size: 1.2rem;
+          } 
+          &.close{
+              font-size: 2.5rem;
+              cursor: pointer;
+              padding: 0 12px;
+              :hover{
+                  color: red;
+              }
+          }
+      }
+      .modal-body {
+          .table-scroll {
+              max-width: 100% !important;
+              // table tbody{
+              //     max-height: 600px !important;
+              //     min-height: 200px !important;
+              //     overflow-y: scroll !important;
+              // }
+              // thead, tbody { display: block; }
+              // tbody {
+              //     height: 300px;       /* Just for the demo          */
+              //     overflow-y: auto;    /* Trigger vertical scroll    */
+              //     overflow-x: hidden;  /* Hide the horizontal scroll */
+              // }
+          }
+      }
+  }
+}
+
+@keyframes open {
+  0% {
+      opacity: 0;
+      transform: translate3d(0, 25%, 0) scale(0.5);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(0.8);
+  }
+}
+
+
+
+/* 
+====== "Hinge" close effect ======
+*/
+@keyframes hinge {
+0% { transform: rotate(0); transform-origin: top left; animation-timing-function: ease-in-out; }	
+20%, 60% { transform: rotate(80deg); transform-origin: top left; animation-timing-function: ease-in-out; }	
+40% { transform: rotate(60deg); transform-origin: top left; animation-timing-function: ease-in-out; }	
+80% { transform: rotate(60deg) translateY(0); opacity: 1; transform-origin: top left; animation-timing-function: ease-in-out; }	
+100% { transform: translateY(700px); opacity: 0; }
+}
+
+.hinge {
+  animation-duration: 1s;
+  animation-name: hinge;
+}
+.mfp-with-fade {
+// before-open state
+.mfp-content,
+&.mfp-bg {
+  opacity: 0;
+  transition: opacity .5s ease-out;
+}
+// open state
+&.mfp-ready {
+  .mfp-content {
+   opacity: 1; 
+  }
+  &.mfp-bg {
+    opacity: 0.8; // background opacity
+  }
+}
+
+// closed state
+&.mfp-removing {
+  &.mfp-bg {
+    opacity: 0;
+  }
+}
+}

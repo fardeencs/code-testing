@@ -1,0 +1,116 @@
+<h3>Nested Tables <small class="text-muted">with tree view-like connecting lines</small></h3>
+
+<br>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Header 1</th>
+      <th>Header 2</th>
+      <!-- <th>Header 3</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of treeViewData">
+      <tr class="parent-row">
+        <!-- <td><span (click)="toggleRow($event)" class="handleSpan"><i class="right"></i></span> </td> -->
+        <td (click)="toggleRow($event)" class="handleSpan"><i class="open"></i></td>
+        <td>{{item.id1}}</td>
+        <td>{{item.id2}}</td>
+        <!-- <td>{{item.id3}}</td> -->
+      </tr>
+      <tr id="tr-detail" class="tr-detail hidden">
+          <td></td>
+          <td colspan="4">
+            <div class="detail-content">
+              <ul>
+                <li>
+                  <div class="detail"></div>
+                  <div class="detail detail-main">
+                    <fieldset>
+                      <legend><span class="label label-primary">Nested Data 1</span></legend>
+                      <div>
+                        <table class="table table-condensed">
+                          <thead>
+                            <tr>
+                              <th>Header 11</th>
+                              <th>Header 12</th>
+                              <!-- <th>Header 13</th> -->
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item1 of item.subElement1">
+                              <td>{{item1.id1}}</td>
+                              <td>{{item1.id2}}</td>
+                              <!-- <td>{{item1.id3}}</td> -->
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </fieldset>
+  
+                  </div>
+                </li>
+                
+                <li>
+                  <div class="detail"></div>
+                  <div class="detail detail-main">
+                    <fieldset>
+                      <legend><span class="label label-primary">Nested Data 2</span></legend>
+                      <div>
+                        <table class="table table-condensed">
+                          <thead>
+                            <tr>
+                              <th>Header21</th>
+                              <th>Header22</th>
+                              <!-- <th>Header23</th> -->
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item2 of item.subElement2">
+                              <td>{{item2.id1}}</td>
+                              <td>{{item2.id2}}</td>
+                              <!-- <td>{{item2.id3}}</td> -->
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </fieldset>
+  
+                  </div>
+                </li>
+                <li>
+                  <div class="detail"></div>
+                  <div class="detail detail-main">
+                    <fieldset>
+                      <legend><span class="label label-primary">Nested Data 3</span></legend>
+                      <div>
+                        <table class="table table-condensed">
+                          <thead>
+                            <tr>
+                              <th>Header31</th>
+                              <th>Header32</th>
+                              <!-- <th>Header33</th> -->
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item3 of item.subElement3">
+                              <td>{{item3.id1}}</td>
+                              <td>{{item3.id2}}</td>
+                              <!-- <td>{{item3.id3}}</td> -->
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </fieldset>
+  
+                  </div>
+                </li>
+                
+              </ul>
+            </div>
+          </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
