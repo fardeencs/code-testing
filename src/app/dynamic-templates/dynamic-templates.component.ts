@@ -7,10 +7,11 @@ import { delay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 // import { MaterialDailogComponent } from '../common/material-dailog/material-dailog.component';
 import { LoadingService } from '../common/loading.service';
+import { ElementLoaderService } from '../common/element-loader.service';
 
 
-declare function loadingServiceShow(zindex, id, flag);
-declare function loadingServiceHide(id);
+// declare function loadingServiceShow(zindex, id, flag);
+// declare function loadingServiceHide(id);
 
 @Component({
   selector: 'app-dynamic-templates',
@@ -22,26 +23,34 @@ export class DynamicTemplatesComponent implements OnInit {
   columnDef: Array<any>;
   showTempl = true;
   isLoading = false;
+  information: any;
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
+  @ViewChild('informationTmpl', { static: false }) informationTmpl: TemplateRef<any>;
   constructor(private compiler: Compiler,
     private commonFactoryService: CommonFactoryService,
     public dialog: MatDialog,
     private vcRef: ViewContainerRef,
     private loadingService: LoadingService,
+    private elementLoaderService: ElementLoaderService,
     @Inject(DOCUMENT) private document: Document) {
+    this.information = {
+      name: 'Fardeen ahmad',
+      address: 'Lucknow Uttar Pradesh, India'
+    };
   }
 
-  callme() {
-    loadingServiceShow(10040, 'loadingDiv', false);
-  }
-  callmestop() {
-    loadingServiceHide('loadingDiv');
-  }
+  // callme() {
+  //   loadingServiceShow(10040, 'loadingDiv', false);
+  // }
+  // callmestop() {
+  //   loadingServiceHide('loadingDiv');
+  // }
 
   ngOnInit() {
     this.loadGridData(10);
     this.getColDef();
+
     // this.loadingService.loadingServiceShow(10000, 'popup', true);
   }
 
@@ -107,7 +116,8 @@ export class DynamicTemplatesComponent implements OnInit {
 
 
   loadGridData(rows: number) {
-    this.callme();
+    // this.callme();
+    this.elementLoaderService.startLoader('loadingDiv');
     const gridData = [];
     for (let index = 0; index < rows; index++) {
       gridData.push({
@@ -127,7 +137,8 @@ export class DynamicTemplatesComponent implements OnInit {
       of(gridData).pipe(delay(2000)).subscribe(result => {
         if (result) {
           this.gridData = result;
-          this.callmestop();
+          this.elementLoaderService.stopeLoader('loadingDiv');
+          // this.callmestop();
         }
       });
     }
@@ -167,14 +178,39 @@ export class DynamicTemplatesComponent implements OnInit {
         title: 'Dynamically Component & Template Binding',
       }
     };
-    const tblDiv: HTMLElement = this.document.getElementById('popup');
+    // const templateProperties = [
+    //   {
+    //     data: this.gridData,
+    //     columns: this.columnDef
+    //   },
+    //   {
+    //     data: this.information
+    //   }
+    // ];
+    // const templates = [
+    //   {
+    //     ref: this.tableTmpl,
+    //     properties: {
+    //       data: this.gridData,
+    //       columns: this.columnDef
+    //     },
+    //   },
+    //   {
+    //     ref: this.informationTmpl,
+    //     properties: {
+    //       data: this.information
+    //     },
+    //   }
+    // ];
+    // const tblDiv: HTMLElement = this.document.getElementById('popup');
     this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css');
+    // this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
   }
 
-  private applyHingEffect(){
-    const col = this.document.getElementsByClassName('hinge');
-    // col.magnificPopup()
-  }
+  // private applyHingEffect() {
+  //   const col = this.document.getElementsByClassName('hinge');
+  //   // col.magnificPopup()
+  // }
 
 
 

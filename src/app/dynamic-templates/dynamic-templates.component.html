@@ -16,13 +16,16 @@
     <option value="India">India</option>
 </select> -->
 
-
 <ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
-  <div data-loader="loadingDiv"></div>
+  <div appInsertion id="loadingDiv"></div>
 </ng-container>
 
+<ng-template #informationTmpl let-data="data">
+  <p>{{data.name}}</p>
+  <p>{{data.address}}</p>
+</ng-template>
 
-<!-- <div data-loader="loadingDiv"> -->
+
 <ng-template #tableTmpl let-data="data" let-columns="columns">
   <div class="table-scroll" id="popup">
     <div class="table-wrap">
