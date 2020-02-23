@@ -11,9 +11,12 @@ export class ElementLoaderService {
 
   constructor() { }
 
-  startLoader(id: string, zIndex?: number) {
+  startLoader(id: string, timeout?: number, zIndex?: number) {
     zIndex = zIndex || 10040;
-    loadingServiceShow(zIndex, id, false);
+    timeout = timeout || 0;
+    setTimeout(() => {
+      loadingServiceShow(zIndex, id, false);
+    }, timeout);
   }
 
   stopeLoader(id: string) {

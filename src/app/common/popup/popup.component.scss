@@ -6,7 +6,7 @@
 
 .modal-container {
   font-family: cursive;
-  transition: all 400ms ease-in-out; 
+  transition: all 0.6s ease-in-out; 
   position: fixed;
   left: 0;
   top: 0;
@@ -29,6 +29,7 @@
   .model-content{
       // border:2px solid red;
       box-shadow: inset -2px -3px 3px 0px #4e85f4;
+      // box-shadow: 0px 40px 60px -20px #4e85f4;
       // box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       border-radius: 7px;
       max-height: 100%;
@@ -39,11 +40,14 @@
       // transform: none;
       transform: scale(0.8); 
       opacity: 1;
+      // animation: drop 0.5s ease forwards;
+      // top: -700px;
       // animation-duration: 1s;
       // animation-name: hinge;
-      animation: open 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: open 0.6s cubic-bezier(0.23, 1.42, 0.36, 1.42);
+      // animation: open 0.6s cubic-bezier(0.91, -0.95, 0.04, 2.24);
       // animation: close 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
-      // transition: all 400ms ease-in-out; 
+      // transition: all 0.6ms ease-in-out; 
       min-width: 200px;
       padding: 1em;
       z-index: 10041;
@@ -82,11 +86,25 @@
 @keyframes open {
   0% {
       opacity: 0;
-      transform: translate3d(0, 25%, 0) scale(0.5);
+      transform: translate3d(0, 25%, 0) scale(0.2);
   }
+  // 50% {
+  //   opacity: 0.5;
+  //   transform: translate3d(0, 50%, 0) scale(0.6);
+  // }
   100% {
       opacity: 1;
       transform: scale(0.8);
+  }
+}
+
+@keyframes drop {
+  0% {}
+  100% {
+      transform: translateY(700px);
+  }
+  70% {
+    transform: translateY(650px);
   }
 }
 

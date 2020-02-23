@@ -23,6 +23,11 @@ import { DynamicTemplatesComponent } from './dynamic-templates/dynamic-templates
 import { PopupComponent } from './common/popup/popup.component';
 import { TemplateInsertionDirective } from './common/template-insertion';
 import { MaterialDailogComponent } from './common/material-dailog/material-dailog.component';
+import { NotificationComponent } from './animations/notification/notification.component';
+import { SpinnerComponent } from './animations/spinner/spinner.component';
+import { DemoOnEnterOnLeaveComponent } from './router-animation/demo-on-enter-on-leave/demo-on-enter-on-leave.component';
+import { AngularImgComponent } from './router-animation/angular-img/angular-img.component';
+import { DemoDynamicParamsComponent } from './router-animation/demo-dynamic-params/demo-dynamic-params.component';
 
 // // This array defines which "componentId" maps to which lazy-loaded module.
 // const manifests: DynamicComponentManifest[] = [
@@ -52,18 +57,24 @@ import { MaterialDailogComponent } from './common/material-dailog/material-dailo
       ModelPopupComponent,
       PopupComponent,
       DynamicTemplatesComponent,
-      MaterialDailogComponent
+      MaterialDailogComponent,
+      NotificationComponent,
+      SpinnerComponent,
+      AngularImgComponent,
+      DemoOnEnterOnLeaveComponent,
+      DemoDynamicParamsComponent
    ],
    imports: [
-      CommonModule,
       BrowserModule,
+      BrowserAnimationsModule,
+      CommonModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
       KeyFilterModule,
       BrowserAnimationsModule,
       MaterialModule,
-      MaterialGridModule,
+      MaterialGridModule
       //DynamicComponentLoaderModule.forRoot(manifests)
    ],
    exports: [],

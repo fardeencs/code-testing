@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 // import { MaterialDailogComponent } from '../common/material-dailog/material-dailog.component';
 import { LoadingService } from '../common/loading.service';
 import { ElementLoaderService } from '../common/element-loader.service';
+import { Bouncing } from '../angular-animation.constant';
 
 
 // declare function loadingServiceShow(zindex, id, flag);
@@ -16,7 +17,8 @@ import { ElementLoaderService } from '../common/element-loader.service';
 @Component({
   selector: 'app-dynamic-templates',
   templateUrl: './dynamic-templates.component.html',
-  styleUrls: ['./dynamic-templates.component.scss']
+  styleUrls: ['./dynamic-templates.component.scss'],
+  animations: Bouncing
 })
 export class DynamicTemplatesComponent implements OnInit {
   gridData: Array<any>;
@@ -117,7 +119,7 @@ export class DynamicTemplatesComponent implements OnInit {
 
   loadGridData(rows: number) {
     // this.callme();
-    this.elementLoaderService.startLoader('loadingDiv');
+    this.elementLoaderService.startLoader('loadingDiv', 2000);
     const gridData = [];
     for (let index = 0; index < rows; index++) {
       gridData.push({
@@ -134,7 +136,7 @@ export class DynamicTemplatesComponent implements OnInit {
         'header11': `Cell content ${index}`,
         'header12': null,
       });
-      of(gridData).pipe(delay(2000)).subscribe(result => {
+      of(gridData).pipe(delay(3000)).subscribe(result => {
         if (result) {
           this.gridData = result;
           this.elementLoaderService.stopeLoader('loadingDiv');
@@ -194,8 +196,8 @@ export class DynamicTemplatesComponent implements OnInit {
       }
     ];
     // const tblDiv: HTMLElement = this.document.getElementById('popup');
-    // this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css');
-    this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
+    this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css');
+    // this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
   }
 
   // private applyHingEffect() {

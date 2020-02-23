@@ -109,7 +109,7 @@ export class CommonFactoryService {
     // }
     this.isPopup = isPopup || false;
     this.componetProperties = componetProperties;
-    const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);    
+    const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
     vcRef.clear();
     templates.forEach(tmpl => {
       if (tmpl.ref instanceof TemplateRef) {
@@ -132,6 +132,7 @@ export class CommonFactoryService {
 
   public destroyComponet() {
     if (this.componentRef) {
+      // this.componentRef.instance['visible'] = false;
       // this.componentRef.hostView.detectChanges();
       this.embeddedViews = [];
       this.componetProperties = null;
