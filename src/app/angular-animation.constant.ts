@@ -172,6 +172,7 @@ export const Specials = [
     jackInTheBoxOnEnterAnimation(),
     rollInOnEnterAnimation(),
     rollOutOnLeaveAnimation(),
+    hingeOnLeaveAnimation(),
 ];
 export const Expand = [
     expandOnEnterAnimation({ duration: 400 }),
@@ -188,5 +189,4 @@ export const Others = [
     tadaOnEnterAnimation(),
     wobbleOnEnterAnimation(),
     jelloOnEnterAnimation(),
-    hingeOnLeaveAnimation(),
 ];

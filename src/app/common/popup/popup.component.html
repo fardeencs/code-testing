@@ -2,7 +2,7 @@
   <div class="modal-container" id="modalContainer">
     <div class="modal-backdrop"></div>
      <!-- [@zoomInUpOnEnter] [@zoomOutUpOnLeave] -->
-    <div class="model-content" id="modalContent" *ngIf="visible">
+    <div class="model-content" id="modalContent" [@hingeOnLeave]>
       <div class="model-heaer row-align" >
         <span class="title">&nbsp;{{title}}&nbsp;</span>
         <span class="close" title="close" (click)="close()">&times;</span>

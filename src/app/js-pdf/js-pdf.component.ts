@@ -11,8 +11,10 @@ import {
   daxFont2,
   daxFont,
   elMessiri,
-  nafeeLFont
+  nafeeLFont,
+  amiriFont
 } from '../base64Fonst';
+import { AmiriRagular } from './arabic-fonts';
 
 @Component({
   selector: 'app-js-pdf',
@@ -21,7 +23,7 @@ import {
 })
 export class JsPdfComponent implements OnInit {
 
-  @ViewChild('content', {static: false}) reportContent: ElementRef;
+  @ViewChild('content', { static: false }) reportContent: ElementRef;
   arabicPara =
     // tslint:disable-next-line:max-line-length
     'أن شموليةً التقليدية حدى. في عدم المسرح بمعارضة, تم يبق مرجع والقرى. دون والتي القادة من, أصقاع بالرغم الخاسرة كان هو. ان ونتج اتّجة الأبرياء وتم, لم مارد وجهان عليها كان, وصل من مسارح الأرض الباهضة. المتحدة والمعدات بها قد, يكن أن أدوات العناد. غير عل عالمية الطرفين الموسوعة, جمعت أمام نفس بـ. ومن وفنلندا الجديدة، كل.';
@@ -34,6 +36,7 @@ export class JsPdfComponent implements OnInit {
 
   ngOnInit(): void {
     // getPdfDoc();
+    this.abrabicFontTesting();
   }
 
 
@@ -473,7 +476,7 @@ export class JsPdfComponent implements OnInit {
     const maxtxtWidth = this.centeredText2(pdf, text, rectX, cordY, lblEnW, lblArW);
     const txtMaxWidth = pdfPageWidth - (rectX * 2);
     // pdf.text(text, rectX, cordY, { maxWidth: txtMaxWidth, align: 'justify' });
-    const maxWidth = (pdfPageWidth) - ((rectX * 2 ) + 20);
+    const maxWidth = (pdfPageWidth) - ((rectX * 2) + 20);
     const splitTxt = pdf.splitTextToSize(text, maxWidth);
     const _cordY = cordY;
     cordY += (12 * splitTxt.length);
@@ -567,6 +570,23 @@ export class JsPdfComponent implements OnInit {
     // });
     // this.openPdf(doc);
     // doc.save('asdfghj' + '.pdf');
+  }
+
+  abrabicFontTesting() {
+    const doc = new jsPDF();
+    // doc.addFont('./../../assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
+    // pdf.addFileToVFS('daxNormal.ttf', daxFont);
+    doc.addFileToVFS('Amiri-Regular.ttf', AmiriRagular.trim());
+    doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+
+    doc.setFont('Amiri'); // set font
+    // doc.setFontSize(50);
+
+    // doc.addButton
+    const arabicText = 'إذا لم تستح فاصنع ما شئت';
+
+    doc.text(arabicText, 10, 60, {lang: 'ar'});
+    this.openPdf(doc);
   }
 
   private openPdf(doc: jsPDF) {

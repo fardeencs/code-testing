@@ -6,7 +6,7 @@
 
 .modal-container {
   font-family: cursive;
-  transition: all 0.6s ease-in-out; 
+  // transition: all 0.6s ease-in-out; 
   position: fixed;
   left: 0;
   top: 0;
@@ -36,15 +36,15 @@
       max-width: 100%;
       background: white;
       min-height: 160px;
-      position: relative;
+      // position: relative;
       // transform: none;
-      transform: scale(0.8); 
+      // transform: scale(0.8); 
       opacity: 1;
       // animation: drop 0.5s ease forwards;
       // top: -700px;
       // animation-duration: 1s;
       // animation-name: hinge;
-      animation: open 0.6s cubic-bezier(0.23, 1.42, 0.36, 1.42);
+      // animation: open 0.6s cubic-bezier(0.23, 1.42, 0.36, 1.42);
       // animation: open 0.6s cubic-bezier(0.91, -0.95, 0.04, 2.24);
       // animation: close 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
       // transition: all 0.6ms ease-in-out; 

@@ -15,7 +15,7 @@ import {
   zoomOutLeftOnLeaveAnimation,
   zoomOutRightOnLeaveAnimation,
 } from 'angular-animations';
-import { Zooming, Bouncing } from 'src/app/angular-animation.constant';
+import { Zooming, Bouncing, Others, Specials } from 'src/app/angular-animation.constant';
 
 
 @Component({
@@ -23,7 +23,7 @@ import { Zooming, Bouncing } from 'src/app/angular-animation.constant';
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations: Bouncing
+  animations: Specials
   // animations: [
   //   // trigger('dialog', [
   //   //   transition('void => *', [
@@ -80,9 +80,9 @@ export class PopupComponent implements OnInit {
     // this.isActive = false;
     this.visible = false;
     this.visibleChange.emit(this.visible);
-    // setTimeout(() => {
+    setTimeout(() => {
       this.commonFactoryService.destroyComponet();
-    // }, 3000);
+    }, 100);
   }
 
 }

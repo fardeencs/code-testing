@@ -28,6 +28,8 @@ import { SpinnerComponent } from './animations/spinner/spinner.component';
 import { DemoOnEnterOnLeaveComponent } from './router-animation/demo-on-enter-on-leave/demo-on-enter-on-leave.component';
 import { AngularImgComponent } from './router-animation/angular-img/angular-img.component';
 import { DemoDynamicParamsComponent } from './router-animation/demo-dynamic-params/demo-dynamic-params.component';
+import { Popup2Component } from './common/popup2/popup2.component';
+import { EditablePdfComponent } from './editable-pdf/editable-pdf.component';
 
 // // This array defines which "componentId" maps to which lazy-loaded module.
 // const manifests: DynamicComponentManifest[] = [
@@ -62,7 +64,9 @@ import { DemoDynamicParamsComponent } from './router-animation/demo-dynamic-para
       SpinnerComponent,
       AngularImgComponent,
       DemoOnEnterOnLeaveComponent,
-      DemoDynamicParamsComponent
+      DemoDynamicParamsComponent,
+      Popup2Component,
+      EditablePdfComponent
    ],
    imports: [
       BrowserModule,
