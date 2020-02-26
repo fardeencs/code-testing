@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, ViewChild, ViewContainerRef, Compiler, TemplateRef, Inject } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild, ViewContainerRef, Compiler, TemplateRef, Inject, ViewEncapsulation } from '@angular/core';
 import { CommonFactoryService, IComponetProperties } from '../common/common-factory.service';
 import { PopupComponent } from '../common/popup/popup.component';
 import { DOCUMENT } from '@angular/common';
@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoadingService } from '../common/loading.service';
 import { ElementLoaderService } from '../common/element-loader.service';
 import { Bouncing } from '../angular-animation.constant';
+// import { setTimeout, setInterval } from 'timers';
 
 
 // declare function loadingServiceShow(zindex, id, flag);
@@ -18,6 +19,7 @@ import { Bouncing } from '../angular-animation.constant';
   selector: 'app-dynamic-templates',
   templateUrl: './dynamic-templates.component.html',
   styleUrls: ['./dynamic-templates.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   animations: Bouncing
 })
 export class DynamicTemplatesComponent implements OnInit {
@@ -26,6 +28,8 @@ export class DynamicTemplatesComponent implements OnInit {
   showTempl = true;
   isLoading = false;
   information: any;
+  selectedData: any = {};
+  startTime: number;
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
   @ViewChild('informationTmpl', { static: false }) informationTmpl: TemplateRef<any>;
@@ -40,6 +44,7 @@ export class DynamicTemplatesComponent implements OnInit {
       name: 'Fardeen ahmad',
       address: 'Lucknow Uttar Pradesh, India'
     };
+    this.selectedData = { ...this.selectedData, empName: 'Shavez Ahmad' };
   }
 
   // callme() {
@@ -56,12 +61,46 @@ export class DynamicTemplatesComponent implements OnInit {
     // this.loadingService.loadingServiceShow(10000, 'popup', true);
   }
 
+  heighlight(id: string) {
+    const ctrlId: HTMLElement = this.document.getElementById(id);
+    if (ctrlId) {
+      // ctrlId.classList.add('flash');
+      const input = ctrlId.firstElementChild.firstElementChild.firstElementChild.firstElementChild;
+      input.classList.add('flash');
+      const startTime = new Date().getTime();
+      const timer = setInterval(() => {
+        console.log('timer', timer);
+        if ((new Date().getTime() - startTime) >= 2001) {
+          clearInterval(timer);
+          return;
+        } else {
+          const isActive = input.classList.contains('flash');
+          if (isActive) {
+            input.classList.remove('flash');
+          } else {
+            input.classList.add('flash');
+          }
+        }
+      }, 400);
+      setTimeout(() => {
+        input.classList.remove('flash');
+        clearInterval(timer);
+      }, 2000);
+    }
+  }
+
   private getColDef() {
     const colDef = [
       {
-        field: 'actions',
-        header: 'Action',
+        field: 'header1',
+        header: 'Freeze column',
         class: 'fixed-side sticky-col first-col'
+      },
+      {
+        field: 'actions',
+        header: 'Actions',
+        type: 'ACTIONS',
+        class: 'fixed-side sticky-col second-col'
       },
       {
         field: 'header2',
@@ -119,11 +158,12 @@ export class DynamicTemplatesComponent implements OnInit {
 
   loadGridData(rows: number) {
     // this.callme();
-    this.elementLoaderService.startLoader('loadingDiv', 2000);
+    this.elementLoaderService.startLoader('loadingDiv', 100);
     const gridData = [];
     for (let index = 0; index < rows; index++) {
       gridData.push({
         'header1': `Left Column`,
+        'actions': null,
         'header2': `Cell content longer ${index}`,
         'header3': `Cell content ${index}`,
         'header4': `Cell content ${index}`,
@@ -136,7 +176,7 @@ export class DynamicTemplatesComponent implements OnInit {
         'header11': `Cell content ${index}`,
         'header12': null,
       });
-      of(gridData).pipe(delay(3000)).subscribe(result => {
+      of(gridData).pipe(delay(1000)).subscribe(result => {
         if (result) {
           this.gridData = result;
           this.elementLoaderService.stopeLoader('loadingDiv');
@@ -168,6 +208,19 @@ export class DynamicTemplatesComponent implements OnInit {
   onBlur(element, column, ind) {
     console.log(element, column, ind);
     console.log('gird-data', this.gridData);
+    this.heighlight('empName');
+
+  }
+
+  closeCell(element, column, ind) {
+    console.log('close-div', element, column, ind);
+    const elem: HTMLElement = document.getElementById('cell-' + ind);
+    const parentElem: HTMLElement = elem.parentElement;
+    parentElem.classList.add('hinge');
+    setTimeout(() => {
+      parentElem.style.display = 'none';
+      this.gridData.splice(ind, 1);
+    }, 1001);
   }
 
   openPopup(isOpen: boolean) {

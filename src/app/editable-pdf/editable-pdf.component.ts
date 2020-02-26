@@ -30,4 +30,9 @@ export class EditablePdfComponent implements OnInit {
     this.isShowLess = !this.isShowLess;
   }
 
+  closeDiv() {
+    const elem = document.getElementById('HTMLtoPDF');
+    elem.classList.add('hinge');
+  }
+
 }

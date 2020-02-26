@@ -9,6 +9,10 @@
     cursor: pointer;
     &:hover{
       color: #ff1c00;
+      text-shadow: 0 3px 5px rgba(0,0,0,.2);
+    }
+    .arraow{
+      // text-shadow: -4px 3px 0 #3a50d9, -14px 7px 0 #0a0e27;
     }
   }
   .less-more-panel {
@@ -64,6 +68,50 @@
     transform: translateY(0);
     opacity: 1;
     color: #000000;
+  }
+}
+
+.slide{
+  // animation: name duration timing-function delay iteration-count direction fill-mode;
+  animation: slidein 3s ease-in-out 0.2s 1 both;
+}
+
+// @keyframes slidein {
+//   from {
+//     margin-left: 100%;
+//     // width: 300%;
+//         display: flex;
+//     width: 100%;
+//   }
+
+//   75% {
+//     font-size: 300%;
+//     margin-left: 25%;
+//     // width: 150%;
+//         display: flex;
+//     width: 100%;
+//   }
+
+//   to {
+//     margin-left: 0%;
+//     display: flex;
+//     width: 100%;
+//   }
+// }
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    // width: 300%;
+    display: flex;
+    width: 100%;
+  }
+
+  to {
+    margin-left: 0%;
+    // width: 100%;
+    display: flex;
+    width: 100%;
   }
 }
 
@@ -136,4 +184,36 @@
   }
 
 
+}
+
+@keyframes hinge {
+	0% { transform: rotate(0); transform-origin: top left; animation-timing-function: ease-in-out; }
+	20%, 60% { transform: rotate(80deg); transform-origin: top left; animation-timing-function: ease-in-out; }
+	40% { transform: rotate(60deg); transform-origin: top left; animation-timing-function: ease-in-out; }
+	80% { transform: rotate(60deg) translateY(0); opacity: 1; transform-origin: top left; animation-timing-function: ease-in-out; }
+	100% { transform: translateY(700px); opacity: 0; }
+}
+
+.hinge {
+  animation-duration: 1s;
+  animation-name: hinge;
+  animation-delay: 0.2s;
+}
+
+
+// VARIABLES
+$screen-xs: 480px;
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+$screen-xl: 1400px;
+$screen-xxl:1600px;
+
+// QUERIES
+@media only screen and (max-width: $screen-lg) {
+    flex-basis: 25%;
+}
+
+@media only screen and (max-width: $screen-md) {
+    flex-basis: 33.33%;
 }

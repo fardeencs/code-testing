@@ -10,7 +10,8 @@
   </div>
   <!-- [ngClass]="[isShowLess ? '' : 'btn-more']" -->
   <div class="btn-panel">
-    <span class="btn-show" (click)="toggelShowLessPanel()">{{isShowLess ? 'Show More' : 'Show Less'}} >></span>
+    <span class="btn-show" (click)="toggelShowLessPanel()">{{isShowLess ? 'Show More' : 'Show Less'}} <span
+        class="arraow">&#62;&#62;</span> </span>
   </div>
 </div>
 
@@ -18,9 +19,19 @@
 <hr>
 
 
-<div id="HTMLtoPDF">
+<div id="HTMLtoPDF" class="slide">
+  <div class="row-align">
+    <div>
+      <h2>HTML to PDF</h2>
+    </div>
+    <div class="btn-circle">
+      <button class="btn-fab red" (click)="closeDiv()"><span class="btn-wrapper">+</span>
+        <div class="btn-ripple"></div>
+        <div class="btn-overlay"></div>
+      </button>
+    </div>
+  </div>
 
-  <h2>HTML to PDF</h2>
 
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -47,13 +58,3 @@
 <a href="#" onclick="HTMLtoPDF()">Download PDF</a>
 
 <hr>
-
-
-
-
-<div class="btn-circle">
-  <button class="btn-fab red"><span class="btn-wrapper">+</span>
-    <div class="btn-ripple"></div>
-    <div class="btn-overlay"></div>
-  </button>
-</div>
