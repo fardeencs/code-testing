@@ -1,3 +1,23 @@
+<div class="less-more-container">
+  <div class="less-more-panel" [ngClass]="[isShowLess ? 'less' : 'more']">
+    <ng-container *ngFor="let item of list">
+      <div class="row-align">
+        <div class="elemnt">{{item.label}}</div>
+        <div class="elemnt">{{item.value}}</div>
+      </div>
+    </ng-container>
+    <!-- <span class="btn-show" (click)="toggelShowLessPanel()">{{isShowLess ? 'Show More' : 'Show Less'}} >></span> -->
+  </div>
+  <!-- [ngClass]="[isShowLess ? '' : 'btn-more']" -->
+  <div class="btn-panel">
+    <span class="btn-show" (click)="toggelShowLessPanel()">{{isShowLess ? 'Show More' : 'Show Less'}} >></span>
+  </div>
+</div>
+
+
+<hr>
+
+
 <div id="HTMLtoPDF">
 
   <h2>HTML to PDF</h2>
@@ -25,6 +45,10 @@
 
 <!-- here we call the function that makes PDF -->
 <a href="#" onclick="HTMLtoPDF()">Download PDF</a>
+
+<hr>
+
+
 
 
 <div class="btn-circle">
