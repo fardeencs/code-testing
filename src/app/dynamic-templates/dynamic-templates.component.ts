@@ -1,18 +1,21 @@
-import { Component, OnInit, NgModule, ViewChild, ViewContainerRef, Compiler, TemplateRef, Inject, ViewEncapsulation } from '@angular/core';
-import { CommonFactoryService, IComponetProperties } from '../common/common-factory.service';
-import { PopupComponent } from '../common/popup/popup.component';
-import { DOCUMENT } from '@angular/common';
+import * as _ from 'lodash';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+
+import { DOCUMENT } from '@angular/common';
+import {
+  Compiler, Component, Inject, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef,
+  ViewEncapsulation
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { MaterialDailogComponent } from '../common/material-dailog/material-dailog.component';
-import { LoadingService } from '../common/loading.service';
-import { ElementLoaderService } from '../common/element-loader.service';
+
 import { Bouncing } from '../angular-animation.constant';
-import * as _ from 'lodash';
-import { log } from 'util';
-// import _ from lodash;
-// import { setTimeout, setInterval } from 'timers';
+import { CommonFactoryService } from '../common/common-factory.service';
+import { ElementLoaderService } from '../common/element-loader.service';
+import { LoadingService } from '../common/loading.service';
+import { PopupComponent } from '../common/popup/popup.component';
+import { IComponetProperties, IFactoryCompoent, ILoader } from '../models/model-and-interface';
+
 
 @Component({
   selector: 'app-dynamic-templates',
@@ -25,7 +28,7 @@ export class DynamicTemplatesComponent implements OnInit {
   gridData: Array<any>;
   columnDef: Array<any>;
   showTempl = true;
-  isLoading = false;
+  isLoading = true;
   information: any;
   selectedData: any = {};
   startTime: number;
@@ -168,7 +171,7 @@ export class DynamicTemplatesComponent implements OnInit {
 
   loadGridData(rows: number) {
     // this.callme();
-    const loderModel = [
+    const loderModel: Array<ILoader> = [
       { elementId: 'loadingDiv', delay: 100 },
       { elementId: 'loadingLink' },
     ];
@@ -278,7 +281,20 @@ export class DynamicTemplatesComponent implements OnInit {
       }
     ];
     // const tblDiv: HTMLElement = this.document.getElementById('popup');
-    this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css', 'loadingLink');
+    const factoryParams: IFactoryCompoent<PopupComponent, TemplateRef<any>> = {
+      component: {
+        componentType: PopupComponent,
+        componetProperties: componentProperties
+      },
+      template: {
+        content: this.tableTmpl,
+        templateProperties: templateProperties
+      },
+      vcRef: this.vcRef,
+      isPopup: true,
+      styleSheetName: 'dynamic-style.css'
+    };
+    this.commonFactoryService.loadComponent(factoryParams);
     // this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
   }
 

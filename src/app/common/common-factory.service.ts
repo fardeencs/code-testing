@@ -1,24 +1,11 @@
-import { Injectable, ComponentFactoryResolver, Injector, Inject, ComponentRef, TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  ComponentFactoryResolver, ComponentRef, Inject, Injectable, Injector, TemplateRef, Type,
+  ViewContainerRef
+} from '@angular/core';
+
+import { IComponetProperties, IFactoryCompoent } from '../models/model-and-interface';
 import { ElementLoaderService } from './element-loader.service';
-
-export type Content<T> = string | TemplateRef<T> | Type<T>;
-export interface IComponetProperties {
-  inputs?: { [key: string]: any };
-  outputs?: { [key: string]: any };
-}
-
-// {
-//   ref: this.tableTmpl,
-//   properties: {
-//     data: this.gridData,
-//     columns: this.columnDef
-//   },
-// },
-export interface ITemplates {
-  ref: any;
-  properties: any;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -78,23 +65,19 @@ export class CommonFactoryService {
     }
   }
 
-  loadComponent<T>(content: Content<T>, componentType: Type<any>, templateProperties: {}, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string, loadingId?: string) {
-    if (styleSheetName) {
-    //   this.loadStyle(styleSheetName);
+  loadComponent<T, C>(params: IFactoryCompoent<T, C>) {
+    if (params.styleSheetName) {
+      //   this.loadStyle(styleSheetName);
     }
-    this.isPopup = isPopup || false;
-    this.componetProperties = componetProperties;
-    const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-    if (content instanceof TemplateRef) {
-      const ngContent = this.getEmbeddedView(content, templateProperties);
-      //   const viewContainerRef = insertionPoint.viewContainerRef;
-      // viewContainerRef.clear();
-      vcRef.clear();
-      // createComponent<C>(componentFactory: ComponentFactory<C>, index?: number, injector?: Injector, projectableNodes?: any[][], ngModule?: NgModuleRef<any>): ComponentRef<C>;
-      // const componentRef = factory.create(this.injector, ngContent);
-      const componentRef = vcRef.createComponent(factory, 0, undefined, ngContent);
-      this.setInputProperties(componentRef, componetProperties.inputs);
-      if (isPopup) {
+    this.isPopup = params.isPopup || false;
+    this.componetProperties = params.component.componetProperties;
+    const factory = this.componentFactoryResolver.resolveComponentFactory(params.component.componentType);
+    if (params.template.content instanceof TemplateRef) {
+      const ngContent = this.getEmbeddedView(params.template.content, params.template.templateProperties);
+      params.vcRef.clear();
+      const componentRef = params.vcRef.createComponent(factory, 0, undefined, ngContent);
+      this.setInputProperties(componentRef, params.component.componetProperties.inputs);
+      if (params.isPopup) {
         componentRef.instance['visible'] = true;
       }
       componentRef.hostView.detectChanges();
@@ -103,36 +86,66 @@ export class CommonFactoryService {
       this.componentRef = componentRef;
     }
     console.log('componentRef', this.componentRef);
-    // if (loadingId) {
+    // if (params.loadingId) {
     //   this.elementLoaderService.stopeLoader(loadingId);
     // }
   }
 
-  loadTemplatesWithinComponent(templates: Array<ITemplates>, componentType: Type<any>, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string) {
-    // if (styleSheetName) {
-    //   this.loadStyle(styleSheetName);
-    // }
-    this.isPopup = isPopup || false;
-    this.componetProperties = componetProperties;
-    const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-    vcRef.clear();
-    templates.forEach(tmpl => {
-      if (tmpl.ref instanceof TemplateRef) {
-        const ngContent = this.getEmbeddedView(tmpl.ref, tmpl.properties);
-        vcRef.createEmbeddedView(tmpl.ref, tmpl.properties);
-      }
-    });
-    const componentRef = vcRef.createComponent(factory, 0, undefined, this.embeddedViews);
-    this.setInputProperties(componentRef, componetProperties.inputs);
-    if (isPopup) {
-      componentRef.instance['visible'] = true;
-    }
-    componentRef.hostView.detectChanges();
-    const { nativeElement } = componentRef.location;
-    this.document.body.appendChild(nativeElement);
-    this.componentRef = componentRef;
-    console.log('componentRef', this.componentRef);
-  }
+  // loadComponent1<T>(content: Content<T>, componentType: Type<any>, templateProperties: {}, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string, loadingId?: string) {
+  //   if (styleSheetName) {
+  //   //   this.loadStyle(styleSheetName);
+  //   }
+  //   this.isPopup = isPopup || false;
+  //   this.componetProperties = componetProperties;
+  //   const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+  //   if (content instanceof TemplateRef) {
+  //     const ngContent = this.getEmbeddedView(content, templateProperties);
+  //     //   const viewContainerRef = insertionPoint.viewContainerRef;
+  //     // viewContainerRef.clear();
+  //     vcRef.clear();
+  //     // createComponent<C>(componentFactory: ComponentFactory<C>, index?: number, injector?: Injector, projectableNodes?: any[][], ngModule?: NgModuleRef<any>): ComponentRef<C>;
+  //     // const componentRef = factory.create(this.injector, ngContent);
+  //     const componentRef = vcRef.createComponent(factory, 0, undefined, ngContent);
+  //     this.setInputProperties(componentRef, componetProperties.inputs);
+  //     if (isPopup) {
+  //       componentRef.instance['visible'] = true;
+  //     }
+  //     componentRef.hostView.detectChanges();
+  //     const { nativeElement } = componentRef.location;
+  //     this.document.body.appendChild(nativeElement);
+  //     this.componentRef = componentRef;
+  //   }
+  //   console.log('componentRef', this.componentRef);
+  //   // if (loadingId) {
+  //   //   this.elementLoaderService.stopeLoader(loadingId);
+  //   // }
+  // }
+
+  // loadTemplatesWithinComponent(templates: Array<ITemplates>, componentType: Type<any>, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string) {
+  //   // if (styleSheetName) {
+  //   //   this.loadStyle(styleSheetName);
+  //   // }
+  //   this.isPopup = isPopup || false;
+  //   this.componetProperties = componetProperties;
+  //   const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+  //   vcRef.clear();
+  //   templates.forEach(tmpl => {
+  //     if (tmpl.ref instanceof TemplateRef) {
+  //       const ngContent = this.getEmbeddedView(tmpl.ref, tmpl.properties);
+  //       vcRef.createEmbeddedView(tmpl.ref, tmpl.properties);
+  //     }
+  //   });
+  //   const componentRef = vcRef.createComponent(factory, 0, undefined, this.embeddedViews);
+  //   this.setInputProperties(componentRef, componetProperties.inputs);
+  //   if (isPopup) {
+  //     componentRef.instance['visible'] = true;
+  //   }
+  //   componentRef.hostView.detectChanges();
+  //   const { nativeElement } = componentRef.location;
+  //   this.document.body.appendChild(nativeElement);
+  //   this.componentRef = componentRef;
+  //   console.log('componentRef', this.componentRef);
+  // }
 
 
   public destroyComponet() {

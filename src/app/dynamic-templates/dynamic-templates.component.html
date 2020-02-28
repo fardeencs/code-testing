@@ -11,6 +11,11 @@
             [(ngModel)]="selectedData.empName">
         </mat-form-field>
       </div>
+      <div class="loader-container">
+        <ng-template #loader [ngIf]="isLoading">
+          <div class="loader">Loading...</div>
+        </ng-template>
+      </div>
     </div>
 
     <div class="right-container">
@@ -42,9 +47,7 @@
       <option value="India">India</option>
   </select> -->
 
-  <ng-template #loader [ngIf]="isLoading">
-    <div class="loader">Loading...</div>
-  </ng-template>
+
 
   <ng-template #informationTmpl let-data="data">
     <p>{{data.name}}</p>

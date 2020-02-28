@@ -27,6 +27,7 @@ $.fn.CenterLoader = function (zindex, id, flag) {
         var _loadIdAppend = id
         id = id + "_Loader";
     }
+
     loadingContain = "<div style='position:absolute;height:" + height + ";width:" + width + ";background:#ccc;z-index:" + zindex + ";top:" + top + "px;left:" + left + "px;opacity:0.7' id='" + id + "' class='loader-image'><div style='position:absolute;top:" + centerTop + ";left:" + centerLeft + ";color:white;height: 30px;width: 30px;background: transparent url(assets/images/loader.gif) no-repeat scroll 0 0;' class='loader-style'></div></div>";
     if (flag == true) {
         loadingContain = "<div style='position:fixed;height:100%;width:100%;background:#ccc;z-index:" + zindex + ";top:0;left:0;opacity:0.7;'id='" + id + "' class='loader-image'><div style='position:absolute;top:49%;left:49%;color:white;height: 30px;width: 30px;background: transparent url(assets/images/loader.gif) no-repeat scroll 0 0;'class='loader-style'></div></div>"

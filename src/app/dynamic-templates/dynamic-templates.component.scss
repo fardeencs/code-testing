@@ -12,9 +12,9 @@ $header-bg          : #1565C0;
 
 .dynamic-template-container {
 
-    @mixin boxshadow {
-      box-shadow   : 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
-    }
+  @mixin boxshadow {
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+  }
 
   .left-container {
     display       : flex;
@@ -320,6 +320,8 @@ $header-bg          : #1565C0;
 * Loader
 */
 
+  $loaderColor: #000000;
+
   .loader,
   .loader:before,
   .loader:after {
@@ -333,7 +335,7 @@ $header-bg          : #1565C0;
   }
 
   .loader {
-    color                  : #409eff;
+    color                  : $loaderColor;
     font-size              : 10px;
     margin                 : 80px auto;
     position               : relative;
