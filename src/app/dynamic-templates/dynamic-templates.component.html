@@ -1,34 +1,38 @@
-<div>
+<div class="dynamic-template-container">
 
   <h1>Dynamic Template:</h1>
+  <div class="row-align">
 
-  <div class="links">
-    <!-- <button type="submit" (click)="openPopup(true)">Open Popup</button> -->
-    <a href="javascript:void(0)" (click)="openPopup(true)" class="hinge">Open Popup</a>
-  </div>
-  <br>
-
-  <div class="information-container">
-    <!-- <div class="highlight" id='empName'> -->
+    <div class="left-container">
+      <div class="information-container">
         <mat-form-field class="highlight" id='empName'>
-            <mat-label>Employer Name</mat-label>
-            <input matInput
-                [disabled]="true"
-                name='empName'
-                placeholder="Employer Name"
-                [(ngModel)]="selectedData.empName">
-          </mat-form-field>
-      <!-- <input type="text" name='empName' [(ngModel)]="selectedData.empName"/> -->
-    <!-- </div> -->
+          <mat-label>Employer Name</mat-label>
+          <input matInput [disabled]="true" name='empName' placeholder="Employer Name"
+            [(ngModel)]="selectedData.empName">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="right-container">
+      <div>
+        <div class="links">
+          <!-- <button type="submit" (click)="openPopup(true)">Open Popup</button> -->
+          <!--  -->
+          <a href="javascript:void(0)" (click)="openPopup(true)">Open Popup</a>
+        </div>
+
+        <br> <hr>
+        <ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
+          <div appInsertion id="loadingDiv"></div>
+        </ng-container>
+      </div>
+
+    </div>
+
   </div>
 
 
-  <hr>
-  <br>
 
-  <ng-template #loader [ngIf]="isLoading">
-    <div class="loader">Loading...</div>
-  </ng-template>
 
   <!-- <select data-loader="btncountry" style="height: 25px; width: 130px;;" (change)="loadoncountry('country')">
       <option value="select">-- select Country --</option>
@@ -36,9 +40,9 @@
       <option value="India">India</option>
   </select> -->
 
-  <ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
-    <div appInsertion id="loadingDiv"></div>
-  </ng-container>
+  <ng-template #loader [ngIf]="isLoading">
+    <div class="loader">Loading...</div>
+  </ng-template>
 
   <ng-template #informationTmpl let-data="data">
     <p>{{data.name}}</p>
@@ -62,10 +66,17 @@
             <tr *ngFor="let element of data; let ind=index">
               <ng-container *ngFor="let column of columns">
                 <ng-container *ngIf="!column?.type">
-                  <td [class]='column?.class'>{{element[column.field]}}</td>
+                  <td [class]="column?.class">
+                    {{element[column.field]}}
+                  </td>
                 </ng-container>
                 <ng-container *ngIf="column?.type === 'TEXT_BOX'">
                   <ng-container [ngTemplateOutlet]="numberCellTemplate"
+                    [ngTemplateOutletContext]="{element:element, column: column, ind:ind}">
+                  </ng-container>
+                </ng-container>
+                <ng-container *ngIf="column?.type === 'CHECK_BOX'">
+                  <ng-container [ngTemplateOutlet]="chkboxCellTemplate"
                     [ngTemplateOutletContext]="{element:element, column: column, ind:ind}">
                   </ng-container>
                 </ng-container>
@@ -90,6 +101,12 @@
     </td>
   </ng-template>
 
+  <ng-template #chkboxCellTemplate let-element='element' let-column='column' let-ind='ind'>
+    <td>
+      <input type="checkbox" name='text-box-{{ind}}' [(ngModel)]="element[column.field]" />
+    </td>
+  </ng-template>
+
   <ng-template #actionCellTemplate let-element='element' let-column='column' let-ind='ind'>
     <td id="cell-{{ind}}" [class]='column?.class'>
       <div class="btn-circle">
@@ -97,6 +114,10 @@
           <div class="btn-ripple"></div>
           <div class="btn-overlay"></div>
         </button>
+      </div>
+      <div class="chk-box">
+        <input type="checkbox" name='chk-box-{{ind}}' id='chk-box-{{ind}}'
+          (click)="onChkBoxChange($event, element, column, ind)" [(ngModel)]="element[column.field]" />
       </div>
     </td>
   </ng-template>

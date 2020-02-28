@@ -9,11 +9,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoadingService } from '../common/loading.service';
 import { ElementLoaderService } from '../common/element-loader.service';
 import { Bouncing } from '../angular-animation.constant';
+import * as _ from 'lodash';
+import { log } from 'util';
+// import _ from lodash;
 // import { setTimeout, setInterval } from 'timers';
-
-
-// declare function loadingServiceShow(zindex, id, flag);
-// declare function loadingServiceHide(id);
 
 @Component({
   selector: 'app-dynamic-templates',
@@ -54,6 +53,13 @@ export class DynamicTemplatesComponent implements OnInit {
   //   loadingServiceHide('loadingDiv');
   // }
 
+  private updateInfo(): void {
+    this.selectedData = {
+      ...this.selectedData,
+      empName: this.selectedData.empName.concat(' India Lucknow.')
+    };
+  }
+
   ngOnInit() {
     this.loadGridData(10);
     this.getColDef();
@@ -66,26 +72,30 @@ export class DynamicTemplatesComponent implements OnInit {
     if (ctrlId) {
       // ctrlId.classList.add('flash');
       const input = ctrlId.firstElementChild.firstElementChild.firstElementChild.firstElementChild;
-      input.classList.add('flash');
-      const startTime = new Date().getTime();
-      const timer = setInterval(() => {
-        console.log('timer', timer);
-        if ((new Date().getTime() - startTime) >= 2001) {
-          clearInterval(timer);
-          return;
-        } else {
-          const isActive = input.classList.contains('flash');
-          if (isActive) {
-            input.classList.remove('flash');
-          } else {
-            input.classList.add('flash');
-          }
-        }
-      }, 400);
+      input.classList.add('flash-text');
+      this.updateInfo();
       setTimeout(() => {
-        input.classList.remove('flash');
-        clearInterval(timer);
-      }, 2000);
+        input.classList.remove('flash-text');
+      }, 1810);
+      // const startTime = new Date().getTime();
+      // const timer = setInterval(() => {
+      //   console.log('timer', timer);
+      //   if ((new Date().getTime() - startTime) >= 2001) {
+      //     clearInterval(timer);
+      //     return;
+      //   } else {
+      //     const isActive = input.classList.contains('flash');
+      //     if (isActive) {
+      //       input.classList.remove('flash');
+      //     } else {
+      //       input.classList.add('flash');
+      //     }
+      //   }
+      // }, 400);
+      // setTimeout(() => {
+      //   input.classList.remove('flash');
+      //   clearInterval(timer);
+      // }, 2000);
     }
   }
 
@@ -100,7 +110,7 @@ export class DynamicTemplatesComponent implements OnInit {
         field: 'actions',
         header: 'Actions',
         type: 'ACTIONS',
-        class: 'fixed-side sticky-col second-col'
+        class: 'fixed-side sticky-col second-col row-align'
       },
       {
         field: 'header2',
@@ -186,41 +196,56 @@ export class DynamicTemplatesComponent implements OnInit {
     }
   }
 
-
-  // private addComponent(template: string, properties?: any) {
-  //   @Component({ template })
-  //   class TemplateComponent { }
-
-  //   @NgModule({ declarations: [TemplateComponent] })
-  //   class TemplateModule { }
-
-  //   const mod = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
-  //   const factory = mod.componentFactories.find((comp) =>
-  //     comp.componentType === TemplateComponent
-  //   );
-  //   const component = this.container.createComponent(factory);
-  //   Object.assign(component.instance, properties);
-  //   // If properties are changed at a later stage, the change detection
-  //   // may need to be triggered manually:
-  //   // component.changeDetectorRef.detectChanges();
-  // }
+  onChkBoxChange(event: MouseEvent, element: any, column: any, ind: number) {
+    console.log('onChkBoxChange', event);
+    const val: boolean = event.target['checked'];
+    const id = event['toElement'].getAttribute('id');
+    console.log('val', val, id);
+    const elem: HTMLElement = this.document.getElementById(id);
+    const parentElem: HTMLElement = elem.parentElement.parentElement.parentElement;
+    parentElem.classList.add('blink-row');
+    if (val) {
+      _.each(parentElem.children, (d: HTMLElement) => {
+        d.style.backgroundColor = '#f8ff9c';
+      });
+    } else {
+      if (ind % 2 === 0) {
+        _.each(parentElem.children, (d: HTMLElement) => {
+          d.style.backgroundColor = '#fff';
+        });
+      } else {
+        _.each(parentElem.children, (d: HTMLElement) => {
+          d.style.backgroundColor = '#efefef';
+        });
+      }
+    }
+    setTimeout(() => {
+      parentElem.classList.remove('blink-row');
+    }, 1210);
+  }
 
   onBlur(element, column, ind) {
     console.log(element, column, ind);
     console.log('gird-data', this.gridData);
     this.heighlight('empName');
-
   }
 
   closeCell(element, column, ind) {
     console.log('close-div', element, column, ind);
     const elem: HTMLElement = document.getElementById('cell-' + ind);
     const parentElem: HTMLElement = elem.parentElement;
+    _.each(parentElem.children, (d: HTMLElement) => {
+      d.style.backgroundColor = '#f6fe86';
+      // d.style.zIndex = '9999999999999999999';
+    });
+    // parentElem.style.zIndex = '999999999';
+    // setTimeout(() => {
     parentElem.classList.add('hinge');
+    // }, 1000);
     setTimeout(() => {
       parentElem.style.display = 'none';
       this.gridData.splice(ind, 1);
-    }, 1001);
+    }, 1010);
   }
 
   openPopup(isOpen: boolean) {
@@ -252,13 +277,6 @@ export class DynamicTemplatesComponent implements OnInit {
     this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css');
     // this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
   }
-
-  // private applyHingEffect() {
-  //   const col = this.document.getElementsByClassName('hinge');
-  //   // col.magnificPopup()
-  // }
-
-
 
 }
 
