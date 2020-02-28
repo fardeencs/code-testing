@@ -65,7 +65,7 @@ export class CommonFactoryService {
     }
   }
 
-  loadComponent<T, C>(params: IFactoryCompoent<T, C>) {
+  loadTemplateWithinComponent<T, C>(params: IFactoryCompoent<T, C>) {
     if (params.styleSheetName) {
       //   this.loadStyle(styleSheetName);
     }
@@ -90,36 +90,6 @@ export class CommonFactoryService {
     //   this.elementLoaderService.stopeLoader(loadingId);
     // }
   }
-
-  // loadComponent1<T>(content: Content<T>, componentType: Type<any>, templateProperties: {}, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string, loadingId?: string) {
-  //   if (styleSheetName) {
-  //   //   this.loadStyle(styleSheetName);
-  //   }
-  //   this.isPopup = isPopup || false;
-  //   this.componetProperties = componetProperties;
-  //   const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-  //   if (content instanceof TemplateRef) {
-  //     const ngContent = this.getEmbeddedView(content, templateProperties);
-  //     //   const viewContainerRef = insertionPoint.viewContainerRef;
-  //     // viewContainerRef.clear();
-  //     vcRef.clear();
-  //     // createComponent<C>(componentFactory: ComponentFactory<C>, index?: number, injector?: Injector, projectableNodes?: any[][], ngModule?: NgModuleRef<any>): ComponentRef<C>;
-  //     // const componentRef = factory.create(this.injector, ngContent);
-  //     const componentRef = vcRef.createComponent(factory, 0, undefined, ngContent);
-  //     this.setInputProperties(componentRef, componetProperties.inputs);
-  //     if (isPopup) {
-  //       componentRef.instance['visible'] = true;
-  //     }
-  //     componentRef.hostView.detectChanges();
-  //     const { nativeElement } = componentRef.location;
-  //     this.document.body.appendChild(nativeElement);
-  //     this.componentRef = componentRef;
-  //   }
-  //   console.log('componentRef', this.componentRef);
-  //   // if (loadingId) {
-  //   //   this.elementLoaderService.stopeLoader(loadingId);
-  //   // }
-  // }
 
   // loadTemplatesWithinComponent(templates: Array<ITemplates>, componentType: Type<any>, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string) {
   //   // if (styleSheetName) {

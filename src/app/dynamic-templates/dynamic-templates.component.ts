@@ -294,8 +294,7 @@ export class DynamicTemplatesComponent implements OnInit {
       isPopup: true,
       styleSheetName: 'dynamic-style.css'
     };
-    this.commonFactoryService.loadComponent(factoryParams);
-    // this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
+    this.commonFactoryService.loadTemplateWithinComponent(factoryParams);
   }
 
 }
