@@ -16,6 +16,11 @@ import { LoadingService } from '../common/loading.service';
 import { PopupComponent } from '../common/popup/popup.component';
 import { IComponetProperties, IFactoryCompoent, ILoader } from '../models/model-and-interface';
 
+export interface IPanelInformation {
+  name: string;
+  address?: string;
+  id?: number;
+}
 
 @Component({
   selector: 'app-dynamic-templates',
@@ -29,8 +34,8 @@ export class DynamicTemplatesComponent implements OnInit {
   columnDef: Array<any>;
   showTempl = true;
   isLoading = true;
-  information: any;
-  selectedData: any = {};
+  // information: IPanelInformation;
+  selectedData: IPanelInformation;
   startTime: number;
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
@@ -42,11 +47,7 @@ export class DynamicTemplatesComponent implements OnInit {
     private loadingService: LoadingService,
     private elementLoaderService: ElementLoaderService,
     @Inject(DOCUMENT) private document: Document) {
-    this.information = {
-      name: 'Fardeen ahmad',
-      address: 'Lucknow Uttar Pradesh, India'
-    };
-    this.selectedData = { ...this.selectedData, empName: 'Shavez Ahmad' };
+    this.selectedData = { ...this.selectedData, name: this.getRandomNumber(50000, 5000000).toString() };
   }
 
   // callme() {
@@ -56,11 +57,16 @@ export class DynamicTemplatesComponent implements OnInit {
   //   loadingServiceHide('loadingDiv');
   // }
 
-  private updateInfo(): void {
+  private getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  private updateInfo(): boolean {
     this.selectedData = {
       ...this.selectedData,
-      empName: this.selectedData.empName.concat(' India Lucknow.')
+      name: this.getRandomNumber(1, 5000000).toString()
     };
+    return true;
   }
 
   ngOnInit() {
@@ -76,7 +82,6 @@ export class DynamicTemplatesComponent implements OnInit {
       // ctrlId.classList.add('flash');
       const input = ctrlId.firstElementChild.firstElementChild.firstElementChild.firstElementChild;
       input.classList.add('flash');
-      this.updateInfo();
       setTimeout(() => {
         input.classList.remove('flash');
       }, 1810);
@@ -210,31 +215,39 @@ export class DynamicTemplatesComponent implements OnInit {
     console.log('val', val, id);
     const elem: HTMLElement = this.document.getElementById(id);
     const parentElem: HTMLElement = elem.parentElement.parentElement.parentElement;
+    const boxShadow = '0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12)';
     parentElem.classList.add('blink');
+    // parentElem.style.boxShadow = boxShadow;
     if (val) {
       _.each(parentElem.children, (d: HTMLElement) => {
+        // d.style.boxShadow = boxShadow;
         d.style.backgroundColor = '#f8ff9c';
       });
     } else {
       if (ind % 2 === 0) {
         _.each(parentElem.children, (d: HTMLElement) => {
           d.style.backgroundColor = '#fff';
+          // d.style.boxShadow = 'none';
         });
       } else {
         _.each(parentElem.children, (d: HTMLElement) => {
           d.style.backgroundColor = '#efefef';
+          // d.style.boxShadow = 'none';
         });
       }
     }
     setTimeout(() => {
-      parentElem.classList.remove('blink-row');
+      parentElem.classList.remove('blink');
     }, 1210);
   }
 
   onBlur(element, column, ind) {
     console.log(element, column, ind);
     console.log('gird-data', this.gridData);
-    this.heighlight('empName');
+    const isUpdate = this.updateInfo();
+    if (isUpdate) {
+      this.heighlight('empName');
+    }
   }
 
   closeCell(element, column, ind) {
@@ -265,21 +278,21 @@ export class DynamicTemplatesComponent implements OnInit {
         title: 'Dynamically Component & Template Binding',
       }
     };
-    const templates = [
-      {
-        ref: this.tableTmpl,
-        properties: {
-          data: this.gridData,
-          columns: this.columnDef
-        },
-      },
-      {
-        ref: this.informationTmpl,
-        properties: {
-          data: this.information
-        },
-      }
-    ];
+    // const templates = [
+    //   {
+    //     ref: this.tableTmpl,
+    //     properties: {
+    //       data: this.gridData,
+    //       columns: this.columnDef
+    //     },
+    //   },
+    //   {
+    //     ref: this.informationTmpl,
+    //     properties: {
+    //       data: this.information
+    //     },
+    //   }
+    // ];
     // const tblDiv: HTMLElement = this.document.getElementById('popup');
     const factoryParams: IFactoryCompoent<PopupComponent, TemplateRef<any>> = {
       component: {
@@ -292,7 +305,7 @@ export class DynamicTemplatesComponent implements OnInit {
       },
       vcRef: this.vcRef,
       isPopup: true,
-      styleSheetName: 'dynamic-style.css'
+      // styleSheetName: 'dynamic-style.css'
     };
     this.commonFactoryService.loadTemplateWithinComponent(factoryParams);
   }

@@ -3,21 +3,6 @@
   <h1>Dynamic Template:</h1>
   <div class="row-align">
 
-    <div class="left-container">
-      <div class="information-container">
-        <mat-form-field class="highlight" id='empName'>
-          <mat-label>Employer Name</mat-label>
-          <input matInput [disabled]="true" name='empName' placeholder="Employer Name"
-            [(ngModel)]="selectedData.empName">
-        </mat-form-field>
-      </div>
-      <div class="loader-container">
-        <ng-template #loader [ngIf]="isLoading">
-          <div class="loader">Loading...</div>
-        </ng-template>
-      </div>
-    </div>
-
     <div class="right-container">
       <div class="table-container">
         <div class="links">
@@ -34,6 +19,21 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="left-container">
+      <div class="information-container">
+        <mat-form-field class="highlight" id='empName'>
+          <mat-label>Employer Name</mat-label>
+          <input matInput [disabled]="true" name='empName' placeholder="Employer Name"
+            [(ngModel)]="selectedData.name">
+        </mat-form-field>
+      </div>
+      <div class="loader-container">
+        <ng-template #loader [ngIf]="isLoading">
+          <div class="loader">Loading...</div>
+        </ng-template>
+      </div>
     </div>
 
   </div>

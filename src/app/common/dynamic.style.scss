@@ -5,24 +5,153 @@ $row-bg: #f4f2f1;
 $header-bg: #1565C0;
 
 .model-dynamic-body{
+  @mixin boxshadow {
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+  }
 	table>tbody tr:nth-child(even){background-color: #d2f376 !important;}
 	table th{background-color: $table-header; color: white}
-	
-	table {
-		// padding: 20px;
-		padding: 5px 0 10px 0;
-		margin:auto;
-		border-collapse:separate;
-		border-spacing:0;
-	}
-	table th, table td {
-		padding:5px 10px;
-		border:1px solid #000;
-		// background:#fff;
-		white-space:nowrap;
-		vertical-align:top;
-	}
-	table thead, table tfoot {
-		background:#f9f9f9;
-	}
+
+	// table {
+	// 	// padding: 20px;
+	// 	padding: 5px 0 10px 0;
+	// 	margin:auto;
+	// 	border-collapse:separate;
+	// 	border-spacing:0;
+	// }
+	// table th, table td {
+	// 	padding:5px 10px;
+	// 	border:1px solid #000;
+	// 	// background:#fff;
+	// 	white-space:nowrap;
+	// 	vertical-align:top;
+	// }
+	// table thead, table tfoot {
+	// 	background:#f9f9f9;
+  // }
+
+  .flash {
+    -moz-transition      : all 0.5s ease-in-out;
+    -webkit-transition   : all 0.5s ease-in-out;
+    -o-transition        : all 0.5s ease-in-out;
+    -ms-transition       : all 0.5s ease-in-out;
+    transition           : all 0.5s ease-in-out;
+    // -moz-animation    : flash 0.6s cubic-bezier(1, -0.7, 0, 1.68) 3;
+    // /* Firefox */
+    // -webkit-animation: flash 0.6s cubic-bezier(1, -0.7, 0, 1.68) 3;
+    // /* Webkit */
+    // -ms-animation: flash 0.6s cubic-bezier(1, -0.7, 0, 1.68) 3;
+    -moz-animation  : flash 0.6s ease-in-out 2;
+    /* Firefox */
+    -webkit-animation: flash 0.6s ease-in-out 2;
+    /* Webkit */
+    -ms-animation: flash 0.6s ease-in-out 2;
+    animation    : flash 0.6s ease-in-out 2;
+  }
+
+  .blink {
+    @include boxshadow;
+    -moz-transition   : all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -o-transition     : all 0.5s ease-in-out;
+    -ms-transition    : all 0.5s ease-in-out;
+    transition        : all 0.5s ease-in-out;
+    -moz-animation    : blink 0.6s linear 2;
+    // /* Firefox */
+    -webkit-animation: blink 0.6s linear 2;
+    // /* Webkit */
+    -ms-animation: blink 0.6s linear 2;
+    // /* IE */
+    // animation: blink normal 1.5s 2 ease-in-out;
+    /* Opera */
+    animation: blink 0.6s linear 2;
+    // animation: blink 0.6s cubic-bezier(0.96,-0.83, 0, 1.96) 2;
+    // animation: blink 0.6s cubic-bezier(0.84, 0.93, 0, 1.52) 2;
+    // animation: blink 1s timing-function delay iteration-count direction fill-mode;
+  }
+
+
+  @-moz-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Firefox */
+  @-webkit-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Webkit */
+  @-ms-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* IE */
+  @keyframes blink {
+    0% {
+      opacity: 1;
+
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Opera */
+
+  @keyframes flash {
+    0% {
+      opacity: 0;
+      color  : #4c64d3;
+    }
+
+    50% {
+      opacity       : .5;
+      font-size     : 110%;
+      text-shadow   : 0px 3px 0px #b2a98f,
+        0px 14px 10px rgba(0, 0, 0, 0.15),
+        0px 24px 2px rgba(0, 0, 0, 0.1),
+        0px 34px 30px rgba(0, 0, 0, 0.1);
+      color: #4c64d3;
+    }
+
+    100% {
+      opacity  : 1;
+      color    : #000000;
+      font-size: 100%
+    }
+  }
 }

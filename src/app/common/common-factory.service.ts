@@ -67,7 +67,7 @@ export class CommonFactoryService {
 
   loadTemplateWithinComponent<T, C>(params: IFactoryCompoent<T, C>) {
     if (params.styleSheetName) {
-      //   this.loadStyle(styleSheetName);
+        this.loadStyle(params.styleSheetName);
     }
     this.isPopup = params.isPopup || false;
     this.componetProperties = params.component.componetProperties;
