@@ -23,11 +23,24 @@
 
     <div class="left-container">
       <div class="information-container">
-        <mat-form-field class="highlight" id='empName'>
-          <mat-label>Employer Name</mat-label>
-          <input matInput [disabled]="true" name='empName' placeholder="Employer Name"
-            [(ngModel)]="selectedData.name">
-        </mat-form-field>
+        <ng-template #informationTmpl [ngIf]='true'>
+          <div class="template-container row-align">
+            <div>
+              <mat-form-field class="highlight" id='empName'>
+                <mat-label>Employer Name</mat-label>
+                <input matInput [disabled]="true" name='empName' placeholder="Employer Name"
+                  [(ngModel)]="selectedData.name">
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="highlight" id='address'>
+                <mat-label>Employer Address</mat-label>
+                <input matInput name='address' placeholder="Employer Address"
+                  [(ngModel)]="selectedData.address">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-template>
       </div>
       <div class="loader-container">
         <ng-template #loader [ngIf]="isLoading">
@@ -49,7 +62,7 @@
 
 
 
-  <ng-template #informationTmpl let-data="data">
+  <ng-template #informationTmpl1 let-data="data">
     <p>{{data.name}}</p>
     <p>{{data.address}}</p>
   </ng-template>

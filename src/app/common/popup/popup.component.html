@@ -1,16 +1,28 @@
-<ng-container  >
+<ng-container>
   <div class="dynamic-template-container modal-container" id="modalContainer">
     <div class="modal-backdrop"></div>
-     <!-- [@zoomInUpOnEnter] [@zoomOutUpOnLeave] -->
+    <!-- [@zoomInUpOnEnter] [@zoomOutUpOnLeave] -->
     <div class="model-content" id="modalContent" [@hingeOnLeave]>
-      <div class="model-heaer row-align" >
+      <div class="model-heaer row-align">
         <span class="title">&nbsp;{{title}}&nbsp;</span>
         <span class="close" title="close" (click)="close()">&times;</span>
       </div>
       <div class="modal-body model-dynamic-body" id="modalBody">
-        <ng-content></ng-content>
+        <section *ngIf="extraTemplate">
+          <div class="box-container">
+            <h3 class="title tinner">{{extraTemplateTitle}}</h3>
+            <!-- <span class="title tinner">&nbsp;{{extraTemplateTitle}}&nbsp;</span> -->
+            <ng-container [ngTemplateOutlet]="extraTemplate"></ng-container>
+          </div>
+        </section>
+        <section>
+          <div class="box-container">
+            <h3 class="title tinner">{{conatentTitle}}</h3>
+            <!-- <span class="title tinner">&nbsp;{{conatentTitle}}&nbsp;</span> -->
+            <ng-content></ng-content>
+          </div>
+        </section>
         <!-- <div appInsertion></div> -->
-        <div #templateRenderer></div>
       </div>
       <div class="model-footer"></div>
     </div>

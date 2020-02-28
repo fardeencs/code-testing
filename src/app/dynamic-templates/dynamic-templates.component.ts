@@ -40,6 +40,8 @@ export class DynamicTemplatesComponent implements OnInit {
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
   @ViewChild('informationTmpl', { static: false }) informationTmpl: TemplateRef<any>;
+  // @ViewChild('tmplateHandler', { static: false }) tmplateHandler: TemplateRef<any>;
+
   constructor(private compiler: Compiler,
     private commonFactoryService: CommonFactoryService,
     public dialog: MatDialog,
@@ -47,7 +49,11 @@ export class DynamicTemplatesComponent implements OnInit {
     private loadingService: LoadingService,
     private elementLoaderService: ElementLoaderService,
     @Inject(DOCUMENT) private document: Document) {
-    this.selectedData = { ...this.selectedData, name: this.getRandomNumber(50000, 5000000).toString() };
+    this.selectedData = {
+      ...this.selectedData,
+      name: this.getRandomNumber(50000, 5000000).toString(),
+      address: 'Lucknow UP India'
+    };
   }
 
   // callme() {
@@ -275,7 +281,7 @@ export class DynamicTemplatesComponent implements OnInit {
     };
     const componentProperties: IComponetProperties = {
       inputs: {
-        title: 'Dynamically Component & Template Binding',
+        title: 'Dynamically Component & Template Binding within Component',
       }
     };
     // const templates = [
@@ -300,10 +306,15 @@ export class DynamicTemplatesComponent implements OnInit {
         componetProperties: componentProperties
       },
       template: {
+        title: 'Dynamic Template',
         content: this.tableTmpl,
         templateProperties: templateProperties
       },
       vcRef: this.vcRef,
+      extraTemplate: {
+        title: 'Information Template',
+        content: this.informationTmpl
+      },
       isPopup: true,
       // styleSheetName: 'dynamic-style.css'
     };

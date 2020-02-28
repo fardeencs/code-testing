@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, ViewEncapsulation, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewEncapsulation, Output, EventEmitter, ViewChild, ViewContainerRef, TemplateRef } from '@angular/core';
 import { CommonFactoryService } from '../common-factory.service';
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, style, animate, state } from '@angular/animations';
@@ -60,7 +60,10 @@ export class PopupComponent implements OnInit {
   // @ContentChildren(TemplateInsertionDirective) templates: QueryList<TemplateInsertionDirective>;
   // @Input('templateHandler') templateHandler: TemplateRef<any>;
 
+  @Input() extraTemplate: string | TemplateRef<any>;
   @Input() title: string;
+  @Input() extraTemplateTitle: string;
+  @Input() conatentTitle: string;
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();

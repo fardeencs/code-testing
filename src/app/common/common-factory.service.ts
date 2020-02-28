@@ -67,24 +67,32 @@ export class CommonFactoryService {
 
   loadTemplateWithinComponent<T, C>(params: IFactoryCompoent<T, C>) {
     if (params.styleSheetName) {
-        this.loadStyle(params.styleSheetName);
+      this.loadStyle(params.styleSheetName);
     }
     this.isPopup = params.isPopup || false;
     this.componetProperties = params.component.componetProperties;
     const factory = this.componentFactoryResolver.resolveComponentFactory(params.component.componentType);
+    let ngContent = null;
     if (params.template.content instanceof TemplateRef) {
-      const ngContent = this.getEmbeddedView(params.template.content, params.template.templateProperties);
-      params.vcRef.clear();
-      const componentRef = params.vcRef.createComponent(factory, 0, undefined, ngContent);
-      this.setInputProperties(componentRef, params.component.componetProperties.inputs);
-      if (params.isPopup) {
-        componentRef.instance['visible'] = true;
-      }
-      componentRef.hostView.detectChanges();
-      const { nativeElement } = componentRef.location;
-      this.document.body.appendChild(nativeElement);
-      this.componentRef = componentRef;
+      ngContent = this.getEmbeddedView(params.template.content, params.template.templateProperties);
     }
+    params.vcRef.clear();
+    const componentRef = params.vcRef.createComponent(factory, 0, undefined, ngContent);
+    this.setInputProperties(componentRef, params.component.componetProperties.inputs);
+    if (params.isPopup) {
+      componentRef.instance['visible'] = true;
+    }
+    if (params.extraTemplate && params.extraTemplate.content) {
+      componentRef.instance['extraTemplate'] = params.extraTemplate.content;
+      componentRef.instance['extraTemplateTitle'] = params.extraTemplate.title;
+    }
+    if (ngContent) {
+      componentRef.instance['conatentTitle'] = params.template.title;
+    }
+    componentRef.hostView.detectChanges();
+    const { nativeElement } = componentRef.location;
+    this.document.body.appendChild(nativeElement);
+    this.componentRef = componentRef;
     console.log('componentRef', this.componentRef);
     // if (params.loadingId) {
     //   this.elementLoaderService.stopeLoader(loadingId);

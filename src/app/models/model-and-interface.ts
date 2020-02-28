@@ -13,6 +13,7 @@ export interface IComponetProperties {
 }
 
 export interface ITemplate<T> {
+  title: string;
   content: Content<T>;
   templateProperties?: { [key: string]: any };
 }
@@ -26,6 +27,7 @@ export interface IFactoryCompoent<C, T> {
   component: IComponent<C>;
   template: ITemplate<T>;
   vcRef: ViewContainerRef;
+  extraTemplate?: ITemplate<any>;
   isPopup?: boolean;
   styleSheetName?: string;
   loadingId?: string;
