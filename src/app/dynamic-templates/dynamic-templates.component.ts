@@ -72,10 +72,10 @@ export class DynamicTemplatesComponent implements OnInit {
     if (ctrlId) {
       // ctrlId.classList.add('flash');
       const input = ctrlId.firstElementChild.firstElementChild.firstElementChild.firstElementChild;
-      input.classList.add('flash-text');
+      input.classList.add('flash');
       this.updateInfo();
       setTimeout(() => {
-        input.classList.remove('flash-text');
+        input.classList.remove('flash');
       }, 1810);
       // const startTime = new Date().getTime();
       // const timer = setInterval(() => {
@@ -168,7 +168,11 @@ export class DynamicTemplatesComponent implements OnInit {
 
   loadGridData(rows: number) {
     // this.callme();
-    this.elementLoaderService.startLoader('loadingDiv', 100);
+    const loderModel = [
+      { elementId: 'loadingDiv', delay: 100 },
+      { elementId: 'loadingLink' },
+    ];
+    this.elementLoaderService.startMultipleLoader(loderModel);
     const gridData = [];
     for (let index = 0; index < rows; index++) {
       gridData.push({
@@ -189,7 +193,7 @@ export class DynamicTemplatesComponent implements OnInit {
       of(gridData).pipe(delay(1000)).subscribe(result => {
         if (result) {
           this.gridData = result;
-          this.elementLoaderService.stopeLoader('loadingDiv');
+          this.elementLoaderService.stopMultipleLoader(loderModel);
           // this.callmestop();
         }
       });
@@ -203,7 +207,7 @@ export class DynamicTemplatesComponent implements OnInit {
     console.log('val', val, id);
     const elem: HTMLElement = this.document.getElementById(id);
     const parentElem: HTMLElement = elem.parentElement.parentElement.parentElement;
-    parentElem.classList.add('blink-row');
+    parentElem.classList.add('blink');
     if (val) {
       _.each(parentElem.children, (d: HTMLElement) => {
         d.style.backgroundColor = '#f8ff9c';
@@ -274,7 +278,7 @@ export class DynamicTemplatesComponent implements OnInit {
       }
     ];
     // const tblDiv: HTMLElement = this.document.getElementById('popup');
-    this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css');
+    this.commonFactoryService.loadComponent(this.tableTmpl, PopupComponent, templateProperties, componentProperties, this.vcRef, true, 'dynamic-style.css', 'loadingLink');
     // this.commonFactoryService.loadTemplatesWithinComponent(templates, PopupComponent, componentProperties, this.vcRef, true,)
   }
 

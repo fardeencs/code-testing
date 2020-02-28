@@ -14,17 +14,19 @@
     </div>
 
     <div class="right-container">
-      <div>
+      <div class="table-container">
         <div class="links">
           <!-- <button type="submit" (click)="openPopup(true)">Open Popup</button> -->
           <!--  -->
-          <a href="javascript:void(0)" (click)="openPopup(true)">Open Popup</a>
+          <a appInsertion id="loadingLink" href="javascript:void(0)" (click)="openPopup(true)">Open Popup</a>
         </div>
 
         <br> <hr>
-        <ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
+        <div class="display-info">
           <div appInsertion id="loadingDiv"></div>
-        </ng-container>
+          <ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
+          </ng-container>
+        </div>
       </div>
 
     </div>

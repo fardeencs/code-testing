@@ -1,5 +1,6 @@
 import { Injectable, ComponentFactoryResolver, Injector, Inject, ComponentRef, TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { ElementLoaderService } from './element-loader.service';
 
 export type Content<T> = string | TemplateRef<T> | Type<T>;
 export interface IComponetProperties {
@@ -29,6 +30,7 @@ export class CommonFactoryService {
   embeddedViews = [];
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector,
+    private elementLoaderService: ElementLoaderService,
     // private cd: ChangeDetectorRef,
     @Inject(DOCUMENT) private document: Document) { }
 
@@ -76,10 +78,10 @@ export class CommonFactoryService {
     }
   }
 
-  loadComponent<T>(content: Content<T>, componentType: Type<any>, templateProperties: {}, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string) {
-    // if (styleSheetName) {
+  loadComponent<T>(content: Content<T>, componentType: Type<any>, templateProperties: {}, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string, loadingId?: string) {
+    if (styleSheetName) {
     //   this.loadStyle(styleSheetName);
-    // }
+    }
     this.isPopup = isPopup || false;
     this.componetProperties = componetProperties;
     const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
@@ -101,6 +103,9 @@ export class CommonFactoryService {
       this.componentRef = componentRef;
     }
     console.log('componentRef', this.componentRef);
+    // if (loadingId) {
+    //   this.elementLoaderService.stopeLoader(loadingId);
+    // }
   }
 
   loadTemplatesWithinComponent(templates: Array<ITemplates>, componentType: Type<any>, componetProperties: IComponetProperties, vcRef: ViewContainerRef, isPopup?: boolean, styleSheetName?: string) {

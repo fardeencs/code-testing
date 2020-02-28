@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ILoader } from '../models/model-and-interface';
+import { each } from 'lodash';
 
 
 declare function loadingServiceShow(zindex, id, flag);
@@ -11,16 +13,28 @@ export class ElementLoaderService {
 
   constructor() { }
 
-  startLoader(id: string, timeout?: number, zIndex?: number) {
-    zIndex = zIndex || 10040;
-    timeout = timeout || 0;
+  startLoader(item: ILoader) {
+    const zIndex = item.zIndex || 10040;
+    const delay = item.delay || 0;
     setTimeout(() => {
-      loadingServiceShow(zIndex, id, false);
-    }, timeout);
+      loadingServiceShow(zIndex, item.elementId, false);
+    }, delay);
   }
 
   stopeLoader(id: string) {
     loadingServiceHide(id);
+  }
+
+  startMultipleLoader(items: Array<ILoader>) {
+    each(items, item => {
+      this.startLoader(item);
+    });
+  }
+
+  stopMultipleLoader(items: Array<ILoader>) {
+    each(items, item => {
+      this.stopeLoader(item.elementId);
+    });
   }
 
 }
