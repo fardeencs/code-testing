@@ -281,44 +281,54 @@ export class DynamicTemplatesComponent implements OnInit {
     };
     const componentProperties: IComponetProperties = {
       inputs: {
-        title: 'Dynamically Component & Template Binding within Component',
+        popupTitle: 'Dynamically Component & Template Binding within Component',
+        conatentTitle: 'Dynamic Template',
+        extraTemplate: {
+          title: 'Information Template',
+          content: this.informationTmpl
+        }
       }
     };
-    // const templates = [
-    //   {
-    //     ref: this.tableTmpl,
-    //     properties: {
-    //       data: this.gridData,
-    //       columns: this.columnDef
-    //     },
-    //   },
-    //   {
-    //     ref: this.informationTmpl,
-    //     properties: {
-    //       data: this.information
-    //     },
-    //   }
-    // ];
     // const tblDiv: HTMLElement = this.document.getElementById('popup');
     const factoryParams: IFactoryCompoent<PopupComponent, TemplateRef<any>> = {
       component: {
         componentType: PopupComponent,
         componetProperties: componentProperties
       },
-      template: {
+      vcRef: this.vcRef,
+      ngContent: {
         title: 'Dynamic Template',
         content: this.tableTmpl,
         templateProperties: templateProperties
-      },
-      vcRef: this.vcRef,
-      extraTemplate: {
-        title: 'Information Template',
-        content: this.informationTmpl
       },
       isPopup: true,
       // styleSheetName: 'dynamic-style.css'
     };
     this.commonFactoryService.loadTemplateWithinComponent(factoryParams);
+
+    const factoryParams1: IFactoryCompoent<PopupComponent, TemplateRef<any>> = {
+      component: {
+        componentType: PopupComponent,
+        componetProperties: componentProperties
+      },
+      vcRef: this.vcRef,
+      templates: [
+        {
+          title: 'Dynamic Template',
+          content: this.tableTmpl,
+          templateProperties: templateProperties
+        },
+        {
+          title: 'Information Template',
+          content: this.informationTmpl,
+          templateProperties: this.selectedData
+        }
+      ],
+      isPopup: true,
+      // styleSheetName: 'dynamic-style.css'
+    };
+    // this.commonFactoryService.loadMultipleNgContentWithinComponent(factoryParams1);
+
   }
 
 }

@@ -66,7 +66,7 @@ import { EditablePdfComponent } from './editable-pdf/editable-pdf.component';
       DemoOnEnterOnLeaveComponent,
       DemoDynamicParamsComponent,
       Popup2Component,
-      EditablePdfComponent
+      EditablePdfComponent,
    ],
    imports: [
       BrowserModule,
@@ -78,7 +78,7 @@ import { EditablePdfComponent } from './editable-pdf/editable-pdf.component';
       KeyFilterModule,
       BrowserAnimationsModule,
       MaterialModule,
-      MaterialGridModule
+      MaterialGridModule,
       //DynamicComponentLoaderModule.forRoot(manifests)
    ],
    exports: [],

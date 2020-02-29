@@ -16,6 +16,7 @@ export interface ITemplate<T> {
   title: string;
   content: Content<T>;
   templateProperties?: { [key: string]: any };
+  // templateProperties?: { };
 }
 
 export interface IComponent<T> {
@@ -23,10 +24,22 @@ export interface IComponent<T> {
   componetProperties?: IComponetProperties;
 }
 
+// export interface IFactoryCompoent<C, T> {
+//   component: IComponent<C>;
+//   template: ITemplate<T>;
+//   vcRef: ViewContainerRef;
+//   extraTemplate?: ITemplate<any>;
+//   isPopup?: boolean;
+//   styleSheetName?: string;
+//   loadingId?: string;
+//   delay?: number;
+// }
+
 export interface IFactoryCompoent<C, T> {
   component: IComponent<C>;
-  template: ITemplate<T>;
   vcRef: ViewContainerRef;
+  ngContent?: ITemplate<T>;
+  templates?: Array<ITemplate<any>>;
   extraTemplate?: ITemplate<any>;
   isPopup?: boolean;
   styleSheetName?: string;

@@ -4,8 +4,9 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { IComponetProperties, IFactoryCompoent } from '../models/model-and-interface';
+import { IComponetProperties, IFactoryCompoent, ITemplate } from '../models/model-and-interface';
 import { ElementLoaderService } from './element-loader.service';
+import { isEmpty } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,28 @@ export class CommonFactoryService {
     return [embeddedView.rootNodes];
   }
 
+  getNgContent<T>(type: ITemplate<any>) {
+    if (typeof type.content === 'string') {
+      const element = this.document.createTextNode(type.content);
+      return [[element]];
+    }
+
+    if (type.content instanceof TemplateRef) {
+      const embeddedView = type.content.createEmbeddedView(type.templateProperties);
+      embeddedView.detectChanges();
+      this.embeddedViews.push(embeddedView.rootNodes);
+      // In earlier versions, you may need to add this line
+      // this.appRef.attachView(viewRef);
+      return [embeddedView.rootNodes];
+    }
+
+    const factory = this.componentFactoryResolver.resolveComponentFactory(type.content);
+    const componentRef = factory.create(this.injector);
+    componentRef.changeDetectorRef.detectChanges();
+    return [[componentRef.location.nativeElement]];
+    // return [[componentRef.location.nativeElement], [this.document.createTextNode('Second ng-content')]];
+  }
+
   setInputProperties(componentRef: ComponentRef<any>, inputProperties: {}) {
     for (const key in inputProperties) {
       if (inputProperties.hasOwnProperty(key)) {
@@ -73,8 +96,8 @@ export class CommonFactoryService {
     this.componetProperties = params.component.componetProperties;
     const factory = this.componentFactoryResolver.resolveComponentFactory(params.component.componentType);
     let ngContent = null;
-    if (params.template.content instanceof TemplateRef) {
-      ngContent = this.getEmbeddedView(params.template.content, params.template.templateProperties);
+    if (params.ngContent.content instanceof TemplateRef) {
+      ngContent = this.getNgContent(params.ngContent);
     }
     params.vcRef.clear();
     const componentRef = params.vcRef.createComponent(factory, 0, undefined, ngContent);
@@ -82,12 +105,32 @@ export class CommonFactoryService {
     if (params.isPopup) {
       componentRef.instance['visible'] = true;
     }
-    if (params.extraTemplate && params.extraTemplate.content) {
-      componentRef.instance['extraTemplate'] = params.extraTemplate.content;
-      componentRef.instance['extraTemplateTitle'] = params.extraTemplate.title;
+    componentRef.hostView.detectChanges();
+    const { nativeElement } = componentRef.location;
+    this.document.body.appendChild(nativeElement);
+    this.componentRef = componentRef;
+    console.log('componentRef', this.componentRef);
+    // if (params.loadingId) {
+    //   this.elementLoaderService.stopeLoader(loadingId);
+    // }
+  }
+
+  loadMultipleNgContentWithinComponent<T, C>(params: IFactoryCompoent<T, C>) {
+    if (params.styleSheetName) {
+      this.loadStyle(params.styleSheetName);
     }
-    if (ngContent) {
-      componentRef.instance['conatentTitle'] = params.template.title;
+    this.isPopup = params.isPopup || false;
+    this.componetProperties = params.component.componetProperties;
+    const factory = this.componentFactoryResolver.resolveComponentFactory(params.component.componentType);
+    let ngContent = null;
+    if (params.ngContent && params.ngContent.content instanceof TemplateRef) {
+      ngContent = this.getEmbeddedView(params.ngContent.content, params.ngContent.templateProperties);
+    }
+    params.vcRef.clear();
+    const componentRef = params.vcRef.createComponent(factory, 0, undefined, ngContent);
+    this.setInputProperties(componentRef, params.component.componetProperties.inputs);
+    if (params.isPopup) {
+      componentRef.instance['visible'] = true;
     }
     componentRef.hostView.detectChanges();
     const { nativeElement } = componentRef.location;

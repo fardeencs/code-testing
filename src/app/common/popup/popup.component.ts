@@ -16,6 +16,7 @@ import {
   zoomOutRightOnLeaveAnimation,
 } from 'angular-animations';
 import { Zooming, Bouncing, Others, Specials } from 'src/app/angular-animation.constant';
+import { ITemplate } from 'src/app/models/model-and-interface';
 
 
 @Component({
@@ -23,51 +24,19 @@ import { Zooming, Bouncing, Others, Specials } from 'src/app/angular-animation.c
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations: Specials
-  // animations: [
-  //   // trigger('dialog', [
-  //   //   transition('void => *', [
-  //   //     style({ transform: 'scale3d(.3, .3, .3)' }),
-  //   //     animate(100)
-  //   //   ]),
-  //   //   transition('* => void', [
-  //   //     animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
-  //   //   ])
-  //   // ])
-  //   // trigger('openClose', [
-  //   //   // ...
-  //   //   state('open', style({
-  //   //     // height: '200px',
-  //   //     opacity: 1,
-  //   //     backgroundColor: 'yellow'
-  //   //   })),
-  //   //   state('closed', style({
-  //   //     // height: '100px',
-  //   //     opacity: 0.5,
-  //   //     backgroundColor: 'green'
-  //   //   })),
-  //   //   transition('open => closed', [
-  //   //     animate('1s')
-  //   //   ]),
-  //   //   transition('closed => open', [
-  //   //     animate('0.5s')
-  //   //   ]),
-  //   // ]),
-  // ]
+  // animations: Specials
 })
 export class PopupComponent implements OnInit {
-  @ViewChild('templateRenderer', { static: false, read: ViewContainerRef }) anchor: ViewContainerRef;
   // @ContentChildren(TemplateInsertionDirective) templates: QueryList<TemplateInsertionDirective>;
   // @Input('templateHandler') templateHandler: TemplateRef<any>;
 
-  @Input() extraTemplate: string | TemplateRef<any>;
-  @Input() title: string;
-  @Input() extraTemplateTitle: string;
+  @Input() popupTitle: string;
   @Input() conatentTitle: string;
+  @Input() extraTemplate: ITemplate<any>;
   @Input() closable = true;
   @Input() visible: boolean;
+  @Input() multipleNgContents: Array<ITemplate<any>>;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
 
   constructor(private commonFactoryService: CommonFactoryService,
     @Inject(DOCUMENT) private document: Document) { }
