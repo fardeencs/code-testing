@@ -1,23 +1,20 @@
-import { Component, OnInit, Input, Inject, ViewEncapsulation, Output, EventEmitter, ViewChild, ViewContainerRef, TemplateRef } from '@angular/core';
-import { CommonFactoryService } from '../common-factory.service';
-import { DOCUMENT } from '@angular/common';
-import { trigger, transition, style, animate, state } from '@angular/animations';
-
 import {
-  zoomInOnEnterAnimation,
-  zoomInUpOnEnterAnimation,
-  zoomInDownOnEnterAnimation,
-  zoomInLeftOnEnterAnimation,
-  zoomInRightOnEnterAnimation,
-  zoomOutOnLeaveAnimation,
-  zoomOutUpOnLeaveAnimation,
-  zoomOutDownOnLeaveAnimation,
-  zoomOutLeftOnLeaveAnimation,
-  zoomOutRightOnLeaveAnimation,
+    zoomInDownOnEnterAnimation, zoomInLeftOnEnterAnimation, zoomInOnEnterAnimation,
+    zoomInRightOnEnterAnimation, zoomInUpOnEnterAnimation, zoomOutDownOnLeaveAnimation,
+    zoomOutLeftOnLeaveAnimation, zoomOutOnLeaveAnimation, zoomOutRightOnLeaveAnimation,
+    zoomOutUpOnLeaveAnimation
 } from 'angular-animations';
-import { Zooming, Bouncing, Others, Specials } from 'src/app/angular-animation.constant';
+import { Bouncing, Others, Specials, Zooming } from 'src/app/angular-animation.constant';
 import { ITemplate } from 'src/app/models/model-and-interface';
 
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { DOCUMENT } from '@angular/common';
+import {
+    Component, EventEmitter, Inject, Input, OnInit, Output, TemplateRef, ViewChild,
+    ViewContainerRef, ViewEncapsulation
+} from '@angular/core';
+
+import { CommonFactoryService } from '../services/common-factory.service';
 
 @Component({
   selector: 'app-popup',

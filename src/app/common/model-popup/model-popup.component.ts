@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DynamicComponetFactoryService } from '../dynamic-componet-factory.service';
+import { DynamicComponetFactoryService } from '../services/dynamic-componet-factory.service';
 import { DOCUMENT } from '@angular/common';
 
 @Component({

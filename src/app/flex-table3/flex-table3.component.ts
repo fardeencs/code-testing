@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, Inject, TemplateRef } from '@angular/core';
-import { DynamicComponetFactoryService } from '../common/dynamic-componet-factory.service';
+import { DynamicComponetFactoryService } from '../common/services/dynamic-componet-factory.service';
 import { DOCUMENT } from '@angular/common';
 import { InsertionDirective } from '../common/insertion.directive';
 import { ModelPopupComponent } from '../common/model-popup/model-popup.component';

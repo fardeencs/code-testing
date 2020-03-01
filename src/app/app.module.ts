@@ -30,6 +30,8 @@ import { AngularImgComponent } from './router-animation/angular-img/angular-img.
 import { DemoDynamicParamsComponent } from './router-animation/demo-dynamic-params/demo-dynamic-params.component';
 import { Popup2Component } from './common/popup2/popup2.component';
 import { EditablePdfComponent } from './editable-pdf/editable-pdf.component';
+import { ResponsiveTableComponent } from './responsive-table/responsive-table.component';
+
 
 // // This array defines which "componentId" maps to which lazy-loaded module.
 // const manifests: DynamicComponentManifest[] = [
@@ -67,6 +69,7 @@ import { EditablePdfComponent } from './editable-pdf/editable-pdf.component';
       DemoDynamicParamsComponent,
       Popup2Component,
       EditablePdfComponent,
+      ResponsiveTableComponent
    ],
    imports: [
       BrowserModule,

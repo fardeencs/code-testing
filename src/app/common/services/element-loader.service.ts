@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ILoader } from '../models/model-and-interface';
+import { ILoader } from '../../models/model-and-interface';
 import { each } from 'lodash';
 
 

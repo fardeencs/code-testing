@@ -1,7 +1,8 @@
 <div class="dynamic-template-container">
 
   <h1>Dynamic Template:</h1>
-  <div class="row-align">
+
+  <div class="main-container">
 
     <div class="right-container">
       <div class="table-container">
@@ -11,7 +12,8 @@
           <a appInsertion id="loadingLink" href="javascript:void(0)" (click)="openPopup(true)">Open Popup</a>
         </div>
 
-        <br> <hr>
+        <br>
+        <hr>
         <div class="display-info">
           <div appInsertion id="loadingDiv"></div>
           <ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
@@ -22,43 +24,46 @@
     </div>
 
     <div class="left-container">
-      <div class="information-container">
-        <ng-template #informationTmpl [ngIf]='true'>
-          <div class="template-container row-align">
-            <div>
-              <mat-form-field class="highlight" id='empName'>
-                <mat-label>Employer Name</mat-label>
-                <input matInput [disabled]="true" name='empName' placeholder="Employer Name"
-                  [(ngModel)]="selectedData.name">
-              </mat-form-field>
+      <div class="inner-left">
+
+        <div class="information-container">
+          <ng-template #informationTmpl [ngIf]='true'>
+            <div class="template-container row-align">
+              <div>
+                <mat-form-field class="highlight" id='empName'>
+                  <mat-label>Employer Name</mat-label>
+                  <input matInput [disabled]="true" name='empName' placeholder="Employer Name"
+                    [(ngModel)]="selectedData.name">
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="highlight" id='address'>
+                  <mat-label>Employer Address</mat-label>
+                  <input matInput name='address' placeholder="Employer Address" [(ngModel)]="selectedData.address">
+                </mat-form-field>
+              </div>
             </div>
-            <div>
-              <mat-form-field class="highlight" id='address'>
-                <mat-label>Employer Address</mat-label>
-                <input matInput name='address' placeholder="Employer Address"
-                  [(ngModel)]="selectedData.address">
-              </mat-form-field>
-            </div>
-          </div>
-        </ng-template>
+          </ng-template>
+        </div>
+        <div class="loader-container">
+          <ng-template #loader [ngIf]="isLoading">
+            <div class="loader">Loading...</div>
+          </ng-template>
+        </div>
       </div>
-      <div class="loader-container">
-        <ng-template #loader [ngIf]="isLoading">
-          <div class="loader">Loading...</div>
-        </ng-template>
-      </div>
+
     </div>
 
   </div>
 
 
-
-
-  <!-- <select data-loader="btncountry" style="height: 25px; width: 130px;;" (change)="loadoncountry('country')">
-      <option value="select">-- select Country --</option>
-      <option value="USA">USA</option>
-      <option value="India">India</option>
-  </select> -->
+  <!-- <div class="res-tbl-container">
+      <div class="row-align">-->
+        <!-- <div>
+          <app-responsive-table></app-responsive-table>
+        </div> -->
+      <!--</div>
+  </div> -->
 
 
 
@@ -66,10 +71,6 @@
     <p>{{data.name}}</p>
     <p>{{data.address}}</p>
   </ng-template>
-
-
-
-  <!-- <div appInsertion id="loadingDiv"> -->
 
   <ng-template #tableTmpl let-data="data" let-columns="columns">
     <div class="table-scroll" id="popup">
@@ -110,7 +111,6 @@
       </div>
     </div>
   </ng-template>
-
 
   <ng-template #numberCellTemplate let-element='element' let-column='column' let-ind='ind'>
     <td>

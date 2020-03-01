@@ -1,12 +1,17 @@
-// tslint:disable-next-line:max-line-length
-import { Injectable, Component, NgModule, ComponentFactoryResolver, Compiler, Injector, NgModuleRef, ViewChild, ViewContainerRef, Inject, ComponentFactory, ComponentRef, ChangeDetectorRef, Type, TemplateRef } from '@angular/core';
-// import { FlexTable3Component } from '../flex-table3/flex-table3.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs';
-import { InsertionDirective } from './insertion.directive';
 
+import { DOCUMENT } from '@angular/common';
+// tslint:disable-next-line:max-line-length
+import {
+    ChangeDetectorRef, Compiler, Component, ComponentFactory, ComponentFactoryResolver,
+    ComponentRef, Inject, Injectable, Injector, NgModule, NgModuleRef, TemplateRef, Type, ViewChild,
+    ViewContainerRef
+} from '@angular/core';
+// import { FlexTable3Component } from '../flex-table3/flex-table3.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { InsertionDirective } from '../insertion.directive';
 
 export type Content<T> = string | TemplateRef<T> | Type<T>;
 
@@ -136,7 +141,7 @@ export class DynamicComponetFactoryService {
     }
     const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
     console.log('viewContainer', viewContainer);
-    
+
     // viewContainer.clear();
 
     const vcf = viewContainer.createComponent(factory);

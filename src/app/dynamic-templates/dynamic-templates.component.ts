@@ -5,13 +5,15 @@ import { delay } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import {
   Compiler, Component, Inject, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef,
-  ViewEncapsulation
+  ViewEncapsulation,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Bouncing } from '../angular-animation.constant';
-import { CommonFactoryService } from '../common/common-factory.service';
-import { ElementLoaderService } from '../common/element-loader.service';
+import { CommonFactoryService } from '../common/services/common-factory.service';
+import { ElementLoaderService } from '../common/services/element-loader.service';
 import { LoadingService } from '../common/loading.service';
 import { PopupComponent } from '../common/popup/popup.component';
 import { IComponetProperties, IFactoryCompoent, ILoader } from '../models/model-and-interface';
@@ -29,7 +31,7 @@ export interface IPanelInformation {
   encapsulation: ViewEncapsulation.None,
   animations: Bouncing
 })
-export class DynamicTemplatesComponent implements OnInit {
+export class DynamicTemplatesComponent implements OnInit, OnChanges {
   gridData: Array<any>;
   columnDef: Array<any>;
   showTempl = true;
@@ -80,6 +82,21 @@ export class DynamicTemplatesComponent implements OnInit {
     this.getColDef();
 
     // this.loadingService.loadingServiceShow(10000, 'popup', true);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.addMediaQuery();
+  }
+
+
+  addMediaQuery() {
+    const mq = window.matchMedia('(max-width: 760px)');
+    if (mq) {
+      console.log('mq-true', mq);
+
+    } else {
+      console.log('mq-false', mq);
+    }
   }
 
   heighlight(id: string) {

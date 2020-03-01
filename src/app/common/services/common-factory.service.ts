@@ -4,7 +4,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { IComponetProperties, IFactoryCompoent, ITemplate } from '../models/model-and-interface';
+import { IComponetProperties, IFactoryCompoent, ITemplate } from '../../models/model-and-interface';
 import { ElementLoaderService } from './element-loader.service';
 import { isEmpty } from 'lodash';
 
