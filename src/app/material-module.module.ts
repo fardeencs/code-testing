@@ -1,4 +1,4 @@
-import {CdkTableModule} from '@angular/cdk/table';;
+import {CdkTableModule} from '@angular/cdk/table';
 import {NgModule} from '@angular/core';
 
 import {

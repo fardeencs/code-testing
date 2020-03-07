@@ -3,11 +3,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import { overrideRenderFactory } from './app/common/shadow-dom-renderer';
 
 if (environment.production) {
   enableProdMode();
 }
-
+// overrideRenderFactory()
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 

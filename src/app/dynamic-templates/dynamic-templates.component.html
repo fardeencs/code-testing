@@ -16,7 +16,9 @@
         <hr>
         <div class="display-info">
           <div appInsertion id="loadingDiv"></div>
-          <ng-container [ngTemplateOutlet]="tableTmpl" [ngTemplateOutletContext]="{data:gridData, columns: columnDef}">
+          <ng-container
+            [ngTemplateOutlet]="tableTmpl"
+            [ngTemplateOutletContext]="{data:gridData, columns: columnDef, gridId: gridId}">
           </ng-container>
         </div>
       </div>
@@ -59,10 +61,10 @@
 
   <!-- <div class="res-tbl-container">
       <div class="row-align">-->
-        <!-- <div>
+  <!-- <div>
           <app-responsive-table></app-responsive-table>
         </div> -->
-      <!--</div>
+  <!--</div>
   </div> -->
 
 
@@ -72,7 +74,7 @@
     <p>{{data.address}}</p>
   </ng-template>
 
-  <ng-template #tableTmpl let-data="data" let-columns="columns">
+  <ng-template #tableTmpl let-data="data" let-columns="columns" let-gridId="gridId">
     <div class="table-scroll" id="popup">
       <div class="table-wrap">
         <table class="main-table" id="main-table">
@@ -82,50 +84,62 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let element of data; let ind=index">
-              <ng-container *ngFor="let column of columns">
-                <ng-container *ngIf="!column?.type">
-                  <td [class]="column?.class">
-                    {{element[column.field]}}
-                  </td>
-                </ng-container>
-                <ng-container *ngIf="column?.type === 'TEXT_BOX'">
-                  <ng-container [ngTemplateOutlet]="numberCellTemplate"
-                    [ngTemplateOutletContext]="{element:element, column: column, ind:ind}">
+            <ng-container *ngIf="data?.length === 0">
+               <tr>
+                 <td class="no-data-found" [attr.colspan]="columns.length">No Data found</td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="data?.length > 0">
+              <tr *ngFor="let element of data; let ind=index">
+                <ng-container *ngFor="let column of columns">
+                  <ng-container *ngIf="!column?.type">
+                    <td [class]="column?.class">
+                      {{element[column.field]}}
+                    </td>
+                  </ng-container>
+                  <ng-container *ngIf="column?.type === 'TEXT_BOX'">
+                    <ng-container [ngTemplateOutlet]="numberCellTemplate"
+                      [ngTemplateOutletContext]="{element:element, column: column, ind:ind, gridId:gridId}">
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="column?.type === 'CHECK_BOX'">
+                    <ng-container [ngTemplateOutlet]="chkboxCellTemplate"
+                      [ngTemplateOutletContext]="{element:element, column: column, ind:ind, gridId:gridId}">
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="column?.type === 'ACTIONS'">
+                    <ng-container [ngTemplateOutlet]="actionCellTemplate"
+                      [ngTemplateOutletContext]="{element:element, column: column, ind:ind, gridId:gridId}">
+                    </ng-container>
                   </ng-container>
                 </ng-container>
-                <ng-container *ngIf="column?.type === 'CHECK_BOX'">
-                  <ng-container [ngTemplateOutlet]="chkboxCellTemplate"
-                    [ngTemplateOutletContext]="{element:element, column: column, ind:ind}">
-                  </ng-container>
-                </ng-container>
-                <ng-container *ngIf="column?.type === 'ACTIONS'">
-                  <ng-container [ngTemplateOutlet]="actionCellTemplate"
-                    [ngTemplateOutletContext]="{element:element, column: column, ind:ind}">
-                  </ng-container>
-                </ng-container>
-              </ng-container>
-            </tr>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>
     </div>
   </ng-template>
 
-  <ng-template #numberCellTemplate let-element='element' let-column='column' let-ind='ind'>
+  <ng-template #numberCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
     <td>
-      <input type="text" name='text-box-{{ind}}' [(ngModel)]="element[column.field]"
+      <input type="text" name='text-box-{{ind}}-{{gridId}}'
+        class="text-box-{{ind}}-{{gridId}}"
+        [(ngModel)]="element[column.field]"
         (blur)='onBlur(element, column, ind)' />
     </td>
   </ng-template>
 
-  <ng-template #chkboxCellTemplate let-element='element' let-column='column' let-ind='ind'>
+  <ng-template #chkboxCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
     <td>
-      <input type="checkbox" name='text-box-{{ind}}' [(ngModel)]="element[column.field]" />
+      <input type="checkbox" class="text-box-{{ind}}-{{gridId}}"
+       name='check-box-{{ind}}-{{gridId}}'
+       class="check-box-{{ind}}-{{gridId}}"
+       [(ngModel)]="element[column.field]" />
     </td>
   </ng-template>
 
-  <ng-template #actionCellTemplate let-element='element' let-column='column' let-ind='ind'>
+  <ng-template #actionCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
     <td id="cell-{{ind}}" [class]='column?.class'>
       <div class="btn-circle">
         <button class="btn-fab red" (click)="closeCell(element, column, ind)"><span class="btn-wrapper">+</span>
@@ -134,7 +148,9 @@
         </button>
       </div>
       <div class="chk-box">
-        <input type="checkbox" name='chk-box-{{ind}}' id='chk-box-{{ind}}'
+        <input type="checkbox" name='action-chk-box-{{ind}}-{{gridId}}'
+          id='action-chk-box-{{ind}}-{{gridId}}'
+          class="action-chk-box-{{ind}}-{{gridId}}"
           (click)="onChkBoxChange($event, element, column, ind)" [(ngModel)]="element[column.field]" />
       </div>
     </td>

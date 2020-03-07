@@ -29,11 +29,12 @@ export interface IPanelInformation {
   templateUrl: './dynamic-templates.component.html',
   styleUrls: ['./dynamic-templates.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations: Bouncing
+  // animations: Bouncing
 })
 export class DynamicTemplatesComponent implements OnInit, OnChanges {
   gridData: Array<any>;
   columnDef: Array<any>;
+  gridId = 'grid01';
   showTempl = true;
   isLoading = true;
   // information: IPanelInformation;
@@ -78,7 +79,7 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.loadGridData(10);
+    this.loadGridData(5);
     this.getColDef();
 
     // this.loadingService.loadingServiceShow(10000, 'popup', true);
@@ -141,7 +142,7 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
         field: 'actions',
         header: 'Actions',
         type: 'ACTIONS',
-        class: 'fixed-side sticky-col second-col row-align'
+        class: 'fixed-side sticky-col row-align second-col'
       },
       {
         field: 'header2',
@@ -198,40 +199,89 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
 
 
   loadGridData(rows: number) {
-    // this.callme();
     const loderModel: Array<ILoader> = [
       { elementId: 'loadingDiv', delay: 100 },
       { elementId: 'loadingLink' },
     ];
     this.elementLoaderService.startMultipleLoader(loderModel);
     const gridData = [];
-    for (let index = 0; index < rows; index++) {
-      gridData.push({
-        'header1': `Left Column`,
-        'actions': null,
-        'header2': `Cell content longer ${index}`,
-        'header3': `Cell content ${index}`,
-        'header4': `Cell content ${index}`,
-        'header5': `Cell content ${index}`,
-        'header6': `Cell content ${index}`,
-        'header7': `Cell content ${index}`,
-        'header8': `Cell content ${index}`,
-        'header9': `Cell content ${index}`,
-        'header10': `Cell content ${index}`,
-        'header11': `Cell content ${index}`,
-        'header12': null,
-      });
-      of(gridData).pipe(delay(1000)).subscribe(result => {
+    try {
+      for (let index = 0; index < rows; index++) {
+        gridData.push({
+          'header1': `Left Column`,
+          'actions': null,
+          'header2': `Cell content longer ${index}`,
+          'header3': `Cell content ${index}`,
+          'header4': `Cell content ${index}`,
+          'header5': `Cell content ${index}`,
+          'header6': `Cell content ${index}`,
+          'header7': `Cell content ${index}`,
+          'header8': `Cell content ${index}`,
+          'header9': `Cell content ${index}`,
+          'header10': `Cell content ${index}`,
+          'header11': `Cell content ${index}`,
+          'header12': null,
+        });
+      }
+      const _gridData = [...gridData];
+      of(_gridData).pipe(delay(1000)).subscribe(result => {
+        this.elementLoaderService.stopMultipleLoader(loderModel);
         if (result) {
           this.gridData = result;
-          this.elementLoaderService.stopMultipleLoader(loderModel);
-          // this.callmestop();
         }
       });
+    } catch (error) {
+
+    } finally {
+      // this.elementLoaderService.stopMultipleLoader(loderModel);
     }
   }
 
+
   onChkBoxChange(event: MouseEvent, element: any, column: any, ind: number) {
+    const heighlightColor = '#faffbb';
+    console.log('onChkBoxChange', event);
+    const val: boolean = event.target['checked'];
+    const id = event['toElement'].getAttribute('id');
+    console.log('val', val, id);
+    // const elem: HTMLElement = this.document.getElementById(id);
+    const elements: HTMLCollectionOf<Element> = this.document.getElementsByClassName(id);
+    _.each(elements, (elem: HTMLElement) => {
+      const parentElem: HTMLElement = elem.parentElement.parentElement.parentElement;
+      const boxShadow = '0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12)';
+      parentElem.classList.add('blink');
+      // parentElem.classList.add('row-selected');
+      // parentElem.style.boxShadow = boxShadow;
+      if (val) {
+        _.each(parentElem.children, (d: HTMLElement) => {
+          // d.style.boxShadow = boxShadow;
+          // d.style.backgroundColor = heighlightColor; //'#f8ff9c';
+          d.classList.add('cell-selected');
+        });
+      } else {
+        // parentElem.classList.remove('row-selected');
+        if (ind % 2 === 0) {
+          _.each(parentElem.children, (d: HTMLElement) => {
+            d.style.backgroundColor = '#fff';
+            d.classList.remove('cell-selected');
+            // d.style.boxShadow = 'none';
+          });
+        } else {
+          _.each(parentElem.children, (d: HTMLElement) => {
+            d.style.backgroundColor = '#efefef';
+            d.classList.remove('cell-selected');
+            // d.style.boxShadow = 'none';
+          });
+        }
+      }
+      setTimeout(() => {
+        parentElem.classList.remove('blink');
+      }, 1210);
+    });
+
+  }
+
+  onChkBoxChange_01(event: MouseEvent, element: any, column: any, ind: number) {
     console.log('onChkBoxChange', event);
     const val: boolean = event.target['checked'];
     const id = event['toElement'].getAttribute('id');
@@ -273,8 +323,29 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
     }
   }
 
-  closeCell(element, column, ind) {
-    console.log('close-div', element, column, ind);
+  closeCell(rowData, column, ind) {
+    console.log('close-div', rowData, column, ind);
+    const elem: HTMLElement = document.getElementById('cell-' + ind);
+    const parentElem: HTMLElement = elem.parentElement;
+    _.each(parentElem.children, (d: HTMLElement) => {
+      d.style.backgroundColor = '#f6fe86';
+      // d.style.zIndex = '9999999999999999999';
+    });
+    parentElem.classList.add('hinge');
+    of(rowData).pipe(delay(1000)).subscribe(result => {
+      if (result) {
+        parentElem.style.display = 'none';
+        this.gridData.splice(ind, 1);
+      }
+    });
+    // setTimeout(() => {
+    //   parentElem.style.display = 'none';
+    //   this.gridData.splice(ind, 1);
+    // }, 1010);
+  }
+
+  closeCell_01(rowData, column, ind) {
+    console.log('close-div', rowData, column, ind);
     const elem: HTMLElement = document.getElementById('cell-' + ind);
     const parentElem: HTMLElement = elem.parentElement;
     _.each(parentElem.children, (d: HTMLElement) => {
@@ -294,7 +365,8 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
   openPopup(isOpen: boolean) {
     const templateProperties = {
       data: this.gridData,
-      columns: this.columnDef
+      columns: this.columnDef,
+      gridId: this.gridId
     };
     const componentProperties: IComponetProperties = {
       inputs: {
