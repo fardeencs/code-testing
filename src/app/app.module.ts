@@ -36,6 +36,7 @@ import {
     DemoOnEnterOnLeaveComponent
 } from './router-animation/demo-on-enter-on-leave/demo-on-enter-on-leave.component';
 import { TreeviewTableComponent } from './treeview-table/treeview-table.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 // // This array defines which "componentId" maps to which lazy-loaded module.
 // const manifests: DynamicComponentManifest[] = [
@@ -73,7 +74,8 @@ import { TreeviewTableComponent } from './treeview-table/treeview-table.componen
     // DemoDynamicParamsComponent,
     Popup2Component,
     EditablePdfComponent,
-    ResponsiveTableComponent
+    ResponsiveTableComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

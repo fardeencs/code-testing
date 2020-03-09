@@ -116,6 +116,7 @@
 <!-- Progress Bar-->
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <!-- Main Table -->
+<!--
 <div class="mtx-data-grid-content" *ngIf="false">
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="handleSortChange($event)">
     <ng-container *ngFor="let col of columns; let c=index;">
@@ -134,11 +135,12 @@
           [ngStyle]="{'width':col.width,'min-width':col.width}">
           <mat-checkbox *ngIf="col.type==='checkbox'" (click)="$event.stopPropagation()"
             (change)="$event ? singleToggle(row) : null" [checked]="selection.isSelected(row)">
-          </mat-checkbox>
+          </mat-checkbox> -->
           <!-- <mtx-grid-cell *ngIf= "col.type!=='checkbox'"
                      [data]= "row" [col]= "col">
                     </mtx-grid-cell> -->
           <!-- Editable Cell -->
+          <!---
           <ng-container *ngIf="col.edit; else uneditTpl"></ng-container>
         </td>
       </ng-container>
@@ -146,19 +148,22 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</div>
+</div> -->
 <!-- Paginator -->
+<!--
 <mat-paginator [showFirstLastButtons]="showFirstLastButtons" [length]="length" [pageIndex]="pageIndex"
   [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [hidePageSize]="hidePageSize" (page)="page.emit($event)"
   [disabled]="pageDisabled">
 </mat-paginator>
-
-
+-->
 
 <!-- Uneditable Cell -->
+<!--
 <ng-template #uneditTpl let-col='col' let-colValue='data'>
   <div [ngSwitch]="col.type">
+    -->
     <!-- Tag -->
+    <!--
     <ng-container *ngSwitchCase="'tag'">
       <mat-chip-list *ngIf="col.tag[colValue]; else tagEmptyTpl">
         <mat-chip color="primary" [ngClass]="['bg-' + col.tag[colValue].color]">
@@ -167,15 +172,21 @@
       </mat-chip-list>
       <ng-template #tagEmptyTpl>{{colValue}}</ng-template>
     </ng-container>
+  -->
     <!-- Image -->
+    <!--
     <ng-container *ngSwitchCase="'img'">
       <img class="img" [src]="colValue" (click)="preview(colValue)">
     </ng-container>
+  -->
     <!-- Link -->
+    <!--
     <ng-container *ngSwitchCase="'link'">
       <a [href]="colValue" target="_blank">{{colValue}}</a>
     </ng-container>
+  -->
     <!-- Buttons -->
+    <!--
     <ng-container *ngSwitchCase="'button'">
       <ng-container *ngFor="let btn of col.buttons; index as i; last as isLast;">
         <ng-container *ngIf="!btn.iif || btn.iif(data)">
@@ -192,25 +203,37 @@
         </ng-container>
       </ng-container>
     </ng-container>
+  -->
     <!-- Format -->
+    <!--
     <ng-container *ngSwitchCase="'format'">
       <span [innerHTML]="col.format(data) || '--'"></span>
     </ng-container>
+  -->
     <!-- Number -->
+    <!--
     <ng-container *ngSwitchCase="'number'">
       {{(colValue | number:'1.2-2') || '--'}}
     </ng-container>
+  -->
     <!-- Currency -->
+    <!--
     <ng-container *ngSwitchCase="'currency'">
       {{(colValue | currency:'u00A5') || '--'}}
     </ng-container>
+  -->
     <!-- Percent -->
+    <!--
     <ng-container *ngSwitchCase="'percent'">
       {{(colValue | percent) || '--'}}
     </ng-container>
+  -->
     <!-- Default -->
+    <!--
     <ng-container *ngSwitchDefault>
       {{colValue || '--'}}
     </ng-container>
   </div>
 </ng-template>
+-->
+
