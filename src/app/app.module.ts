@@ -37,6 +37,7 @@ import {
 } from './router-animation/demo-on-enter-on-leave/demo-on-enter-on-leave.component';
 import { TreeviewTableComponent } from './treeview-table/treeview-table.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { MultipleObservableComponent } from './multiple-observable/multiple-observable.component';
 
 // // This array defines which "componentId" maps to which lazy-loaded module.
 // const manifests: DynamicComponentManifest[] = [
@@ -52,59 +53,61 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 //    // }
 //  ];
 @NgModule({
-  declarations: [
-    TemplateInsertionDirective,
-    InsertionDirective,
-    AppComponent,
-    HtmlTreeViewComponent,
-    JsPdfComponent,
-    CopyToClipboardComponent,
-    TreeviewTableComponent,
-    FlexTableComponent,
-    FlexTable2Component,
-    FlexTable3Component,
-    ModelPopupComponent,
-    PopupComponent,
-    DynamicTemplatesComponent,
-    MaterialDailogComponent,
-    NotificationComponent,
-    SpinnerComponent,
-    AngularImgComponent,
-    // DemoOnEnterOnLeaveComponent,
-    // DemoDynamicParamsComponent,
-    Popup2Component,
-    EditablePdfComponent,
-    ResponsiveTableComponent,
-    SidebarComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    NoopAnimationsModule,
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    KeyFilterModule,
-    MaterialModule,
-    MaterialGridModule,
-    //DynamicComponentLoaderModule.forRoot(manifests)
-  ],
-  exports: [
-  ],
-  bootstrap: [
-    AppComponent
-  ],
-  providers: [
-    // overrideRenderFactory(),
-    AppService
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [
-    ModelPopupComponent,
-    PopupComponent,
-    MaterialDailogComponent
-  ]
+   declarations: [
+      TemplateInsertionDirective,
+      InsertionDirective,
+      AppComponent,
+      HtmlTreeViewComponent,
+      JsPdfComponent,
+      CopyToClipboardComponent,
+      TreeviewTableComponent,
+      FlexTableComponent,
+      FlexTable2Component,
+      FlexTable3Component,
+      ModelPopupComponent,
+      PopupComponent,
+      DynamicTemplatesComponent,
+      MaterialDailogComponent,
+      NotificationComponent,
+      SpinnerComponent,
+      AngularImgComponent,
+      //DemoOnEnterOnLeaveComponent,
+      //DemoDynamicParamsComponent,
+      Popup2Component,
+      EditablePdfComponent,
+      ResponsiveTableComponent,
+      SidebarComponent,
+      MultipleObservableComponent
+   ],
+   imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      NoopAnimationsModule,
+      CommonModule,
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      KeyFilterModule,
+      MaterialModule,
+      MaterialGridModule,
+      //DynamicComponentLoaderModule.forRoot(manifests)
+   ],
+   exports: [],
+   bootstrap: [
+      AppComponent
+   ],
+   providers: [
+      //overrideRenderFactory(),
+      AppService
+   ],
+   schemas: [
+      CUSTOM_ELEMENTS_SCHEMA
+   ],
+   entryComponents: [
+      ModelPopupComponent,
+      PopupComponent,
+      MaterialDailogComponent
+   ]
 })
 export class AppModule {
   constructor(private injector: Injector) { }

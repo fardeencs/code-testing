@@ -16,25 +16,30 @@ export class SidebarComponent implements OnInit {
   constructor() {
     const theme = localStorage.getItem('theme');
     const bodyClass = document.body.classList;
-    theme && bodyClass.add(theme) || (bodyClass.add('dark'), localStorage.setItem('theme', 'dark'));
+  }
+
+  applyTheme(): any {
+    const theme = localStorage.getItem('theme');
+    const bodyClass = document.body.classList;
+    // theme && bodyClass.add(theme) || (bodyClass.add('dark'), localStorage.setItem('theme', 'dark'));
   }
 
 
-  actions = {
-    toggleTheme: () => {
-        const current = localStorage.getItem('theme');
-        const next = this.themeMap[current];
-
-        const bodyClass = document.body.classList;
-        bodyClass.replace(current, next);
-        localStorage.setItem('theme', next);
-      // document.getElementById('themeButton').onclick = toggleTheme;
-    }
-  };
 
   ngOnInit(): void { }
 
+  // tslint:disable-next-line:member-ordering
+  actions = {
+    toggleTheme: () => {
+      const current = localStorage.getItem('theme');
+      const next = this.themeMap[current];
 
+      const bodyClass = document.body.classList;
+      bodyClass.replace(current, next);
+      localStorage.setItem('theme', next);
+      // document.getElementById('themeButton').onclick = toggleTheme;
+    }
+  };
 
 
 }
