@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin     : 0;
+  font-family: cursive;
+}
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
+
+
+
+.row-align {
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+  flex-wrap      : wrap;
+  flex-direction : row;
+}
+
+.column-align {
+  display       : flex;
+  flex-direction: column;
+  // flex          : 1;
+}
+
+.heading {
+  text-align: center;
+}
+
+@mixin boxshadow {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.box-container {
+  // display      : flex;
+  // flex         : 1 1 100%;
+  padding      : 2rem 1rem;
+  border-radius: 5px;
+  @include boxshadow;
+}

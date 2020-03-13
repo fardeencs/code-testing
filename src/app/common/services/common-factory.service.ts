@@ -27,7 +27,7 @@ export class CommonFactoryService {
   ==========  Don't forget to anguar.json configuration  =====================
   "extractCss": true,
   "styles": [
-    "src/styles.css",
+    "src/styles.scss",
     {
       "input": "src/app/common/dynamic.style.scss",
       "bundleName": "dynamic-style",

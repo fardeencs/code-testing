@@ -1,0 +1,96 @@
+.pipe-test-container {
+  // display        : flex;
+  // justify-content: space-between;
+  // flex-wrap      : wrap;
+  // flex-direction : row;
+  // flex           : 1 1 100%;
+
+  .main-container {
+    display        : flex;
+    justify-content: space-between;
+    flex-wrap      : wrap;
+    flex-direction : row;
+  }
+
+  .left-container {
+    display       : flex;
+    flex-direction: column;
+    margin        : 0 2rem;
+    flex          : 1;
+    flex-basis    : 20%;
+
+    // ul {
+    //   // margin-block-start  : 0.5rem;
+    //   // margin-block-end    : 0.5rem;
+    // }
+  }
+
+  .right-container {
+    display       : flex;
+    flex-direction: column;
+    margin        : 0 2rem;
+    flex          : 1;
+  }
+
+  .mat-divider {
+    margin          : 1rem 0;
+    border-top-color: #4484ff !important;
+  }
+
+  .numbers {
+    display: flex;
+  }
+
+  .error-container {
+    justify-content: flex-start;
+
+    span:nth-child(2) {
+      color: red;
+    }
+  }
+  .form-value-container{
+    justify-content: flex-start;
+
+    span:nth-child(2) {
+      color: darkgreen;
+    }
+  }
+
+  .action-container {
+    .row-align {
+      justify-content: space-around;
+    }
+  }
+
+  .controls-container {
+    li {
+      &.msg-section {
+        color: red !important;
+        width: 12rem !important;
+      }
+    }
+  }
+
+  .heading-container {
+    justify-content: space-around;
+
+    .notify-container {
+      position: relative !important;
+
+      .notifications {
+        position  : relative !important;
+        background: #5783ac !important;
+
+        ::after {
+          left            : 50% !important;
+          border-top-color: #5783ac !important;
+        }
+
+        .msg-section {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+
+}

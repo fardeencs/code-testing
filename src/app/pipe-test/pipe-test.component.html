@@ -1,0 +1,126 @@
+<form #dataForm="ngForm" id="dataForm">
+
+  <div class="pipe-test-container">
+
+    <div class="main-container">
+
+      <div class="box-container left-container ">
+        <div class="row-align notification-container heading-container">
+          <app-notify message="panelTitle lkfdgdfkhgkldf jhnkljfhnkfjnghlkf jgnblkjfgnkbjfhnlkfkj"
+            icon='account_circle'></app-notify>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="controls-container">
+          <div class="row-align">
+
+            <div class="column-align">
+              <ng-container *ngIf="formErrors?.empNo">
+                <app-notify [message]='formErrors?.empNo'></app-notify>
+              </ng-container>
+              <mat-form-field appearance="outline">
+                <mat-label>Employer Number</mat-label>
+                <input matInput name='empNo' placeholder="Employer Number" numberMask min="0" max="100"
+                  [config]="numberOptions" [(ngModel)]="selectedData.empNo">
+              </mat-form-field>
+            </div>
+
+            <div class="column-align">
+              <mat-form-field class="highlight" id='marks'>
+                <mat-label>Total Marks</mat-label>
+                <input matInput [disabled]="true" name='totalMarks' placeholder="Total Marks" numberMask
+                  [config]="floatOptions" [(ngModel)]="selectedData.totalMarks">
+              </mat-form-field>
+            </div>
+
+            <div class="column-align">
+              <ng-container *ngIf="formErrors?.marksPercentage">
+                <app-notify [message]='formErrors?.marksPercentage'></app-notify>
+              </ng-container>
+              <mat-form-field class="highlight" id='marksPercentage'>
+                <mat-label>Marks %</mat-label>
+                <input matInput name='marksPercentage' placeholder="Marks %" numberMask min="0" max="1"
+                  [config]="percentageOptions" [(ngModel)]="selectedData.marksPercentage">
+              </mat-form-field>
+            </div>
+
+            <div class="column-align">
+              <span>
+                QAR {{selectedData.salary | number:'2.2-2'}}
+              </span>
+            </div>
+
+            <div class="column-align">
+              <ng-container *ngIf="formErrors?.currency">
+                <app-notify [message]='formErrors?.currency'></app-notify>
+              </ng-container>
+              <mat-form-field class="highlight" id='currency'>
+                <mat-label>Currency</mat-label>
+                <input matInput name='currency' placeholder="Currency" numberMask min="100" max="10000"
+                  [config]="currencyOptions" [(ngModel)]="selectedData.currency">
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row-align error-container">
+          <span>Form Erros: &nbsp;&nbsp;</span>
+          <span>{{formErrors | json}}</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="form-value-container">
+          <span>Form Values: &nbsp;&nbsp;</span>
+          <span>{{dataForm.form.value | json}}</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row-align">
+          <div class="numbers" *ngFor="let item of numberList">
+            {{item}}
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="action-container">
+          <div class="row-align">
+            <button [disabled]="dataForm.form.invalid" mat-raised-button color="primary"
+              (click)="actions.onSubmit()">Submit</button>
+            <button mat-mini-fab color="primary">
+              <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
+            </button>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="box-container right-container ">
+        <div class="row-align notification-container heading-container">
+          <app-notify message="Pipe Testing Right Container" icon='account_circle'></app-notify>
+          <!-- <section class="section-notification">
+            <ul class="notifications">
+              <li class="msg-section">
+                <span><i class="material-icons">account_circle</i></span>
+                <span class="heading">
+                  Pipe Testing
+                  Right Container
+                </span>
+              </li>
+            </ul>
+          </section> -->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

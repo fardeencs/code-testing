@@ -38,6 +38,22 @@ import {
 import { TreeviewTableComponent } from './treeview-table/treeview-table.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MultipleObservableComponent } from './multiple-observable/multiple-observable.component';
+import { PipeTestComponent } from './pipe-test/pipe-test.component';
+import { FormatNumberPipe } from './common/pipes/format-number.pipe';
+import { NUMBER_MASK_CONFIG, INumberMaskConfig } from './common/number-mask/contracts';
+import { NumberMaskModule } from './common/number-mask/number-mask.module';
+import { NotifyComponent } from './common/notify/notify.component';
+
+
+export const ICustomNumberMaskConfig: INumberMaskConfig = {
+  align: 'right',
+  allowNegative: true,
+  decimal: '.',
+  precision: 2,
+  prefix: 'QAR ',
+  suffix: '',
+  thousands: ','
+};
 
 // // This array defines which "componentId" maps to which lazy-loaded module.
 // const manifests: DynamicComponentManifest[] = [
@@ -77,7 +93,9 @@ import { MultipleObservableComponent } from './multiple-observable/multiple-obse
       EditablePdfComponent,
       ResponsiveTableComponent,
       SidebarComponent,
-      MultipleObservableComponent
+      MultipleObservableComponent,
+      PipeTestComponent,
+      NotifyComponent
    ],
    imports: [
       BrowserModule,
@@ -90,6 +108,7 @@ import { MultipleObservableComponent } from './multiple-observable/multiple-obse
       KeyFilterModule,
       MaterialModule,
       MaterialGridModule,
+      NumberMaskModule
       //DynamicComponentLoaderModule.forRoot(manifests)
    ],
    exports: [],
@@ -98,7 +117,9 @@ import { MultipleObservableComponent } from './multiple-observable/multiple-obse
    ],
    providers: [
       //overrideRenderFactory(),
-      AppService
+      AppService,
+      FormatNumberPipe,
+      { provide: NUMBER_MASK_CONFIG, useValue: ICustomNumberMaskConfig }
    ],
    schemas: [
       CUSTOM_ELEMENTS_SCHEMA
