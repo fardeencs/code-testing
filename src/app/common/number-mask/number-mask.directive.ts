@@ -39,9 +39,9 @@ export class NumberMaskDirective implements AfterViewInit, ControlValueAccessor,
         thousands: ','
     };
 
-    constructor(@Optional() @Inject(NUMBER_MASK_CONFIG) private currencyMaskConfig: INumberMaskConfig, private elementRef: ElementRef, private keyValueDiffers: KeyValueDiffers) {
-        if (currencyMaskConfig) {
-            this.optionsTemplate = currencyMaskConfig;
+    constructor(@Optional() @Inject(NUMBER_MASK_CONFIG) private numberMaskConfig: INumberMaskConfig, private elementRef: ElementRef, private keyValueDiffers: KeyValueDiffers) {
+        if (numberMaskConfig) {
+            this.optionsTemplate = numberMaskConfig;
         }
 
         this.keyValueDiffer = keyValueDiffers.find({}).create();

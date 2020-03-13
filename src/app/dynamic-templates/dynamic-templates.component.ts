@@ -17,6 +17,9 @@ import { ElementLoaderService } from '../common/services/element-loader.service'
 import { LoadingService } from '../common/loading.service';
 import { PopupComponent } from '../common/popup/popup.component';
 import { IComponetProperties, IFactoryCompoent, ILoader } from '../models/model-and-interface';
+import { INumberMaskConfig } from '../common/number-mask/contracts';
+import { cloneDeep } from 'lodash';
+import { HelperUtility } from '../pipe-test/helper.util';
 
 export interface IPanelInformation {
   name: string;
@@ -40,6 +43,8 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
   // information: IPanelInformation;
   selectedData: IPanelInformation;
   startTime: number;
+  baseOptions: INumberMaskConfig;
+  numberOptions: INumberMaskConfig;
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
   @ViewChild('informationTmpl', { static: false }) informationTmpl: TemplateRef<any>;
@@ -52,6 +57,13 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
     private loadingService: LoadingService,
     private elementLoaderService: ElementLoaderService,
     @Inject(DOCUMENT) private document: Document) {
+    this.baseOptions = cloneDeep(HelperUtility.getNumberMaskBaseOption());
+    this.numberOptions = {
+      ...this.baseOptions,
+      decimal: '.',
+      precision: 2,
+      suffix: '%'
+    };
     this.selectedData = {
       ...this.selectedData,
       name: this.getRandomNumber(50000, 5000000).toString(),

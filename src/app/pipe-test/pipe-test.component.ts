@@ -3,8 +3,9 @@ import { FormatNumberPipe } from '../common/pipes/format-number.pipe';
 import { INumberMaskConfig } from '../common/number-mask/contracts';
 import { NgForm, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '../common/base.component';
-import { PipeTestHelper } from './pipe-test.helper';
+
 import { cloneDeep } from 'lodash';
+import { HelperUtility } from './helper.util';
 
 @Component({
   selector: 'app-pipe-test',
@@ -30,7 +31,7 @@ export class PipeTestComponent extends BaseComponent implements OnInit {
     private readonly formatNumber: FormatNumberPipe,
   ) {
     super();
-    this.baseOptions = cloneDeep(PipeTestHelper.getNumberMaskBaseOption());
+    this.baseOptions = cloneDeep(HelperUtility.getNumberMaskBaseOption());
     this.currencyOptions = {
       ...this.baseOptions,
       decimal: '.',
@@ -53,7 +54,7 @@ export class PipeTestComponent extends BaseComponent implements OnInit {
       totalMarks: 458965278,
       salary: 168796
     };
-    this.validationMessages = PipeTestHelper.setValidationMessages();
+    this.validationMessages = HelperUtility.setValidationMessages();
   }
 
   private formatNumbers(): number[] {
@@ -69,8 +70,8 @@ export class PipeTestComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataForm.form = PipeTestHelper.setValidationRules(this.fb);
-    this.valueChanges(this.dataForm.form);
+    this.dataForm.form = HelperUtility.setValidationRules(this.fb);
+    this.valueChanges(this.dataForm.form, false);
     this.formatNumbers();
   }
 

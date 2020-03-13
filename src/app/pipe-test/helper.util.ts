@@ -1,7 +1,7 @@
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { INumberMaskConfig } from '../common/number-mask/contracts';
 
-export class PipeTestHelper {
+export class HelperUtility {
 
 
   static setValidationMessages(): any {

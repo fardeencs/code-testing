@@ -125,6 +125,8 @@
     <td>
       <input type="text" name='text-box-{{ind}}-{{gridId}}'
         class="text-box-{{ind}}-{{gridId}}"
+        numberMask min="0" max="1"
+        [config]="numberOptions"
         [(ngModel)]="element[column.field]"
         (blur)='onBlur(element, column, ind)' />
     </td>
