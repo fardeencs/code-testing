@@ -20,6 +20,7 @@ import { IComponetProperties, IFactoryCompoent, ILoader } from '../models/model-
 import { INumberMaskConfig } from '../common/number-mask/contracts';
 import { cloneDeep } from 'lodash';
 import { HelperUtility } from '../pipe-test/helper.util';
+import { DEFAULT_MASKS } from '../directive/KeyFilter';
 
 export interface IPanelInformation {
   name: string;
@@ -45,6 +46,11 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
   startTime: number;
   baseOptions: INumberMaskConfig;
   numberOptions: INumberMaskConfig;
+  blockSpace: RegExp = /[^\s]/;
+  twoDigit: RegExp = /^0*(?:[1-9][0-9]?|100)$/;
+  twoDigit2: RegExp = /^(0|[1-9][0-9]?|100)$/;
+  twoDigit3: RegExp = /^0*(0|[1-9][0-9]?|100)$/;
+  defaultmasks = DEFAULT_MASKS;
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
   @ViewChild('informationTmpl', { static: false }) informationTmpl: TemplateRef<any>;
