@@ -43,6 +43,8 @@ import { FormatNumberPipe } from './common/pipes/format-number.pipe';
 import { NUMBER_MASK_CONFIG, INumberMaskConfig } from './common/number-mask/contracts';
 import { NumberMaskModule } from './common/number-mask/number-mask.module';
 import { NotifyComponent } from './common/notify/notify.component';
+import { AppRoutingModule } from './app.routing.module';
+// import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 export const ICustomNumberMaskConfig: INumberMaskConfig = {
@@ -108,7 +110,8 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
       KeyFilterModule,
       MaterialModule,
       MaterialGridModule,
-      NumberMaskModule
+      NumberMaskModule,
+      AppRoutingModule,
       //DynamicComponentLoaderModule.forRoot(manifests)
    ],
    exports: [],
