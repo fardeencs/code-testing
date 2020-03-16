@@ -13,37 +13,37 @@ export const MENUS: Array<IMenuList> = [
     label: 'Dynamic NG_Content',
     path: 'dynamic-template',
     icon: 'fa-file-image-o',
-    svgUrl: 'template.svg'
+    svgUrl: 'template'
   },
   {
     label: 'Pipe Test',
     path: 'pipe-test',
     icon: 'fa-camera-retro',
-    svgUrl: 'pipe.svg'
+    svgUrl: 'pipe'
   },
   {
     label: 'SVG Icons',
     path: 'svg-icons',
     icon: 'fa-picture-o',
-    svgUrl: 'svgicon.svg'
+    svgUrl: 'svgicon'
   },
   {
     label: 'Spinner',
     path: 'spinner',
     icon: 'fa-picture-o',
-    svgUrl: 'spinner.svg'
+    svgUrl: 'spinner'
   },
   {
     label: 'Flex Tables',
     path: 'flex-table',
     icon: 'fa-picture-o',
-    svgUrl: 'table.svg'
+    svgUrl: 'table'
   },
   {
     label: 'HTML Treeview Table',
     path: 'html-treeview-table',
     icon: 'fa-picture-o',
-    svgUrl: 'treeview.svg'
+    svgUrl: 'treeview'
   }
 ];
 
