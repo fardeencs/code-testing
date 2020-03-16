@@ -32,8 +32,10 @@
 
       <ng-container *ngFor="let item of menuList">
         <li class="nav-item">
-          <a href="#" class="nav-link" [routerLink]="['/'+ item.path +'']">
-            <i class="fa " [ngClass]="item.icon"></i>
+          <a href="#" class="nav-link" [routerLink]="['/'+ item.path +'']"
+          routerLinkActive="active-link">
+            <!-- <i class="fa " [ngClass]="item.icon"></i> -->
+            <svg-icon [src]="item.svgUrl" class="white"></svg-icon>
             <span class="link-text">{{item.label}}</span>
           </a>
         </li>

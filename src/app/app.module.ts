@@ -49,6 +49,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { SvgIconModule } from './common/svg2/svg-icon.module';
 // import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { GenricSvgTestComponent } from './genric-svg-test/genric-svg-test.component';
+import { AllFlexTableComponent } from './all-flex-table/all-flex-table.component';
 
 
 export const ICustomNumberMaskConfig: INumberMaskConfig = {
@@ -102,16 +103,16 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
       MultipleObservableComponent,
       PipeTestComponent,
       NotifyComponent,
-      // SvgComponent,
-      // SvgDefinitionsComponent,
-      GenricSvgTestComponent
+      //SvgComponent,
+      //SvgDefinitionsComponent,
+      GenricSvgTestComponent,
+      AllFlexTableComponent
    ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
       NoopAnimationsModule,
-      //DynamicComponentLoaderModule.forRoot(manifests)
-      CommonModule,
+      //DynamicComponentLoaderModule.forRoot(manifests)\nCommonModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,

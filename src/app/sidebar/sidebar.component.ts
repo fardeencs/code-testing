@@ -3,26 +3,48 @@ import { Component, OnInit } from '@angular/core';
 export interface IMenuList {
   label: string;
   path: string;
-  icon: string;
+  icon?: string;
+  svgUrl?: string;
 
 }
 
 export const MENUS: Array<IMenuList> = [
   {
-    label: 'Dynamic Template',
+    label: 'Dynamic NG_Content',
     path: 'dynamic-template',
-    icon: 'fa-file-image-o'
+    icon: 'fa-file-image-o',
+    svgUrl: 'assets/svgs/template.svg'
   },
   {
     label: 'Pipe Test',
     path: 'pipe-test',
-    icon: 'fa-camera-retro'
+    icon: 'fa-camera-retro',
+    svgUrl: 'assets/svgs/pipe.svg'
   },
   {
     label: 'SVG Icons',
     path: 'svg-icons',
-    icon: 'fa-picture-o'
+    icon: 'fa-picture-o',
+    svgUrl: 'assets/svgs/svgicon.svg'
   },
+  {
+    label: 'Spinner',
+    path: 'spinner',
+    icon: 'fa-picture-o',
+    svgUrl: 'assets/svgs/spinner.svg'
+  },
+  {
+    label: 'Flex Tables',
+    path: 'flex-table',
+    icon: 'fa-picture-o',
+    svgUrl: 'assets/svgs/table.svg'
+  },
+  {
+    label: 'HTML Treeview Table',
+    path: 'html-treeview-table',
+    icon: 'fa-picture-o',
+    svgUrl: 'assets/svgs/treeview.svg'
+  }
 ];
 
 @Component({

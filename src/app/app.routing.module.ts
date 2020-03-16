@@ -3,8 +3,15 @@ import { NgModule } from '@angular/core';
 import { DynamicTemplatesComponent } from './dynamic-templates/dynamic-templates.component';
 import { PipeTestComponent } from './pipe-test/pipe-test.component';
 import { GenricSvgTestComponent } from './genric-svg-test/genric-svg-test.component';
+import { SpinnerComponent } from './animations/spinner/spinner.component';
+import { AllFlexTableComponent } from './all-flex-table/all-flex-table.component';
+import { HtmlTreeViewComponent } from './html-tree-view/html-tree-view.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: DynamicTemplatesComponent
+  },
   {
     path: 'dynamic-template',
     component: DynamicTemplatesComponent
@@ -16,6 +23,18 @@ export const routes: Routes = [
   {
     path: 'svg-icons',
     component: GenricSvgTestComponent
+  },
+  {
+    path: 'spinner',
+    component: SpinnerComponent
+  },
+  {
+    path: 'flex-table',
+    component: AllFlexTableComponent
+  },
+  {
+    path: 'html-treeview-table',
+    component: HtmlTreeViewComponent
   }
 ];
 
