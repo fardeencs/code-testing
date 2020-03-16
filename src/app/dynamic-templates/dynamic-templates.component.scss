@@ -6,9 +6,11 @@ $header-bg          : #1565C0;
 $heighlighted-color : #faffbb;
 
 .row-align {
-  display        : flex;
-  justify-content: space-between;
-  // align-items : center;
+  display         : -webkit-box;
+  display         : flex;
+  -webkit-box-pack: justify;
+  justify-content : space-between;
+  // align-items  : center;
 }
 
 @mixin boxshadow {
@@ -24,42 +26,57 @@ $heighlighted-color : #faffbb;
 .dynamic-template-container {
 
   .main-container {
-    display        : flex;
-    justify-content: space-between;
-    flex-wrap      : wrap;
-    flex-direction : row;
+    display              : -webkit-box;
+    display              : flex;
+    -webkit-box-pack     : justify;
+    justify-content      : space-between;
+    flex-wrap            : wrap;
+    -webkit-box-orient   : horizontal;
+    -webkit-box-direction: normal;
+    flex-direction       : row;
   }
 
   .left-container {
-    display             : flex;
-    flex-direction      : column;
-    // flex             : 1 1 70%;
-    margin              : 0 2rem;
-    // flex             : 1;
-    flex                : 1;
+    display              : -webkit-box;
+    display              : flex;
+    -webkit-box-orient   : vertical;
+    -webkit-box-direction: normal;
+    flex-direction       : column;
+    // flex              : 1 1 70%;
+    margin               : 0 2rem;
+    // flex              : 1;
+    -webkit-box-flex     : 1;
+    flex                 : 1;
   }
 
   .right-container {
-    display          : flex;
-    flex-direction   : column;
-    // flex          : 1 1 20%;
-    margin           : 0 2rem;
-    flex             : 1;
+    display              : -webkit-box;
+    display              : flex;
+    -webkit-box-orient   : vertical;
+    -webkit-box-direction: normal;
+    flex-direction       : column;
+    // flex              : 1 1 20%;
+    margin               : 0 2rem;
+    -webkit-box-flex     : 1;
+    flex                 : 1;
     @include div-container;
-    .display-info{
+
+    .display-info {
       *::-webkit-scrollbar {
         // width: 0.25rem;
-        height: 0.30rem;
-        cursor: pointer;
+        height  : 0.30rem;
+        cursor  : pointer;
       }
+
       *::-webkit-scrollbar-track {
         background: #fff;
       }
+
       *::-webkit-scrollbar-thumb {
-        background: #a8a8a8;
-        border-radius: 10px;
-        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background        : #a8a8a8;
+        border-radius     : 10px;
+        box-shadow        : inset 0 0 6px rgba(0, 0, 0, .3);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
       }
     }
   }
@@ -76,7 +93,6 @@ $heighlighted-color : #faffbb;
     position        : sticky;
     position        : -webkit-sticky;
     background-color: white;
-    // box-shadow   : 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
   }
 
   .first-col {
@@ -84,9 +100,6 @@ $heighlighted-color : #faffbb;
     min-width          : 120px;
     max-width          : 120px;
     left               : 0px;
-    // background-color: #cccccc;
-    // &td             :nth-child(even){background-color: #d2f376;}
-
   }
 
   .second-col {
@@ -120,6 +133,7 @@ $heighlighted-color : #faffbb;
     tbody {
       min-height: 100px;
       max-height: 400px;
+
       tr:nth-child(even) {
         background-color: #efefef !important;
       }
@@ -170,12 +184,12 @@ $heighlighted-color : #faffbb;
 
   .table-scroll th,
   .table-scroll td {
-    padding       : 5px 10px;
-    border        : 1px solid #c0c0c0;
-    // background :#fff;
-    white-space   : nowrap;
+    padding          : 5px 10px;
+    border           : 1px solid #c0c0c0;
+    // background    :#fff;
+    white-space      : nowrap;
     // vertical-align: top;
-    // z-index    : 99 !important;
+    // z-index       : 99 !important;
   }
 
   .table-scroll thead,
@@ -200,36 +214,26 @@ $heighlighted-color : #faffbb;
   // }
 
   .flash {
-    -moz-transition      : all 0.5s ease-in-out;
     -webkit-transition   : all 0.5s ease-in-out;
-    -o-transition        : all 0.5s ease-in-out;
-    -ms-transition       : all 0.5s ease-in-out;
     transition           : all 0.5s ease-in-out;
     // -moz-animation    : flash 0.6s cubic-bezier(1, -0.7, 0, 1.68) 3;
     // /* Firefox */
     // -webkit-animation: flash 0.6s cubic-bezier(1, -0.7, 0, 1.68) 3;
     // /* Webkit */
     // -ms-animation: flash 0.6s cubic-bezier(1, -0.7, 0, 1.68) 3;
-    -moz-animation  : flash 0.6s ease-in-out 2;
     /* Firefox */
     -webkit-animation: flash 0.6s ease-in-out 2;
     /* Webkit */
-    -ms-animation: flash 0.6s ease-in-out 2;
-    animation    : flash 0.6s ease-in-out 2;
+    animation: flash 0.6s ease-in-out 2;
   }
 
   .blink {
     @include boxshadow;
-    -moz-transition   : all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
-    -o-transition     : all 0.5s ease-in-out;
-    -ms-transition    : all 0.5s ease-in-out;
     transition        : all 0.5s ease-in-out;
-    -moz-animation    : blink 0.6s linear 2;
     // /* Firefox */
     -webkit-animation: blink 0.6s linear 2;
     // /* Webkit */
-    -ms-animation: blink 0.6s linear 2;
     // /* IE */
     // animation: blink normal 1.5s 2 ease-in-out;
     /* Opera */
@@ -255,6 +259,7 @@ $heighlighted-color : #faffbb;
       height                     : 20px;
       padding                    : 0;
       flex-shrink                : 0;
+      -webkit-transition         : background .4s cubic-bezier(.25, .8, .25, 1), box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
       transition                 : background .4s cubic-bezier(.25, .8, .25, 1), box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
       box-sizing                 : border-box;
       // position                : relative;
@@ -277,10 +282,11 @@ $heighlighted-color : #faffbb;
       font-weight                : 500;
 
       .btn-wrapper {
-        // padding  : 8px 0;
-        display     : inline-block;
-        // transform: translate3d(0,0,0);
-        transform   : scale(1.5) rotate(36deg);
+        // padding       : 8px 0;
+        display          : inline-block;
+        // transform     : translate3d(0,0,0);
+        -webkit-transform: scale(1.5) rotate(36deg);
+        transform        : scale(1.5) rotate(36deg);
       }
     }
 
@@ -301,43 +307,29 @@ $heighlighted-color : #faffbb;
     }
 
     .btn-overlay {
-      background-color: rgba(0, 0, 0, .12);
-      border-radius   : inherit;
-      opacity         : 0;
-      transition      : opacity .2s cubic-bezier(.35, 0, .25, 1), background-color .2s cubic-bezier(.35, 0, .25, 1);
+      background-color  : rgba(0, 0, 0, .12);
+      border-radius     : inherit;
+      opacity           : 0;
+      -webkit-transition: opacity .2s cubic-bezier(.35, 0, .25, 1), background-color .2s cubic-bezier(.35, 0, .25, 1);
+      transition        : opacity .2s cubic-bezier(.35, 0, .25, 1), background-color .2s cubic-bezier(.35, 0, .25, 1);
     }
 
   }
 
   .information-container {
     @include div-container;
-    //           ::ng-deep .mat-focused .mat-form-field-label {
-    //   /*change color of label*/
-    //   color: green !important;
-    //  }
-
-    //  ::ng-deep.mat-form-field-underline {
-    //   /*change color of underline*/
-    //   background-color: green !important;
-    // }
-
-    // ::ng-deep.mat-form-field-ripple {
-    //  /*change color of underline when focused*/
-    //  background-color: green !important;;
-    // }
-  }
-
-  .res-tbl-container {
-    // @include div-container
   }
 
   .hinge {
     @include boxshadow;
-    animation-duration: 1s;
-    animation-name    : hinge;
-    animation-delay   : 0.3s;
-    // z-index        : 99999999;
-    // background-color:
+    -webkit-animation-duration: 1s;
+    animation-duration        : 1s;
+    -webkit-animation-name    : hinge;
+    animation-name            : hinge;
+    -webkit-animation-delay   : 0.3s;
+    animation-delay           : 0.3s;
+    // z-index                : 99999999;
+    // background-color       :
   }
 
   .mfp-with-fade {
@@ -345,8 +337,9 @@ $heighlighted-color : #faffbb;
     // before-open state
     .mfp-content,
     &.mfp-bg {
-      opacity   : 0;
-      transition: opacity .5s ease-out;
+      opacity           : 0;
+      -webkit-transition: opacity .5s ease-out;
+      transition        : opacity .5s ease-out;
     }
 
     // open state
@@ -395,10 +388,10 @@ $heighlighted-color : #faffbb;
     position               : relative;
     text-indent            : -9999em;
     -webkit-transform      : translateZ(0);
-    -ms-transform          : translateZ(0);
     transform              : translateZ(0);
     -webkit-animation-delay: -0.16s;
     animation-delay        : -0.16s;
+    -webkit-transform      : scale(.5);
     transform              : scale(.5);
   }
 
@@ -453,51 +446,95 @@ $heighlighted-color : #faffbb;
 
 */
 
-  @keyframes hinge {
+  @-webkit-keyframes hinge {
     0% {
-      transform                : rotate(0);
-      transform-origin         : top left;
-      animation-timing-function: ease-in-out;
+      -webkit-transform                : rotate(0);
+      transform                        : rotate(0);
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
     }
 
     20%,
     60% {
-      transform                : rotate(80deg);
-      transform-origin         : top left;
-      animation-timing-function: ease-in-out;
+      -webkit-transform                : rotate(80deg);
+      transform                        : rotate(80deg);
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
     }
 
     40% {
-      transform                : rotate(60deg);
-      transform-origin         : top left;
-      animation-timing-function: ease-in-out;
+      -webkit-transform                : rotate(60deg);
+      transform                        : rotate(60deg);
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
     }
 
     80% {
-      transform                : rotate(60deg) translateY(0);
-      opacity                  : 1;
-      transform-origin         : top left;
-      animation-timing-function: ease-in-out;
+      -webkit-transform                : rotate(60deg) translateY(0);
+      transform                        : rotate(60deg) translateY(0);
+      opacity                          : 1;
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
     }
 
     100% {
-      transform: translateY(700px);
-      opacity  : 0;
+      -webkit-transform: translateY(700px);
+      transform        : translateY(700px);
+      opacity          : 0;
     }
   }
 
-  @-moz-keyframes blink {
+  @keyframes hinge {
     0% {
-      opacity: 1;
+      -webkit-transform                : rotate(0);
+      transform                        : rotate(0);
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
     }
 
-    50% {
-      opacity : 0.5;
-      // color: #f8ff9c;
+    20%,
+    60% {
+      -webkit-transform                : rotate(80deg);
+      transform                        : rotate(80deg);
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
+    }
+
+    40% {
+      -webkit-transform                : rotate(60deg);
+      transform                        : rotate(60deg);
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
+    }
+
+    80% {
+      -webkit-transform                : rotate(60deg) translateY(0);
+      transform                        : rotate(60deg) translateY(0);
+      opacity                          : 1;
+      -webkit-transform-origin         : top left;
+      transform-origin                 : top left;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function        : ease-in-out;
     }
 
     100% {
-      opacity: 1;
+      -webkit-transform: translateY(700px);
+      transform        : translateY(700px);
+      opacity          : 0;
     }
   }
 
@@ -517,19 +554,6 @@ $heighlighted-color : #faffbb;
   }
 
   /* Webkit */
-  @-ms-keyframes blink {
-    0% {
-      opacity: 1;
-    }
-
-    50% {
-      opacity: 0.5;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
 
   /* IE */
   @keyframes blink {
@@ -548,6 +572,29 @@ $heighlighted-color : #faffbb;
   }
 
   /* Opera */
+
+  @-webkit-keyframes flash {
+    0% {
+      opacity: 0;
+      color  : #4c64d3;
+    }
+
+    50% {
+      opacity  : .5;
+      font-size: 105%;
+      text-shadow: 0px 3px 0px #b2a98f,
+        0px 14px 10px rgba(0, 0, 0, 0.15),
+        0px 24px 2px rgba(0, 0, 0, 0.1),
+        0px 34px 30px rgba(0, 0, 0, 0.1);
+      color: #4c64d3;
+    }
+
+    100% {
+      opacity  : 1;
+      color    : #000000;
+      font-size: 100%
+    }
+  }
 
   @keyframes flash {
     0% {

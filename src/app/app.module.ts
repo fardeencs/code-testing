@@ -44,7 +44,11 @@ import { NUMBER_MASK_CONFIG, INumberMaskConfig } from './common/number-mask/cont
 import { NumberMaskModule } from './common/number-mask/number-mask.module';
 import { NotifyComponent } from './common/notify/notify.component';
 import { AppRoutingModule } from './app.routing.module';
+// import { SvgDefinitionsComponent } from './common/svg/svg-definitions/svg-definitions.component';
+// import { SvgComponent } from './common/svg/svg.component';
+import { SvgIconModule } from './common/svg2/svg-icon.module';
 // import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { GenricSvgTestComponent } from './genric-svg-test/genric-svg-test.component';
 
 
 export const ICustomNumberMaskConfig: INumberMaskConfig = {
@@ -97,12 +101,16 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
       SidebarComponent,
       MultipleObservableComponent,
       PipeTestComponent,
-      NotifyComponent
+      NotifyComponent,
+      // SvgComponent,
+      // SvgDefinitionsComponent,
+      GenricSvgTestComponent
    ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
       NoopAnimationsModule,
+      //DynamicComponentLoaderModule.forRoot(manifests)
       CommonModule,
       HttpClientModule,
       FormsModule,
@@ -112,7 +120,7 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
       MaterialGridModule,
       NumberMaskModule,
       AppRoutingModule,
-      //DynamicComponentLoaderModule.forRoot(manifests)
+      SvgIconModule.forRoot()
    ],
    exports: [],
    bootstrap: [
@@ -121,8 +129,7 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
    providers: [
       //overrideRenderFactory(),
       AppService,
-      FormatNumberPipe,
-      { provide: NUMBER_MASK_CONFIG, useValue: ICustomNumberMaskConfig }
+      FormatNumberPipe
    ],
    schemas: [
       CUSTOM_ELEMENTS_SCHEMA

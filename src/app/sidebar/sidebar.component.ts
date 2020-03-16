@@ -18,6 +18,11 @@ export const MENUS: Array<IMenuList> = [
     path: 'pipe-test',
     icon: 'fa-camera-retro'
   },
+  {
+    label: 'SVG Icons',
+    path: 'svg-icons',
+    icon: 'fa-picture-o'
+  },
 ];
 
 @Component({
