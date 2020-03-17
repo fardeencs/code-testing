@@ -6,6 +6,7 @@ import { GenricSvgTestComponent } from './genric-svg-test/genric-svg-test.compon
 import { SpinnerComponent } from './animations/spinner/spinner.component';
 import { AllFlexTableComponent } from './all-flex-table/all-flex-table.component';
 import { HtmlTreeViewComponent } from './html-tree-view/html-tree-view.component';
+import { MaterialGridComponent } from './material-grid/material-grid.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,10 @@ export const routes: Routes = [
   {
     path: 'html-treeview-table',
     component: HtmlTreeViewComponent
+  },
+  {
+    path: 'material-grid',
+    component: MaterialGridComponent
   }
 ];
 

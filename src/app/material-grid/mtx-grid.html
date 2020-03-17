@@ -1,0 +1,453 @@
+{
+    "__symbolic":"module",
+    "version":4,
+    "metadata": {
+        "MtxDataGridModule": {
+            "__symbolic":"class",
+            "decorators":[ {
+                "__symbolic":"call",
+                "expression": {
+                    "__symbolic": "reference", "module": "@angular/core", "name": "NgModule", "line": 19, "character": 1
+                }
+                ,
+                "arguments":[ {
+                    "imports":[ {
+                        "__symbolic": "reference", "module": "@angular/common", "name": "CommonModule", "line": 21, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatTableModule", "line": 22, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatSortModule", "line": 23, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatPaginatorModule", "line": 24, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatCheckboxModule", "line": 25, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatButtonModule", "line": 26, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatProgressBarModule", "line": 27, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatChipsModule", "line": 28, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatTooltipModule", "line": 29, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@angular/material", "name": "MatIconModule", "line": 30, "character": 4
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "module": "@ng-matero/extensions/dialog", "name": "MtxDialogModule", "line": 31, "character": 4
+                    }
+                    ],
+                    "exports":[ {
+                        "__symbolic": "reference", "name": "MtxDataGridComponent"
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "name": "MtxDataGridCellComponent"
+                    }
+                    ],
+                    "declarations":[ {
+                        "__symbolic": "reference", "name": "MtxDataGridComponent"
+                    }
+                    ,
+                    {
+                        "__symbolic": "reference", "name": "MtxDataGridCellComponent"
+                    }
+                    ]
+                }
+                ]
+            }
+            ],
+            "members": {}
+        }
+        ,
+        "MtxDataGridComponent": {
+            "__symbolic":"class",
+            "decorators":[ {
+                "__symbolic":"call",
+                "expression": {
+                    "__symbolic": "reference", "module": "@angular/core", "name": "Component", "line": 15, "character": 1
+                }
+                ,
+                "arguments":[ {
+                    "selector":"mtx-grid",
+                    "exportAs":"mtxGrid",
+                    "host": {
+                        "class": "mtx-data-grid"
+                    }
+                    ,
+                    "encapsulation": {
+                        "__symbolic":"select",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "ViewEncapsulation", "line": 23, "character": 17
+                        }
+                        ,
+                        "member":"None"
+                    }
+                    ,
+                    "changeDetection": {
+                        "__symbolic":"select",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "ChangeDetectionStrategy", "line": 24, "character": 19
+                        }
+                        ,
+                        "member":"OnPush"
+                    }
+                    ,
+                    "template":"<!-- Progress Bar-->\n<mat-progress-bar mode=\"indeterminate\" *ngIf=\"loading\"></mat-progress-bar>\n<!-- Main Table -->\n<div class=\"mtx-data-grid-content\">\n  <table mat-table [dataSource]=\"dataSource\" matSort (matSortChange)=\"handleSortChange($event)\">\n\n    <ng-container *ngFor=\"let col of columns; let c=index;\">\n      <ng-container [matColumnDef]=\"col.index\"\n                    [sticky]=\"col.fixed==='left'\"\n                    [stickyEnd]=\"col.fixed==='right'\">\n\n        <th mat-header-cell\n            *matHeaderCellDef\n            [ngClass]=\"{'mat-table-sticky-left':col.fixed==='left','mat-table-sticky-right':col.fixed==='right'}\"\n            [ngStyle]=\"{'width':col.width,'min-width':col.width}\"\n            mat-sort-header [disabled]=\"!col.sort\">\n\n          <mat-checkbox *ngIf=\"col.type==='checkbox'\"\n                        (change)=\"$event ? masterToggle() : null\"\n                        [checked]=\"selection.hasValue() && isAllSelected()\"\n                        [indeterminate]=\"selection.hasValue() && !isAllSelected()\">\n          </mat-checkbox>\n\n          <span *ngIf=\"col.type!=='checkbox'\">{{col.title}}</span>\n\n        </th>\n        <td mat-cell\n            *matCellDef=\"let row; let r=index;\"\n            [ngClass]=\"{'mat-table-sticky-left':col.fixed==='left','mat-table-sticky-right':col.fixed==='right'}\"\n            [ngStyle]=\"{'width':col.width,'min-width':col.width}\">\n\n          <mat-checkbox *ngIf=\"col.type==='checkbox'\"\n                        (click)=\"$event.stopPropagation()\"\n                        (change)=\"$event ? singleToggle(row) : null\"\n                        [checked]=\"selection.isSelected(row)\">\n          </mat-checkbox>\n\n          <mtx-grid-cell *ngIf=\"col.type!=='checkbox'\"\n                         [data]=\"row\"\n                         [col]=\"col\">\n          </mtx-grid-cell>\n\n        </td>\n\n      </ng-container>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>\n<!-- Paginator -->\n<mat-paginator [showFirstLastButtons]=\"showFirstLastButtons\"\n               [length]=\"length\"\n               [pageIndex]=\"pageIndex\"\n               [pageSize]=\"pageSize\"\n               [pageSizeOptions]=\"pageSizeOptions\"\n               [hidePageSize]=\"hidePageSize\"\n               (page)=\"page.emit($event)\"\n               [disabled]=\"pageDisabled\">\n</mat-paginator>\n",
+                    "styles":[".mtx-data-grid{position:relative;display:block}.mtx-data-grid .mat-table{width:100%}.mtx-data-grid .mat-progress-bar{position:absolute;top:0;z-index:109}.mtx-data-grid .mtx-data-grid-content{max-width:100%;max-height:80vh;overflow:auto}.mtx-data-grid .mat-cell,.mtx-data-grid .mat-footer-cell,.mtx-data-grid .mat-header-cell{min-width:80px;padding:0 10px;box-sizing:border-box}.mtx-data-grid .mat-cell:first-of-type,.mtx-data-grid .mat-cell:last-of-type,.mtx-data-grid .mat-footer-cell:first-of-type,.mtx-data-grid .mat-footer-cell:last-of-type,.mtx-data-grid .mat-header-cell:first-of-type,.mtx-data-grid .mat-header-cell:last-of-type{box-sizing:content-box}.mtx-data-grid .mat-table-sticky-left{border-right:1px solid #e0e0e0}[dir=rtl] .mtx-data-grid .mat-table-sticky-left{border-right-width:0;border-left:1px solid #e0e0e0}.mtx-data-grid .mat-table-sticky-right{border-left:1px solid #e0e0e0}[dir=rtl] .mtx-data-grid .mat-table-sticky-right{border-left-width:0;border-right:1px solid #e0e0e0}.mtx-data-grid .mat-paginator{border-top:1px solid #e0e0e0}.mtx-data-grid .mat-cell img{width:30px;border-radius:4px;cursor:pointer}.mtx-data-grid .mat-checkbox{display:flex}"]
+                }
+                ]
+            }
+            ],
+            "members": {
+                "columns":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 27, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "data":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 29, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "sum":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 31, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "length":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 33, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "loading":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 35, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "tooltip":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 38, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "frontPage":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 41, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "paginator":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "ViewChild", "line": 43, "character": 3
+                        }
+                        ,
+                        "arguments":[ {
+                            "__symbolic": "reference", "module": "@angular/material", "name": "MatPaginator", "line": 43, "character": 13
+                        }
+                        ,
+                        {
+                            "static": true
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ],
+                "showPager":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 45, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "pageDisabled":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 47, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "showFirstLastButtons":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 49, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "pageIndex":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 51, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "pageSize":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 53, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "pageSizeOptions":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 55, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "hidePageSize":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 57, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "page":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Output", "line": 59, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "sortChange":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Output", "line": 61, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "selectionChange":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Output", "line": 63, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "__ctor__":[ {
+                    "__symbolic": "constructor"
+                }
+                ],
+                "ngOnInit":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "ngOnChanges":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "handleSortChange":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "isAllSelected":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "masterToggle":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "singleToggle":[ {
+                    "__symbolic": "method"
+                }
+                ]
+            }
+        }
+        ,
+        "MtxDataGridCellComponent": {
+            "__symbolic":"class",
+            "decorators":[ {
+                "__symbolic":"call",
+                "expression": {
+                    "__symbolic": "reference", "module": "@angular/core", "name": "Component", "line": 5, "character": 1
+                }
+                ,
+                "arguments":[ {
+                    "selector": "mtx-grid-cell", "exportAs": "mtxGridCell", "template": "<!-- Editable Cell -->\n<ng-container *ngIf=\"col.edit; else uneditTpl\"></ng-container>\n\n<!-- Uneditable Cell -->\n<ng-template #uneditTpl>\n  <div [ngSwitch]=\"col.type\">\n    <!-- Tag -->\n    <ng-container *ngSwitchCase=\"'tag'\">\n      <mat-chip-list *ngIf=\"col.tag[colValue]; else tagEmptyTpl\">\n        <mat-chip color=\"primary\" [ngClass]=\"['bg-' + col.tag[colValue].color]\">\n          {{col.tag[colValue].text}}\n        </mat-chip>\n      </mat-chip-list>\n      <ng-template #tagEmptyTpl>{{colValue}}</ng-template>\n    </ng-container>\n    <!-- Image -->\n    <ng-container *ngSwitchCase=\"'img'\">\n      <img class=\"img\" [src]=\"colValue\" (click)=\"preview(colValue)\">\n    </ng-container>\n    <!-- Link -->\n    <ng-container *ngSwitchCase=\"'link'\">\n      <a [href]=\"colValue\" target=\"_blank\">{{colValue}}</a>\n    </ng-container>\n    <!-- Buttons -->\n    <ng-container *ngSwitchCase=\"'button'\">\n      <ng-container *ngFor=\"let btn of col.buttons; index as i; last as isLast;\">\n        <ng-container *ngIf=\"!btn.iif || btn.iif(data)\">\n          <button *ngIf=\"btn.pop; else btnDefaultTpl\"\n                  mat-icon-button\n                  [color]=\"btn.color || 'primary'\"\n                  [matTooltip]=\"btn.tooltip\"\n                  (click)=\"confirm(btn.popTitle, btn.click, data)\">\n            <mat-icon class=\"icon-18\">{{btn.icon}}</mat-icon>\n          </button>\n          <ng-template #btnDefaultTpl>\n            <button mat-icon-button\n                    [color]=\"btn.color || 'primary'\"\n                    [matTooltip]=\"btn.tooltip\"\n                    (click)=\"btn.click(data)\">\n              <mat-icon class=\"icon-18\">{{btn.icon}}</mat-icon>\n            </button>\n          </ng-template>\n        </ng-container>\n      </ng-container>\n    </ng-container>\n    <!-- Format -->\n    <ng-container *ngSwitchCase=\"'format'\">\n      <span [innerHTML]=\"col.format(data) || '--'\"></span>\n    </ng-container>\n    <!-- Number -->\n    <ng-container *ngSwitchCase=\"'number'\">\n      {{(colValue | number:'1.2-2') || '--'}}\n    </ng-container>\n    <!-- Currency -->\n    <ng-container *ngSwitchCase=\"'currency'\">\n      {{(colValue | currency:'¥') || '--'}}\n    </ng-container>\n    <!-- Percent -->\n    <ng-container *ngSwitchCase=\"'percent'\">\n      {{(colValue | percent) || '--'}}\n    </ng-container>\n    <!-- Default -->\n    <ng-container *ngSwitchDefault>\n      {{colValue || '--'}}\n    </ng-container>\n  </div>\n</ng-template>\n"
+                }
+                ]
+            }
+            ],
+            "members": {
+                "data":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 12, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "col":[ {
+                    "__symbolic":"property",
+                    "decorators":[ {
+                        "__symbolic":"call",
+                        "expression": {
+                            "__symbolic": "reference", "module": "@angular/core", "name": "Input", "line": 15, "character": 3
+                        }
+                    }
+                    ]
+                }
+                ],
+                "__ctor__":[ {
+                    "__symbolic":"constructor",
+                    "parameters":[ {
+                        "__symbolic": "reference", "module": "@ng-matero/extensions/dialog", "name": "MtxDialog", "line": 19, "character": 30
+                    }
+                    ]
+                }
+                ],
+                "str2arr":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "getObjValue":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "ngOnInit":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "confirm":[ {
+                    "__symbolic": "method"
+                }
+                ],
+                "preview":[ {
+                    "__symbolic": "method"
+                }
+                ]
+            }
+        }
+        ,
+        "MtxGridEditCell": {
+            "__symbolic": "interface"
+        }
+        ,
+        "MtxGridColumnTag": {
+            "__symbolic": "interface"
+        }
+        ,
+        "MtxGridColumnTagValue": {
+            "__symbolic": "interface"
+        }
+        ,
+        "MtxGridColumnButton": {
+            "__symbolic": "interface"
+        }
+        ,
+        "MtxGridColumn": {
+            "__symbolic": "interface"
+        }
+    }
+    ,
+    "origins": {
+        "MtxDataGridModule": "./data-grid.module", "MtxDataGridComponent": "./data-grid.component", "MtxDataGridCellComponent": "./data-grid-cell.component", "MtxGridEditCell": "./data-grid.interface", "MtxGridColumnTag": "./data-grid.interface", "MtxGridColumnTagValue": "./data-grid.interface", "MtxGridColumnButton": "./data-grid.interface", "MtxGridColumn": "./data-grid.interface"
+    }
+    ,
+    "importAs":"@ng-matero/extensions/data-grid"
+}

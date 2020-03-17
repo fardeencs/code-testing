@@ -44,6 +44,12 @@ export const MENUS: Array<IMenuList> = [
     path: 'html-treeview-table',
     icon: 'fa-picture-o',
     svgUrl: 'treeview'
+  },
+  {
+    label: 'Material Grid',
+    path: 'material-grid',
+    icon: 'fa-picture-o',
+    svgUrl: 'grid'
   }
 ];
 

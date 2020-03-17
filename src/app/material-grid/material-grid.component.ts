@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { MaterialDataSource } from './grid-data-source';
 import * as _ from 'lodash';
+import { DataSource } from '@angular/cdk/table';
 
 
 export interface IGridEditCell {
@@ -54,7 +55,7 @@ export interface IGridColumn {
   iif?: boolean | (() => any);
   sum?: string;
   order?: number;
-  cell: any
+  cell?: any;
 }
 
 @Component({
@@ -65,7 +66,8 @@ export interface IGridColumn {
 export class MaterialGridComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  gridDataSourse: Array<any> = ELEMENT_DATA;
+  // gridDataSourse: Array<any> = ELEMENT_DATA;
+  gridDataSourse: Array<any>;
   loading = false;
   selection: any = {};
 
@@ -87,20 +89,101 @@ export class MaterialGridComponent implements OnInit {
   // ];
 
 
-  columnsDef: IGridColumn[] = [
-    { field: 'position', index: 'position', title: 'position', header: 'No.', width: '50', cell: (element: any) => `${element.position}` },
-    { field: 'name', index: 'name', title: 'name', header: 'Name', cell: (element: any) => `${element.name}` },
-    { field: 'weight', index: 'weight', title: 'weight', header: 'Weight', width: '150', cell: (element: any) => `${element.weight}` },
-    { field: 'symbol', index: 'symbol', title: 'symbol', header: 'Symbol', width: '100', cell: (element: any) => `${element.symbol}` },
-  ];
+  // columnsDef: IGridColumn[] = [
+  //   { field: 'position', index: 'position', title: 'position', header: 'No.', width: '50', cell: (element: any) => `${element.position}` },
+  //   { field: 'name', index: 'name', title: 'name', header: 'Name', cell: (element: any) => `${element.name}` },
+  //   { field: 'weight', index: 'weight', title: 'weight', header: 'Weight', width: '150', cell: (element: any) => `${element.weight}` },
+  //   { field: 'symbol', index: 'symbol', title: 'symbol', header: 'Symbol', width: '100', cell: (element: any) => `${element.symbol}` },
+  // ];
 
-  displayedColumns = this.columnsDef.map(c => c.title);
-  dataSource = new MaterialDataSource();
+  // columnsDef: IGridColumn[] = [
+  //   { field: 'position', index: 'position', title: 'position', header: 'No.', width: '50', fixed: 'left' },
+  //   { field: 'name', index: 'name', title: 'name', header: 'Name' },
+  //   { field: 'weight', index: 'weight', title: 'weight', header: 'Weight', width: '150' },
+  //   { field: 'symbol', index: 'symbol', title: 'symbol', header: 'Symbol', width: '100' },
+  // ];
+
+  columnsDef: IGridColumn[];
+  displayedColumns: Array<string>;
+
+  // dataSource = new MaterialDataSource();
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   constructor() { }
 
   ngOnInit() {
+    this.getGridColDef(12);
+    this.getGridData(12);
   }
+
+  private getGridColDef(count: number) {
+    const columnsDef = new Array<IGridColumn>();
+    for (let index = 0; index < count; index++) {
+      if (index === 0) {
+        columnsDef.push({
+          field: 'field' + index,
+          index: 'field' + index,
+          title: 'Title ' + index,
+          header: 'Title ' + index,
+          fixed: 'left',
+          width: 'auto'
+        });
+      } else if (index === 1) {
+        columnsDef.push({
+          field: 'field' + index,
+          index: 'field' + index,
+          title: 'Title ' + index,
+          header: 'Title ' + index,
+          fixed: 'left',
+        });
+      } else {
+        columnsDef.push({
+          field: 'field' + index,
+          index: 'field' + index,
+          title: 'Title ' + index,
+          header: 'Title ' + index,
+          // width: 'auto',
+        });
+      }
+    }
+    this.displayedColumns = columnsDef.map(c => c.field);
+    this.columnsDef = [...columnsDef];
+    console.log('columnsDef', this.columnsDef, this.displayedColumns);
+  }
+
+  private getGridData(count: number) {
+    const gridData = new Array<any>();
+    for (let index = 0; index < count; index++) {
+      gridData.push({
+        'field0': this.getRandomText(),
+        'field1': this.getRandomText(),
+        'field2': this.getRandomText(),
+        'field3': this.getRandomText(),
+        'field4': this.getRandomText(),
+        'field5': this.getRandomText(),
+        'field6': this.getRandomText(),
+        'field7': this.getRandomText(),
+        'field8': this.getRandomText(),
+        'field9': this.getRandomText(),
+        'field10': this.getRandomText(),
+        'field11': this.getRandomText(),
+        'field12': this.getRandomText(),
+      });
+    }
+    console.log('gridData', gridData);
+    // this.dataSource.data.push(gridData);
+    // this.gridDataSourse = [...gridData];
+    this.dataSource.data = [...gridData];
+    // this.dataSource.connect(gridData);
+  }
+
+  private getRandomText(): string {
+    const length = 100000;
+    // return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+    // return Math.random().toString(length).substring(7);
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+
 
   actions = {
     handleSortChange: (event) => {
