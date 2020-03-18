@@ -1,4 +1,4 @@
-<div class="dynamic-template-container">
+<div class="dynamic-template-container" id='dynamic-template-container'>
 
   <h3>Dynamically <small class="text-muted"> bind Ng Content & Template + Element Loader</small></h3>
 
@@ -19,6 +19,10 @@
           <ng-container
             [ngTemplateOutlet]="tableTmpl"
             [ngTemplateOutletContext]="{data:gridData, columns: columnDef, gridId: gridId}">
+          </ng-container>
+          <ng-container
+            [ngTemplateOutlet]="tableTmpl"
+            [ngTemplateOutletContext]="{data:gridData2, columns: columnDef2, gridId: gridId2}">
           </ng-container>
         </div>
       </div>
@@ -47,6 +51,12 @@
                   [(ngModel)]="selectedData.address">
                 </mat-form-field>
               </div>
+              <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
             </div>
           </ng-template>
         </div>
@@ -93,27 +103,19 @@
               </tr>
             </ng-container>
             <ng-container *ngIf="data?.length > 0">
-              <tr *ngFor="let element of data; let ind=index">
+              <tr *ngFor="let element of data; let ind=index" id='tr-{{ind}}-{{gridId}}'>
                 <ng-container *ngFor="let column of columns">
                   <ng-container *ngIf="!column?.type">
                     <td [class]="column?.class">
                       {{element[column.field]}}
                     </td>
                   </ng-container>
-                  <ng-container *ngIf="column?.type === 'TEXT_BOX'">
-                    <ng-container [ngTemplateOutlet]="numberCellTemplate"
-                      [ngTemplateOutletContext]="{element:element, column: column, ind:ind, gridId:gridId}">
-                    </ng-container>
-                  </ng-container>
-                  <ng-container *ngIf="column?.type === 'CHECK_BOX'">
-                    <ng-container [ngTemplateOutlet]="chkboxCellTemplate"
-                      [ngTemplateOutletContext]="{element:element, column: column, ind:ind, gridId:gridId}">
-                    </ng-container>
-                  </ng-container>
-                  <ng-container *ngIf="column?.type === 'ACTIONS'">
-                    <ng-container [ngTemplateOutlet]="actionCellTemplate"
-                      [ngTemplateOutletContext]="{element:element, column: column, ind:ind, gridId:gridId}">
-                    </ng-container>
+                  <ng-container *ngIf="column?.type">
+                    <td id="cell-{{ind}}-{{gridId}}" [class]='column?.class'>
+                      <ng-container [ngTemplateOutlet]="controlTmpl"
+                        [ngTemplateOutletContext]="{ type:column?.type, element:element, column: column, ind:ind, gridId:gridId}">
+                      </ng-container>
+                    </td>
                   </ng-container>
                 </ng-container>
               </tr>
@@ -122,6 +124,80 @@
         </table>
       </div>
     </div>
+  </ng-template>
+
+
+
+  <ng-template #controlTmpl let-type='type' let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
+    <ng-container [ngSwitch]="type">
+
+      <ng-container *ngSwitchCase="'DATE_BOX'">
+        <!-- <div class="sd-container">
+          <input type="date" name='text-box-{{ind}}-{{gridId}}' class="date-box-{{ind}}-{{gridId}}"
+              [(ngModel)]="element[column.field]"/>
+          <span class="open-button">
+            <button type="button">📅</button>
+          </span>
+        </div> -->
+        <!-- <input type="date" name='text-box-{{ind}}-{{gridId}}' class="date-box-{{ind}}-{{gridId}}"
+        [(ngModel)]="element[column.field]"/> -->
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker" name='date-box-{{ind}}-{{gridId}}'
+            id='date-box-{{ind}}-{{gridId}}'
+            [(ngModel)]="element[column.field]">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'TEXT_BOX'">
+        <input type="text" name='text-box-{{ind}}-{{gridId}}'
+        class="text-box-{{ind}}-{{gridId}}"
+        [keyFilter]='twoDigit2' validateOnly='true' vanish='true'
+        [(ngModel)]="element[column.field]"
+        (blur)='onBlur(element, column, ind)' />
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'CHECK_BOX'">
+        <input type="checkbox" class="text-box-{{ind}}-{{gridId}}"
+       name='check-box-{{ind}}-{{gridId}}'
+       class="check-box-{{ind}}-{{gridId}}"
+       [(ngModel)]="element[column.field]" />
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'ACTIONS'">
+        <div class="action-section">
+          <div class="btn-circle">
+            <button class="btn-fab red" (click)="closeCell(element, column, ind, gridId)"><span class="btn-wrapper">+</span>
+              <div class="btn-ripple"></div>
+              <div class="btn-overlay"></div>
+            </button>
+          </div>
+          <div class="chk-box">
+            <!-- [(ngModel)]="element[column.field]" -->
+            <input type="checkbox" name='action-chk-box-{{ind}}-{{gridId}}'
+              id='action-chk-box-{{ind}}-{{gridId}}'
+              class="action-chk-box-{{ind}}-{{gridId}}"
+              [(ngModel)]="element[column.field]"
+              (click)="onChkBoxChange($event, element, column, ind, gridId)"/>
+          </div>
+        </div>
+
+      </ng-container>
+
+    </ng-container>
+
+  </ng-template>
+
+
+  <ng-template #dateCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
+    <td>
+      <input type="date" name='text-box-{{ind}}-{{gridId}}'
+        class="text-box-{{ind}}-{{gridId}}"
+        [keyFilter]='twoDigit2' validateOnly='true' vanish='true'
+        [(ngModel)]="element[column.field]"
+        (blur)='onBlur(element, column, ind)' />
+    </td>
   </ng-template>
 
   <ng-template #numberCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">

@@ -7,7 +7,8 @@ import {
   Compiler, Component, Inject, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef,
   ViewEncapsulation,
   SimpleChanges,
-  OnChanges
+  OnChanges,
+  AfterViewInit
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -35,10 +36,13 @@ export interface IPanelInformation {
   encapsulation: ViewEncapsulation.None,
   // animations: Bouncing
 })
-export class DynamicTemplatesComponent implements OnInit, OnChanges {
+export class DynamicTemplatesComponent implements OnInit, OnChanges, AfterViewInit {
   gridData: Array<any>;
+  gridData2: Array<any>;
   columnDef: Array<any>;
+  columnDef2: Array<any>;
   gridId = 'grid01';
+  gridId2 = 'grid02';
   showTempl = true;
   isLoading = true;
   // information: IPanelInformation;
@@ -98,7 +102,9 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.loadGridData(5);
-    this.getColDef();
+    const colDef = this.getColDef();
+    this.columnDef = [...colDef];
+    this.columnDef2 = [...colDef];
 
     // this.loadingService.loadingServiceShow(10000, 'popup', true);
   }
@@ -160,11 +166,17 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
         field: 'actions',
         header: 'Actions',
         type: 'ACTIONS',
-        class: 'fixed-side sticky-col row-align second-col'
+        class: 'fixed-side sticky-col second-col'
+        // row-align
       },
       {
         field: 'header2',
         header: 'Header 2',
+      },
+      {
+        field: 'header13',
+        header: 'Header 13',
+        type: 'DATE_BOX',
       },
       {
         field: 'header3',
@@ -212,7 +224,7 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
         type: 'TEXT_BOX'
       },
     ];
-    this.columnDef = colDef;
+    return colDef;
   }
 
 
@@ -227,7 +239,6 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
       for (let index = 0; index < rows; index++) {
         gridData.push({
           'header1': `Left Column`,
-          'actions': null,
           'header2': `Cell content longer ${index}`,
           'header3': `Cell content ${index}`,
           'header4': `Cell content ${index}`,
@@ -238,14 +249,17 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
           'header9': `Cell content ${index}`,
           'header10': `Cell content ${index}`,
           'header11': `Cell content ${index}`,
+          'actions': null,
           'header12': null,
+          'header13': null,
         });
       }
       const _gridData = [...gridData];
       of(_gridData).pipe(delay(1000)).subscribe(result => {
         this.elementLoaderService.stopMultipleLoader(loderModel);
         if (result) {
-          this.gridData = result;
+          this.gridData = [...result];
+          this.gridData2 = [...result];
         }
       });
     } catch (error) {
@@ -255,18 +269,56 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
     }
   }
 
+  ngAfterViewInit(): void {
+    const containerId = this.document.getElementById('dynamic-template-container');
+    const allTbl: NodeListOf<HTMLTableElement> = containerId.querySelectorAll('table');
+    console.log('allTbl', _.cloneDeep(allTbl));
+    _.each(allTbl, tbl => {
+      console.log('elem', _.cloneDeep(tbl));
+      const tbody = tbl.querySelectorAll('tbody');
+      if(tbody){
+        // const tr = tbody['tbody'].querySelectorAll('tr');
+        const tbody0 = tbody[0];
+        console.log('tbody[0]', _.cloneDeep(tbody[0]));
+        const tr  =  tbody0.getElementsByTagName('tr');
+        console.log('tr', _.cloneDeep(tr));
+        _.each(tr, (elme, ind)=>{
+          if (ind % 2 === 0) {
+            _.each(elme.children, (d: HTMLElement) => {
+              d.style.backgroundColor = '#fff';
+              d.classList.remove('cell-selected');
+              // d.style.boxShadow = 'none';
+            });
+          } else {
+            _.each(elme.children, (d: HTMLElement) => {
+              d.style.backgroundColor = '#efefef';
+              d.classList.remove('cell-selected');
+              // d.style.boxShadow = 'none';
+            });
+          }
 
-  onChkBoxChange(event: MouseEvent, element: any, column: any, ind: number) {
+
+        });
+      }
+    });
+
+
+  }
+
+  onChkBoxChange(event: MouseEvent, element: any, column: any, ind: number, gridId: string) {
     const heighlightColor = '#faffbb';
-    console.log('onChkBoxChange', event);
+    // console.log('onChkBoxChange', event);
     const val: boolean = event.target['checked'];
     const id = event['toElement'].getAttribute('id');
-    console.log('val', val, id);
     // const elem: HTMLElement = this.document.getElementById(id);
     const elements: HTMLCollectionOf<Element> = this.document.getElementsByClassName(id);
+    const rowId = this.document.getElementById(`tr-${ind}-${gridId}`);
+    console.log('onChkBoxChange', val, id, rowId, elements);
+    // const allTbl = containerId.querySelectorAll('.main-table');
     _.each(elements, (elem: HTMLElement) => {
-      const parentElem: HTMLElement = elem.parentElement.parentElement.parentElement;
-      const boxShadow = '0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12)';
+      const parentElem: HTMLElement = elem.parentElement.parentElement.parentElement.parentElement;
+      console.log('parentElem', parentElem);
+      // const boxShadow = '0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12)';
       parentElem.classList.add('blink');
       // parentElem.classList.add('row-selected');
       // parentElem.style.boxShadow = boxShadow;
@@ -341,9 +393,9 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges {
     }
   }
 
-  closeCell(rowData, column, ind) {
+  closeCell(rowData, column, ind, gridId) {
     console.log('close-div', rowData, column, ind);
-    const elem: HTMLElement = document.getElementById('cell-' + ind);
+    const elem: HTMLElement = document.getElementById(`cell-${ind}-${gridId}`);
     const parentElem: HTMLElement = elem.parentElement;
     _.each(parentElem.children, (d: HTMLElement) => {
       d.style.backgroundColor = '#f6fe86';
