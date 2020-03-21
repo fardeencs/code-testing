@@ -55,6 +55,7 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges, AfterViewIn
   twoDigit2: RegExp = /^(0|[1-9][0-9]?|100)$/;
   twoDigit3: RegExp = /^0*(0|[1-9][0-9]?|100)$/;
   defaultmasks = DEFAULT_MASKS;
+  appearance = 'outline';
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
   @ViewChild('informationTmpl', { static: false }) informationTmpl: TemplateRef<any>;
@@ -271,36 +272,58 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges, AfterViewIn
 
   ngAfterViewInit(): void {
     const containerId = this.document.getElementById('dynamic-template-container');
-    const allTbl: NodeListOf<HTMLTableElement> = containerId.querySelectorAll('table');
-    console.log('allTbl', _.cloneDeep(allTbl));
+    const allTbl = this.document.getElementsByTagName('table');
     _.each(allTbl, tbl => {
-      console.log('elem', _.cloneDeep(tbl));
-      const tbody = tbl.querySelectorAll('tbody');
-      if(tbody){
-        // const tr = tbody['tbody'].querySelectorAll('tr');
-        const tbody0 = tbody[0];
-        console.log('tbody[0]', _.cloneDeep(tbody[0]));
-        const tr  =  tbody0.getElementsByTagName('tr');
-        console.log('tr', _.cloneDeep(tr));
-        _.each(tr, (elme, ind)=>{
-          if (ind % 2 === 0) {
-            _.each(elme.children, (d: HTMLElement) => {
-              d.style.backgroundColor = '#fff';
-              d.classList.remove('cell-selected');
-              // d.style.boxShadow = 'none';
-            });
-          } else {
-            _.each(elme.children, (d: HTMLElement) => {
-              d.style.backgroundColor = '#efefef';
-              d.classList.remove('cell-selected');
-              // d.style.boxShadow = 'none';
-            });
-          }
+      console.log('tbl', tbl);
+      const tr = tbl.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+      console.log('tr', tr);
+      _.each(tr, (elem, ind) => {
+        console.log('elem', elem, ind);
+        if (ind % 2 === 0) {
+          _.each(elem.children, (d: HTMLElement) => {
+            d.style.backgroundColor = '#fff';
+            d.classList.remove('cell-selected');
+            // d.style.boxShadow = 'none';
+          });
+        } else {
+          _.each(elem.children, (d: HTMLElement) => {
+            d.style.backgroundColor = '#efefef';
+            d.classList.remove('cell-selected');
+            // d.style.boxShadow = 'none';
+          });
+        }
 
+      });
 
-        });
-      }
     });
+    // const allTbl: NodeListOf<HTMLTableElement> = containerId.querySelectorAll('table');
+    // console.log('allTbl', _.cloneDeep(allTbl));
+    // _.each(allTbl, tbl => {
+    //   console.log('elem', _.cloneDeep(tbl));
+    //   const tbody = tbl.querySelectorAll('tbody');
+    //   if(tbody){
+    //     // const tr = tbody['tbody'].querySelectorAll('tr');
+    //     const tbody0 = tbody[0];
+    //     console.log('tbody[0]', _.cloneDeep(tbody[0]));
+    //     const tr  =  tbody0.getElementsByTagName('tr');
+    //     console.log('tr', _.cloneDeep(tr));
+    //     _.each(tr, (elme, ind)=>{
+    //       if (ind % 2 === 0) {
+    //         _.each(elme.children, (d: HTMLElement) => {
+    //           d.style.backgroundColor = '#fff';
+    //           d.classList.remove('cell-selected');
+    //           // d.style.boxShadow = 'none';
+    //         });
+    //       } else {
+    //         _.each(elme.children, (d: HTMLElement) => {
+    //           d.style.backgroundColor = '#efefef';
+    //           d.classList.remove('cell-selected');
+    //           // d.style.boxShadow = 'none';
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
 
 
   }

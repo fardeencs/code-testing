@@ -20,10 +20,10 @@
             [ngTemplateOutlet]="tableTmpl"
             [ngTemplateOutletContext]="{data:gridData, columns: columnDef, gridId: gridId}">
           </ng-container>
-          <ng-container
+          <!-- <ng-container
             [ngTemplateOutlet]="tableTmpl"
             [ngTemplateOutletContext]="{data:gridData2, columns: columnDef2, gridId: gridId2}">
-          </ng-container>
+          </ng-container> -->
         </div>
       </div>
 
@@ -141,7 +141,7 @@
         </div> -->
         <!-- <input type="date" name='text-box-{{ind}}-{{gridId}}' class="date-box-{{ind}}-{{gridId}}"
         [(ngModel)]="element[column.field]"/> -->
-        <mat-form-field appearance="outline">
+        <mat-form-field [appearance]="appearance">
           <input matInput [matDatepicker]="picker" name='date-box-{{ind}}-{{gridId}}'
             id='date-box-{{ind}}-{{gridId}}'
             [(ngModel)]="element[column.field]">

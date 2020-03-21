@@ -1,0 +1,465 @@
+<div class="jspdf-report-container">
+
+  <div class="row-align-centre">
+    <div>
+      <h3>Report</h3>
+    </div>
+    <div><button (click)="actions.exportToPdf('DYNAMIC')">Generate PDF(Dynamically)</button></div>
+    <div><button (click)="actions.exportToPdf('HTML','tblRowAndColSpan')">Generate PDF(HTML)</button></div>
+  </div>
+  <br>
+
+  <!-- <div #content class="content"></div> -->
+
+</div>
+
+<div class="table-conatner">
+
+  <table id='table2'>
+    <thead>
+      <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+        <th>Header 3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cell 1</td>
+        <td>Cell 2</td>
+        <td>Cell 3</td>
+      </tr>
+      <tr>
+        <td>Cell 4</td>
+        <td>Cell 5</td>
+        <td>
+          <table id='subTable1'>
+            <tr>
+              <td style="border-right: 1px solid black;"> Long Text Sub Cell 14567 </td>
+              <td style="border: 1px solid transparent;"> Sub Cell 2 </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table id='tblRowAndColSpan'>
+    <thead>
+      <tr>
+        <th rowspan="2">ID</th>
+        <th rowspan="2">Name</th>
+        <th rowspan="2">Email</th>
+        <th colspan="3">Row & Col span Header</th>
+      </tr>
+      <tr>
+        <th rowspan="1">City</th>
+        <th rowspan="1">Expenses</th>
+        <th rowspan="1">Country Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of gridData">
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.city}}</td>
+        <td>{{item.expenses}}</td>
+        <td>{{item.countryCode}}</td>
+      </tr>
+    </tbody>
+
+
+  </table>
+
+
+</div>
+
+
+<table>
+  <tr>
+    <td>
+      <div id="inspectionReport">
+        <div class="title">
+          <p class="appname">Title</p>
+          <p>REPORT</p>
+        </div>
+        <p class="date">Revised on 9/3/2013</p>
+        <div #content class="content">
+          <table style="width:100%">
+            <tbody>
+              <tr>
+                <td>A No : <span id="a">1</span>
+                </td>
+                <td>B / No : <span id="b">2</span>
+                </td>
+                <td>C Date: <span id="c"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>A No : <span id="d">3</span>
+                </td>
+                <td>B name: <span id="e">4</span>
+                </td>
+                <td>
+                  <p>C [ X ] D [ ]</p>
+                  <p>G Date : <span id="f"></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>O No : <span id="yy"></span>
+                </td>
+                <td>Orgin : <span id="yyr"></span>
+                </td>
+                <td>S : [ X ] G [ ] J [ X ] Y [ X ] G</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Name : <span id="QW"></span>
+                </td>
+                <td>xc : <span id="FG"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>No : <span id="gg"></span>
+                </td>
+                <td>company : <span id="gg"></span>
+                </td>
+                <td>type t [ ] A [ X ] No</td>
+              </tr>
+              <tr>
+                <td>Quen : <span id="odrQuan"></span>
+                </td>
+                <td>Sh : <span id="shipQuan"></span>
+                </td>
+                <td>Run [ ] Int [ X ]. Shi [ ] No.</td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="width:100%">
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Title:</td>
+
+              </tr>
+              <tr align="center">
+                <td>FY</td>
+                <td>CJK</td>
+                <td>SL</td>
+                <td>F</td>
+                <td>P</td>
+              </tr>
+              <tr align="center">
+                <td><span id="fyavail">20</span>
+                </td>
+                <td><span id="ck">40</span>
+                </td>
+                <td><span id="sl">70</span>
+                </td>
+                <td><span id="finish">100</span>
+                </td>
+                <td><span id="pack">50</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="width:100%">
+            <tbody id="dhtml">
+              <tr>
+                <td class="boldFont">SAPC:</td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+
+              </tr>
+              <tr class="boldFont">
+                <td>ATU: <span id="aqluser"></span>
+                </td>
+                <td>SS : <span id="sampleSize"></span>
+                </td>
+                <td></td>
+                <td>MA : <span id="majallowed"></span>
+                </td>
+
+
+                <td></td>
+                <td>MAS : <span id="minallowed"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>DT</td>
+                <td align="center">No.</td>
+                <td>DD</td>
+                <td align="center">C</td>
+                <td align="center">Max</td>
+                <td align="center">Min</td>
+              </tr>
+              <tr>
+                <td>FY</td>
+                <td align="center">1</td>
+                <td>FY</td>
+                <td align="center">11</td>
+                <td align="center">12</td>
+                <td align="center">123</td>
+              </tr>
+              <tr>
+                <td></td>
+
+                <td align="center">2</td>
+                <td>FY</td>
+                <td align="center">11</td>
+                <td align="center">12</td>
+                <td align="center">123</td>
+              </tr>
+              <tr>
+
+                <td></td>
+                <td></td>
+                <td align="right">ST :</td>
+                <td align="center">22</td>
+                <td align="center">24</td>
+                <td align="center">246</td>
+              </tr>
+              <tr>
+                <td>SKL</td>
+                <td align="center">1</td>
+                <td>SKL</td>
+                <td align="center">14</td>
+                <td align="center">13</td>
+                <td align="center">234</td>
+              </tr>
+              <tr>
+                <td align="center">2</td>
+                <td>SKL</td>
+                <td align="center">14</td>
+                <td align="center">13</td>
+                <td align="center">234</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td align="right">ST :</td>
+
+                <td></td>
+                <td></td>
+                <td align="center">28</td>
+                <td align="center">26</td>
+                <td align="center">468</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td align="center">1</td>
+                <td>A</td>
+                <td align="center">33</td>
+                <td align="center">445</td>
+                <td align="center">33</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td align="center">2</td>
+                <td>A</td>
+                <td align="center">33</td>
+                <td align="center">445</td>
+                <td align="center">33</td>
+              </tr>
+              <tr>
+
+                <td></td>
+                <td></td>
+                <td align="right">ST :</td>
+
+                <td align="center">66</td>
+                <td align="center">890</td>
+                <td align="center">66</td>
+              </tr>
+              <tr>
+
+
+                <td></td>
+                <td></td>
+                <td align="right" class="boldFont">Tot :</td>
+
+                <td align="center">116</td>
+                <td align="center">940</td>
+                <td align="center">780</td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="width:100%">
+            <tr class="boldFont">
+              <td>Title 3</td>
+              <td align="center">ASD</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="boldFont">
+              <td>C : <span id="tolcartons"></span>
+              </td>
+              <td>S : <span id="samsize"></span>
+              </td>
+              <td>M : <span id="allowmajor"></span>
+              </td>
+              <td align="center">WPZ</td>
+
+              <td></td>
+              <td></td>
+              <td></td>
+
+
+            </tr>
+            <tr>
+              <td>D No.</td>
+              <td>D type</td>
+              <td>NOF</td>
+              <td>C</td>
+              <td>Spev</td>
+              <td>Act</td>
+              <td>diff</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>F/Y</td>
+              <td><span id="nooffy"></span>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>S/K/L</td>
+              <td><span id="skl"></span>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Fin</td>
+              <td><span id="finl"></span>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td align="right">TM:</td>
+              <td><span id="totmajores"></span>
+              </td>
+
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+              <td>Comment:<span id="comment"></span>
+              </td>
+            </tr>
+          </table>
+          <table style="width:100%">
+            <tbody>
+              <tr>
+                <td>outcome</td>
+                <td>A. V</td>
+                <td>[ X ] P</td>
+                <td>[ ] F</td>
+                <td>[ ] W</td>
+                <td>[ ] NA</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>B. M</td>
+                <td>[ X ] P</td>
+                <td>[ ] F</td>
+                <td>[ ] W</td>
+                <td>[ ] NA</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>C. P</td>
+                <td>[ X ] P</td>
+                <td>[ ] F</td>
+                <td>[ ] W</td>
+                <td>[ ] NA</td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="width:100%">
+            <tbody>
+              <tr class="boldFont">
+                <td>CC A s</td>
+              </tr>
+              <tr>
+                <td><span id="comcorraction"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="width:100%">
+            <tbody>
+              <tr class="boldFont">
+                <td>Title 4 :</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>TWT [ X ] Pass [ ] Fail</td>
+                <td>STO [ ] Pass [ X ] Fail</td>
+              </tr>
+              <tr>
+                <td>PAS [ ] A [ X ] NA</td>
+                <td>SR [ ] Yes [ X ] No [ ] NA</td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="width:100%">
+            <tbody>
+              <tr class="boldFont">
+                <td>Signatures:</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <p><span id="qaauditNo">.</span> <span id="qaadate" class="sdate">.</span>
+                  </p>
+                  <p>QANo <span class="sdate">Date</span>
+                  </p>
+                </td>
+                <td>
+                  <p><span id="mp">.</span> <span id="mpdate" class="sdate">.</span>
+                  </p>
+                  <p>MP<span class="sdate">Date</span>
+                  </p>
+                </td>
+                <td>
+                  <p><span id="supr">.</span> <span id="supdate" class="sdate">.</span>
+                  </p>
+                  <p>Sup<span class="sdate">Date</span>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="boldFont">Note: ABCDEFG</p>
+        <p class="boldFont">Note: ABCDEFG</p>
+        <div class="title boldFont">QC / MED / FAC / FOR</div>
+      </div>
+    </td>
+  </tr>
+</table>

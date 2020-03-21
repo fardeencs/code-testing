@@ -7,6 +7,7 @@ import { SpinnerComponent } from './animations/spinner/spinner.component';
 import { AllFlexTableComponent } from './all-flex-table/all-flex-table.component';
 import { HtmlTreeViewComponent } from './html-tree-view/html-tree-view.component';
 import { MaterialGridComponent } from './material-grid/material-grid.component';
+import { JspdfReportComponent } from './jspdf-report/jspdf-report.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'material-grid',
     component: MaterialGridComponent
+  },
+  {
+    path: 'jspdf-report',
+    component: JspdfReportComponent
   }
 ];
 

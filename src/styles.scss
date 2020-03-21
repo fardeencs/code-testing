@@ -32,9 +32,17 @@ body::-webkit-scrollbar-thumb {
   flex-direction : row;
 }
 
+.row-align-centre {
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+  flex-wrap      : wrap;
+  flex-direction : row;
+}
+
 .column-align {
-  display       : flex;
-  flex-direction: column;
+  display          : flex;
+  flex-direction   : column;
   // flex          : 1;
 }
 
@@ -49,7 +57,7 @@ body::-webkit-scrollbar-thumb {
 .box-container {
   // display      : flex;
   // flex         : 1 1 100%;
-  padding      : 2rem 1rem;
-  border-radius: 5px;
+  padding         : 2rem 1rem;
+  border-radius   : 5px;
   @include boxshadow;
 }

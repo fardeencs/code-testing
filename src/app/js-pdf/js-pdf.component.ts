@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import * as jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
 import { AppService } from '../app.service';
 
@@ -514,39 +514,39 @@ export class JsPdfComponent implements OnInit {
     }
   }
 
-  generatePDF() {
-    const content = this.reportContent.nativeElement;
-    html2canvas(content).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      // Few necessary setting options
-      const imgWidth = 208;
-      const pageHeight = 295;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const doc = new jsPDF('p', 'mm');
-      let heightLeft = imgHeight;
-      let position = 0;
+  // generatePDF() {
+  //   const content = this.reportContent.nativeElement;
+  //   html2canvas(content).then(canvas => {
+  //     const imgData = canvas.toDataURL('image/png');
+  //     // Few necessary setting options
+  //     const imgWidth = 208;
+  //     const pageHeight = 295;
+  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  //     const doc = new jsPDF('p', 'mm');
+  //     let heightLeft = imgHeight;
+  //     let position = 0;
 
-      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        doc.addPage();
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      // Generated PDF
-      doc.save('asdfghj' + '.pdf');
-      // this.openPdf(doc);
-    });
-    // html2canvas(this.reportContent.nativeElement, <Html2Canvas.Html2CanvasOptions>{
-    //   onrendered: function(canvas: HTMLCanvasElement) {
-    //     const pdf = new jsPDF('p', 'pt', 'a4');
-    //     pdf.addHTML(canvas, function() {
-    //       pdf.save('web.pdf');
-    //     });
-    //   }
-    // });
-  }
+  //     doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //     heightLeft -= pageHeight;
+  //     while (heightLeft >= 0) {
+  //       position = heightLeft - imgHeight;
+  //       doc.addPage();
+  //       doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //       heightLeft -= pageHeight;
+  //     }
+  //     // Generated PDF
+  //     doc.save('asdfghj' + '.pdf');
+  //     // this.openPdf(doc);
+  //   });
+  //   // html2canvas(this.reportContent.nativeElement, <Html2Canvas.Html2CanvasOptions>{
+  //   //   onrendered: function(canvas: HTMLCanvasElement) {
+  //   //     const pdf = new jsPDF('p', 'pt', 'a4');
+  //   //     pdf.addHTML(canvas, function() {
+  //   //       pdf.save('web.pdf');
+  //   //     });
+  //   //   }
+  //   // });
+  // }
 
   downloadPdf() {
     const doc = new jsPDF();

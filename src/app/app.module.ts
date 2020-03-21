@@ -50,6 +50,7 @@ import { SvgIconModule } from './common/svg2/svg-icon.module';
 // import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { GenricSvgTestComponent } from './genric-svg-test/genric-svg-test.component';
 import { AllFlexTableComponent } from './all-flex-table/all-flex-table.component';
+import { JspdfReportComponent } from './jspdf-report/jspdf-report.component';
 
 
 export const ICustomNumberMaskConfig: INumberMaskConfig = {
@@ -106,13 +107,14 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
       //SvgComponent,
       //SvgDefinitionsComponent,
       GenricSvgTestComponent,
-      AllFlexTableComponent
+      AllFlexTableComponent,
+      JspdfReportComponent
    ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
       NoopAnimationsModule,
-      //DynamicComponentLoaderModule.forRoot(manifests)\nCommonModule,
+      //DynamicComponentLoaderModule.forRoot(manifests)\\nCommonModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
