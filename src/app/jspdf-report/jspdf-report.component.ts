@@ -9,6 +9,7 @@ import { FakerUtil } from '../common/faker.util';
 import { jsPDFUtil } from '../common/jspdf-util';
 import { base64Img } from './base64-util';
 import { isEmpty, find as lFind, filter as lFilter, includes, each } from 'lodash';
+import { CommonHelperUtil } from '../common/common-helper.util';
 
 
 @Component({
@@ -208,6 +209,12 @@ export class JspdfReportComponent implements OnInit {
   }
 
   createPDFDynamically(doc: jsPDF, Y: number): jsPDF {
+    CommonHelperUtil.convertImgToBase64URL('../../assets/images/img01.jpg', function (base64Img) {
+      console.log('convertImgToBase64URL', base64Img);
+
+      // Base64DataURL
+    }, 'image/jpg');
+    // CommonHelperUtil.getBase64Image()
     const body1 = FakerUtil.getRowAndColSpanBody();
     // doc.autoTable({
     //   startY: 60,
@@ -428,7 +435,8 @@ export class JspdfReportComponent implements OnInit {
                 }
               };
 
-              subColumnStyles = {...subColumnStyles,
+              subColumnStyles = {
+                ...subColumnStyles,
                 [d.index]: {
                   cellWidth: d.width,
                 }
