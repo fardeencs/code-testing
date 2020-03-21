@@ -7,8 +7,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { FakerUtil } from '../common/faker.util';
 import { jsPDFUtil } from '../common/jspdf-util';
-import { isEmpty } from 'lodash';
 import { base64Img } from './base64-util';
+import { isEmpty, find as lFind, filter as lFilter, includes, each } from 'lodash';
 
 
 @Component({
@@ -71,9 +71,10 @@ export class JspdfReportComponent implements OnInit {
       headStyles: {
         fillColor: [36, 141, 220],
         fontSize: 10,
+        halign: 'center'
       },
-      rowPageBreak: 'auto',
       bodyStyles: { valign: 'top', fontSize: 8, },
+      rowPageBreak: 'auto',
       alternateRowStyles: {
         fillColor: [241, 241, 241],
       },
@@ -207,7 +208,7 @@ export class JspdfReportComponent implements OnInit {
   }
 
   createPDFDynamically(doc: jsPDF, Y: number): jsPDF {
-    // const body = FakerUtil.getRowAndColSpanBody();
+    const body1 = FakerUtil.getRowAndColSpanBody();
     // doc.autoTable({
     //   startY: 60,
     //   head: [
@@ -223,6 +224,12 @@ export class JspdfReportComponent implements OnInit {
     //   theme: 'grid',
     // });
 
+    // const columns = [
+    //   { dataKey: 'id', header: 'ID' },
+    //   { dataKey: 'name', header: 'Name' },
+    //   { dataKey: 'expenses', header: 'Sum' },
+    // ];
+
     let head = FakerUtil.headRowsObj();
     head = {
       ...head,
@@ -237,11 +244,12 @@ export class JspdfReportComponent implements OnInit {
       email: {
         content: 'Email',
         rowSpan: 2,
+        // styles: { halign: 'center', fillColor: [22, 160, 133], cellWidth: 10 }
       },
       people: {
         content: 'Row & Col span Header',
-        colSpan: 3,
         rowSpan: 2,
+        colSpan: 3,
         styles: { halign: 'center', fillColor: [22, 160, 133] }
       }
     };
@@ -261,17 +269,18 @@ export class JspdfReportComponent implements OnInit {
       for (const key in raw[i]) {
         row.push(raw[i][key]);
       }
-      if (i % 3 === 0) {
-        row.push({
-          rowSpan: 2,
-          // content: i / 5 + 1,
-          styles: { valign: 'middle', halign: 'center' },
-        });
-      }
+      // if (i % 3 === 0) {
+      // row.push({
+      //   colSpan: 3,
+      //   // content: i / 5 + 1,
+      //   styles: { valign: 'middle', halign: 'center' },
+      // });
+      // }
       body.push(row);
     }
 
-
+    // console.log('body', body);
+    // console.log('body1', body1);
 
     //  const colSpanItem = {
     //     rowSpan: 5,
@@ -342,34 +351,137 @@ export class JspdfReportComponent implements OnInit {
       // for example.
       didDrawCell: (data) => {
         if (data.row.section === 'head') {
-          if(data.column.dataKey === 'city' || data.column.dataKey === 'expenses' || data.column.dataKey === 'countryCode'){
+          // if(data.column.dataKey === 'city' || data.column.dataKey === 'expenses' || data.column.dataKey === 'countryCode'){
+          // }
+          // if (data.column.dataKey === 'city') {
+          //   const w = data.cell.width;
+          //   console.log('city', w);
 
-          }
+          // }
+          // if (data.column.dataKey === 'expenses') {
+          //   const w = data.cell.width;
+          //   console.log('expenses', w);
+          // }
+          // if (data.column.dataKey === 'countryCode') {
+          //   const w = data.cell.width;
+          //   console.log('countryCode', w);
+          // }
+
+          // if (data.column.dataKey === 'people_1' || data.column.dataKey === 'people_2') {
+          //   const w = data.cell.width;
+          //   console.log('people_1, people_2', w);
+          // }
+
           if (data.column.dataKey === 'people') {
+            const tblCols = data.table.columns;
+            console.log('tblCols', data);
+            const matches = lFilter(tblCols, s => s.dataKey.includes('people'));
+            console.log('peoples', matches);
+            // const subHead2 = {
+            //   people: {
+            //     content: 'City',
+            //     rowSpan: 1,
+            //     styles: { cellWidth: 20, halign: 'center', fillColor: [22, 160, 133] }
+            //   },
+            //   people_1: {
+            //     content: 'Expenses',
+            //     rowSpan: 1,
+            //     styles: { cellWidth: 10, halign: 'center', fillColor: [22, 160, 133] }
+            //   },
+            //   people_2: {
+            //     content: 'Country Code',
+            //     rowSpan: 1,
+            //     styles: { cellWidth: 5, halign: 'center', fillColor: [22, 160, 133] }
+            //   }
+            //   // people: {
+            //   //   content: 'Row & Col span Header',
+            //   //   rowSpan: 2,
+            //   //   colSpan: 3,
+            //   //   styles: { halign: 'center', fillColor: [22, 160, 133] }
+            //   // }
+            // };
+
+            let subHead = [];
+            let subColumnStyles = {};
+            each(matches, (d, ind) => {
+              let header = '';
+              switch (ind) {
+                case 0:
+                  header = 'City';
+                  break;
+                case 1:
+                  header = 'Expenses';
+                  break;
+                case 2:
+                  header = 'Country Code';
+                  break;
+                default:
+                  break;
+              }
+              console.log(d, ind);
+              subHead = {
+                ...subHead, [d.dataKey]: {
+                  content: header,
+                  cellWidth: d.width,
+                  width: d.width,
+                  halign: 'center', fillColor: [22, 160, 133]
+                }
+              };
+
+              subColumnStyles = {...subColumnStyles,
+                [d.index]: {
+                  cellWidth: d.width,
+                }
+              };
+
+              // subHead.push({
+              //   header: header,
+              //   dataKey: d.dataKey,
+              //   minWidth: d.minWidth,
+              //   wrappedWidth: d.wrappedWidth,
+              //   width: d.width
+              // });
+
+              // subColumnStyles = {
+              //   ...subColumnStyles,
+              //   [d.dataKey]: {
+              //     cellWidth: d.width,
+              //     minCellWidth: d.minWidth,
+              //     width: d.width,
+
+              //   }
+              // };
+
+            });
+            console.log('subHead', subHead, subColumnStyles);
+
             const cellWidth = data.cell.width / 3;
             const cellHeight = data.cell.height / 2;
             const headStyles = {
               fontSize: 10,
               // width: data.cell.width
+              // width: 113
             };
             doc.autoTable({
-              head: [['City', 'Expenses', 'Country Code']],
+              // head: [['City', 'Expenses', 'Country Code']],
+              head: [subHead],
+              // columns: subHead,
               body: [],
               tableLineColor: [114, 113, 133],
               tableLineWidth: 1,
               styles: {
                 lineColor: [155, 155, 155],
                 lineWidth: 1,
-                cellWidth: 'auto'
+                // cellWidth: 'auto'
               },
               headStyles: headStyles,
               startY: data.cell.y + cellHeight,
               margin: { left: data.cell.x },
               // margin: { left: data.cell.x  + data.cell.padding('left') },
               // tableWidth: 'wrap',
-              columnStyles: { text: { cellWidth: 'auto' } },
+              columnStyles: { ...subColumnStyles },
+              // columnStyles: { text: { cellWidth: 'auto' } },
               // columnStyles: { text: { cellWidth: '5' } },
-              // rowStyles: { text: { cellWidth: '5' } },
               didDrawCell: (cellData) => {
                 // cellData.cell.styles.width = cellWidth;
               }
