@@ -89,20 +89,24 @@ export class CommonFactoryService {
   }
 
   loadTemplateWithinComponent<T, C>(params: IFactoryCompoent<T, C>) {
-    if (params.styleSheetName) {
+    const {component, vcRef, ngContent, templates, extraTemplate,
+        isPopup, styleSheetName, loadingId, delay} = params;
+        const {componentType, componetProperties} = component;
+       const {inputs, outputs} = componetProperties;
+    if (styleSheetName) {
       this.loadStyle(params.styleSheetName);
     }
-    this.isPopup = params.isPopup || false;
-    this.componetProperties = params.component.componetProperties;
-    const factory = this.componentFactoryResolver.resolveComponentFactory(params.component.componentType);
-    let ngContent = null;
-    if (params.ngContent.content instanceof TemplateRef) {
-      ngContent = this.getNgContent(params.ngContent);
+    this.isPopup = isPopup || false;
+    this.componetProperties = componetProperties;
+    const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+    let _ngContent = null;
+    if (ngContent.content instanceof TemplateRef) {
+      _ngContent = this.getNgContent(ngContent);
     }
-    params.vcRef.clear();
-    const componentRef = params.vcRef.createComponent(factory, 0, undefined, ngContent);
-    this.setInputProperties(componentRef, params.component.componetProperties.inputs);
-    if (params.isPopup) {
+    vcRef.clear();
+    const componentRef = params.vcRef.createComponent(factory, 0, undefined, _ngContent);
+    this.setInputProperties(componentRef, inputs);
+    if (isPopup) {
       componentRef.instance['visible'] = true;
     }
     componentRef.hostView.detectChanges();

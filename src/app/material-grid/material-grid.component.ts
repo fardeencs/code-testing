@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatTable } from '@angular/material';
 import { MaterialDataSource } from './grid-data-source';
 import * as _ from 'lodash';
 import { DataSource } from '@angular/cdk/table';
@@ -64,12 +64,6 @@ export interface IGridColumn {
   styleUrls: ['./material-grid.component.scss']
 })
 export class MaterialGridComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-
-  // gridDataSourse: Array<any> = ELEMENT_DATA;
-  gridDataSourse: Array<any>;
-  loading = false;
-  selection: any = {};
 
   @Input('gridData')
   set gridData(value: Array<any>) {
@@ -80,6 +74,15 @@ export class MaterialGridComponent implements OnInit {
   get gridData(): Array<any> {
     return this.gridDataSourse;
   }
+
+  constructor() { }
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+
+  // gridDataSourse: Array<any> = ELEMENT_DATA;
+  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
+  gridDataSourse: Array<any>;
+  loading = false;
+  selection: any = {};
 
   //   columns: IGridColumn[] = [
   //   { index: 'position', title: 'position', header: 'No.', width: '50' },
@@ -109,7 +112,18 @@ export class MaterialGridComponent implements OnInit {
   // dataSource = new MaterialDataSource();
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  constructor() { }
+
+  actions = {
+    handleSortChange: (event) => {
+
+    },
+    isAllSelected: () => {
+
+    },
+    masterToggle: () => {
+
+    }
+  };
 
   ngOnInit() {
     this.getGridColDef(12);
@@ -184,17 +198,27 @@ export class MaterialGridComponent implements OnInit {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   }
 
+  addRowData(row_obj) {
+    const d = new Date();
+    this.dataSource.data.push({
+      id: d.getTime(),
+      name: row_obj.name
+    });
+    this.table.renderRows();
 
-  actions = {
-    handleSortChange: (event) => {
-
-    },
-    isAllSelected: () => {
-
-    },
-    masterToggle: () => {
-
-    }
+  }
+  updateRowData(row_obj) {
+    this.dataSource.data = this.dataSource.data.filter((value, key) => {
+      if (value.id == row_obj.id) {
+        value.name = row_obj.name;
+      }
+      return true;
+    });
+  }
+  deleteRowData(row_obj) {
+    this.dataSource.data = this.dataSource.data.filter((value, key) => {
+      return value.id != row_obj.id;
+    });
   }
 
 }
