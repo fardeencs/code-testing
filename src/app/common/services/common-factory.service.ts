@@ -104,7 +104,7 @@ export class CommonFactoryService {
       _ngContent = this.getNgContent(ngContent);
     }
     vcRef.clear();
-    const componentRef = params.vcRef.createComponent(factory, 0, undefined, _ngContent);
+    const componentRef = vcRef.createComponent(factory, 0, undefined, _ngContent);
     this.setInputProperties(componentRef, inputs);
     if (isPopup) {
       componentRef.instance['visible'] = true;
@@ -114,7 +114,7 @@ export class CommonFactoryService {
     this.document.body.appendChild(nativeElement);
     this.componentRef = componentRef;
     console.log('componentRef', this.componentRef);
-    // if (params.loadingId) {
+    // if (loadingId) {
     //   this.elementLoaderService.stopeLoader(loadingId);
     // }
   }

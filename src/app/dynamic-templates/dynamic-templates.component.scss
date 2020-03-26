@@ -19,6 +19,7 @@ $heighlighted-color : #faffbb;
 
 @mixin div-container {
   padding      : 2rem 1rem;
+  margin: 2rem 1rem;
   border-radius: 5px;
   @include boxshadow;
 }
@@ -139,7 +140,8 @@ $heighlighted-color : #faffbb;
         background-color: #efefef !important;
       }
 
-      tr{
+      tr {
+
         // .sticky-col {
         //   td:nth-child(even) {
         //     background-color: #efefef;
@@ -218,11 +220,11 @@ $heighlighted-color : #faffbb;
 
       .mat-form-field-appearance-outline .mat-form-field-wrapper {
         /* margin: .25em 0; */
-        margin: 0 !important;
+        margin   : 0 !important;
       }
 
       .mat-form-field-wrapper {
-        padding-bottom: 1em !important;
+        padding-bottom   : 1em !important;
         // padding-bottom: 0 !important;
 
         .mat-form-field-infix {
@@ -230,8 +232,8 @@ $heighlighted-color : #faffbb;
           padding: 0 !important;
         }
 
-        .mat-form-field-underline{
-            // height: 0 !important;
+        .mat-form-field-underline {
+          // height: 0 !important;
         }
 
       }
@@ -402,6 +404,28 @@ $heighlighted-color : #faffbb;
 
   .information-container {
     @include div-container;
+  }
+
+  .left-container {
+    .complex-table {
+      @include div-container;
+
+      table {
+        border-collapse: collapse;
+        width          : 100%;
+      }
+
+      td,
+      th {
+        border    : 1px solid #dddddd;
+        text-align: center;
+        padding   : 8px;
+      }
+
+      tr:nth-child(odd) {
+        background-color: green !important;
+      }
+    }
   }
 
   .hinge {

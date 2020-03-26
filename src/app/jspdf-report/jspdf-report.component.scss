@@ -1,3 +1,15 @@
+@mixin boxshadow {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+@mixin div-container {
+  padding      : 2rem 1rem;
+  margin: 2rem 1rem;
+  border-radius: 5px;
+  @include boxshadow;
+}
+
+
 button {
   margin-top: 5%;
 }
@@ -31,4 +43,25 @@ p {
 }
 .sdate {
   float : right;
+}
+
+
+.complex-table {
+  @include div-container;
+
+  table {
+    border-collapse: collapse;
+    width          : 100%;
+  }
+
+  td,
+  th {
+    border    : 1px solid #ccc;
+    text-align: center;
+    padding   : 8px;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #dddddd;
+  }
 }

@@ -46,6 +46,7 @@ export class jsPDFUtil {
     const textOffset = (doc.internal.pageSize.width - textWidth) / 2;
     doc.text(textOffset, y, text);
   }
+
   static getTextWidth(doc: jsPDF, text: string): any {
     return (
       (doc.getStringUnitWidth(text) * doc.internal.getFontSize()) /
@@ -125,7 +126,6 @@ export class jsPDFUtil {
     pdf.text(rightLbl, pdfPageWidth - rectX, _cordY, null, null, 'right');
     return cordY;
   }
-
 
   static openPdf(doc: jsPDF) {
     const string = doc.output('datauristring');

@@ -6,6 +6,8 @@
     </div>
     <div><button (click)="actions.exportToPdf('DYNAMIC')">Generate PDF(Dynamically)</button></div>
     <div><button (click)="actions.exportToPdf('HTML','tblRowAndColSpan')">Generate PDF(HTML)</button></div>
+    <div><button (click)="actions.exportComplex('tblComplex')">Generate Complex PDF(HTML)</button></div>
+
   </div>
   <br>
 
@@ -13,7 +15,95 @@
 
 </div>
 
-<div class="table-conatner">
+<div class="table-conatner" >
+
+  <div class="complex-table">
+    <table width="0" id="tblComplex">
+      <tbody>
+        <tr>
+          <td>
+            Fardeen
+          </td>
+          <td colspan="2">
+            Ahmad
+          </td>
+          <td colspan="2">
+            Siraj
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Rais_Mother
+          </td>
+          <td>
+            Bano_M
+          </td>
+          <td>
+            45657
+          </td>
+          <td colspan="2">
+            Shavez
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="4">
+            Mariyam
+          </td>
+          <td colspan="2">
+            Abbas
+          </td>
+          <td>
+            12345
+          </td>
+          <td>
+            56757
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">
+            Rais
+          </td>
+          <td>
+            Fatima
+          </td>
+          <td colspan="2">
+            Lucknow
+          </td>
+        </tr>
+        <tr>
+          <td>
+            India
+          </td>
+          <td colspan="2">
+            Uttar Pradesh
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Chowk
+          </td>
+          <td colspan="2">
+            Rajajipuram
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Bottom
+          </td>
+          <td>
+            Hear
+          </td>
+          <td>
+            Panna
+          </td>
+          <td colspan="2">
+            kaju
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 
   <table id='table2'>
     <thead>

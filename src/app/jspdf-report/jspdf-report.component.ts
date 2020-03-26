@@ -564,9 +564,14 @@ export class JspdfReportComponent implements OnInit {
     const txtMaxWidth = docPageWidth - (X * 2);
     // doc.text(loremTxt, X, Y, { maxWidth: txtMaxWidth, align: 'justify' });
     const loremTxt = FakerUtil.getLoremText(70);
+    const dim = doc.getTextDimensions(loremTxt);
+    console.log('dim', dim);
+
     const splitText: Array<any> = doc.splitTextToSize(loremTxt, txtMaxWidth, { align: 'justify' });
     Y = Y + 15;
     doc.text(splitText, X, Y);
+    const dim2 = doc.getTextDimensions(splitText);
+    console.log('dim2', dim2);
 
     const txtLineLength = (splitText && !isEmpty(splitText)) ? splitText.length : 1;
     Y = Y + 10 + (10 * txtLineLength);
@@ -585,12 +590,56 @@ export class JspdfReportComponent implements OnInit {
     // doc.save('file.pdf');
   }
 
+  createTablePdfByHtmlId(htmlId: string, cordY?: number) {
+    htmlId = '#' + htmlId;
+    cordY = cordY || 40;
+    const fontSize = 10;
+    const doc = new jsPDF('p', 'pt');
+    doc.setFontSize(10);
+    doc.autoTable({
+      html: htmlId,
+      useCss: true,
+      // tableLineColor: [114, 113, 133],
+      tableLineColor: [187, 187, 187],
+      tableLineWidth: 1,
+      styles: {
+        // lineColor: [155, 155, 155],
+        lineColor: [221, 221, 221],
+        lineWidth: 1,
+        cellWidth: 'auto'
+        // cellWidth: 30
+      },
+      startY: cordY,
+      headStyles: {
+        // fillColor: [36, 141, 220],
+        font: 'times',
+        textColor: [0, 0, 0],
+        fillColor: [204, 204, 204],
+        fontSize: fontSize,
+        halign: 'center'
+      },
+      bodyStyles: { valign: 'top', fontSize: fontSize, font: 'times', },
+      rowPageBreak: 'auto',
+      alternateRowStyles: {
+        fillColor: [241, 241, 241],
+      },
+      // styles: { cellWidth: 'wrap' },
+      columnStyles: { text: { cellWidth: 'wrap' } },
+      theme: 'grid'
+    });
+
+    jsPDFUtil.openPdf(doc);
+  }
+
 
   // tslint:disable-next-line:member-ordering
   actions = {
     exportToPdf: (key: string, elementId?: string) => {
       this.genratePdf(key, elementId);
     },
+    exportComplex: (id) => {
+      this.createTablePdfByHtmlId(id)
+    }
   };
 
 }
