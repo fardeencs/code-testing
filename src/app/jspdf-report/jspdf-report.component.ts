@@ -10,6 +10,8 @@ import { jsPDFUtil } from '../common/jspdf-util';
 import { base64Img } from './base64-util';
 import { isEmpty, find as lFind, filter as lFilter, includes, each } from 'lodash';
 import { CommonHelperUtil } from '../common/common-helper.util';
+import { IPdfTemplate } from './jspdf.model';
+import { JsPdfHelper } from './jspdf.helper';
 
 
 @Component({
@@ -631,6 +633,108 @@ export class JspdfReportComponent implements OnInit {
     jsPDFUtil.openPdf(doc);
   }
 
+  createPdfTableByJsPdf() {
+    const X = 20, Y = 20;
+    const template: Array<IPdfTemplate> = [
+      {
+        cordX: X,
+        cordY: Y,
+        width: 20,
+        text: 'Rais Bano',
+        rowNo: 1,
+        colNo: 1,
+      },
+      {
+        cordX: X,
+        cordY: Y,
+        width: 80,
+        text: 'Siraj Ahmad',
+        rowNo: 1,
+        colNo: 2,
+      },
+      {
+        cordX: X,
+        cordY: Y,
+        width: 20,
+        text: FakerUtil.getLoremText(100),
+        rowNo: 2,
+        colNo: 1,
+      },
+      {
+        cordX: X,
+        cordY: Y,
+        width: 30,
+        text: FakerUtil.getLoremText(50),
+        rowNo: 2,
+        colNo: 2,
+      },
+      {
+        cordX: X,
+        cordY: Y,
+        width: 50,
+        text: FakerUtil.getLoremText(150),
+        rowNo: 2,
+        colNo: 3,
+      },
+
+      {
+        cordX: X,
+        cordY: Y,
+        width: 20,
+        text: FakerUtil.getLoremText(10),
+        rowNo: 3,
+        colNo: 1,
+      },
+      {
+        cordX: X,
+        cordY: Y,
+        width: 80,
+        text: FakerUtil.getLoremText(80),
+        rowNo: 3,
+        colNo: 2,
+      },
+      // {
+      //   cordX: X,
+      //   cordY: Y,
+      //   width: 20,
+      //   text: FakerUtil.getLoremText(5),
+      //   rowNo: 4,
+      //   colNo: 1,
+      // },
+      // {
+      //   cordX: X,
+      //   cordY: Y,
+      //   width: 20,
+      //   text: FakerUtil.getLoremText(10),
+      //   rowNo: 4,
+      //   colNo: 2,
+      // },
+      // {
+      //   cordX: X,
+      //   cordY: Y,
+      //   width: 60,
+      //   text: FakerUtil.getLoremText(20),
+      //   rowNo: 4,
+      //   colNo: 3,
+      // }
+    ];
+
+    const doc = new jsPDF('p', 'pt');
+    doc.setFontSize(10);
+    JsPdfHelper.creteTable(doc, template);
+
+    // Optional - set properties on the document
+    doc.setProperties({
+      title: 'Title',
+      subject: 'This is the subject',
+      author: 'Fardeen Ahmad',
+      keywords: 'jsPDF table',
+      creator: 'Fardeen'
+    });
+
+    jsPDFUtil.openPdf(doc);
+  }
+
 
   // tslint:disable-next-line:member-ordering
   actions = {
@@ -639,6 +743,9 @@ export class JspdfReportComponent implements OnInit {
     },
     exportComplex: (id) => {
       this.createTablePdfByHtmlId(id)
+    },
+    exportPdfTableByJsPdf: () => {
+      this.createPdfTableByJsPdf();
     }
   };
 
