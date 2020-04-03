@@ -12,7 +12,14 @@ import { isEmpty, find as lFind, filter as lFilter, includes, each } from 'lodas
 import { CommonHelperUtil } from '../common/common-helper.util';
 import { IPdfTemplate } from './jspdf.model';
 import { JsPdfHelper } from './jspdf.helper';
+// import html2canvas from 'html2canvas';
 
+// declare global {
+//   const TextField: any;
+// }
+// (window as any).acroForm();
+
+declare function acroForm();
 
 @Component({
   selector: 'app-jspdf-report',
@@ -35,27 +42,39 @@ export class JspdfReportComponent implements OnInit {
 
 
   html2PDF() {
-    const content = this.reportContent.nativeElement;
+    // const content = this.reportContent.nativeElement;
+    const content = document.getElementById('inspectionReport');
     const opt = {
-      margin: [40, 5, 40, 5],
+      margin: [40, 20, 40, 20],
       filename: 'Test.pdf',
       image: { type: 'jpeg', quality: 1 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+      jsPDF: {
+        unit: 'pt', format: 'a4', orientation: 'portrait',
+
+     }
     };
 
-    const dataStr = html2pdf()
-      .set(opt)
-      .from(content)
-      .output('datauristring');
-    const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + dataStr + '\'></iframe>';
+    // const dataStr = html2pdf()
+    //   .set(opt)
+    //   .from(content)
+    //   .output('datauristring');
+      // 'datauristring'
 
-    const x = window.open();
-    x.document.open();
-    x.document.write(iframe);
-    x.document.close();
+      html2pdf().set(opt).from(content).output('datauristring').then((result: any) => {
+        console.log('result', result);
+        // Your code to send an email with val.
+        jsPDFUtil.openPdf2(result);
+      });
+
+
+    // const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + dataStr + '\'></iframe>';
+    // const x = window.open();
+    // x.document.open();
+    // x.document.write(iframe);
+    // x.document.close();
     // Save the PDF
-    html2pdf().set(opt).from(content).save();
+    // html2pdf().set(opt).from(content).save();
   }
 
   createPDFByHTML(doc: jsPDF, Y: number, elementId: string): jsPDF {
@@ -566,14 +585,14 @@ export class JspdfReportComponent implements OnInit {
     const txtMaxWidth = docPageWidth - (X * 2);
     // doc.text(loremTxt, X, Y, { maxWidth: txtMaxWidth, align: 'justify' });
     const loremTxt = FakerUtil.getLoremText(70);
-    const dim = doc.getTextDimensions(loremTxt);
-    console.log('dim', dim);
+    // const dim = doc.getTextDimensions(loremTxt);
+    // console.log('dim', dim);
 
     const splitText: Array<any> = doc.splitTextToSize(loremTxt, txtMaxWidth, { align: 'justify' });
     Y = Y + 15;
     doc.text(splitText, X, Y);
-    const dim2 = doc.getTextDimensions(splitText);
-    console.log('dim2', dim2);
+    // const dim2 = doc.getTextDimensions(splitText);
+    // console.log('dim2', dim2);
 
     const txtLineLength = (splitText && !isEmpty(splitText)) ? splitText.length : 1;
     Y = Y + 10 + (10 * txtLineLength);
@@ -614,11 +633,13 @@ export class JspdfReportComponent implements OnInit {
       startY: cordY,
       headStyles: {
         // fillColor: [36, 141, 220],
+        lineWidth: 1,
+        lineColor: [255, 0, 0],
         font: 'times',
         textColor: [0, 0, 0],
         fillColor: [204, 204, 204],
         fontSize: fontSize,
-        halign: 'center'
+        halign: 'left'
       },
       bodyStyles: { valign: 'top', fontSize: fontSize, font: 'times', },
       rowPageBreak: 'auto',
@@ -642,7 +663,10 @@ export class JspdfReportComponent implements OnInit {
         width: 20,
         text: 'Rais Bano',
         rowNo: 1,
-        colNo: 1,
+        columnNo: 1,
+        textColor: [234, 14, 14],
+        borderColor: [255, 12, 12],
+        backGroundColor: [204, 204, 204]
       },
       {
         cordX: X,
@@ -650,7 +674,9 @@ export class JspdfReportComponent implements OnInit {
         width: 80,
         text: 'Siraj Ahmad',
         rowNo: 1,
-        colNo: 2,
+        columnNo: 2,
+        textColor: [0, 255, 56],
+        borderColor: [204, 204, 204]
       },
       {
         cordX: X,
@@ -658,7 +684,7 @@ export class JspdfReportComponent implements OnInit {
         width: 20,
         text: FakerUtil.getLoremText(100),
         rowNo: 2,
-        colNo: 1,
+        columnNo: 1,
       },
       {
         cordX: X,
@@ -666,7 +692,7 @@ export class JspdfReportComponent implements OnInit {
         width: 30,
         text: FakerUtil.getLoremText(50),
         rowNo: 2,
-        colNo: 2,
+        columnNo: 2,
       },
       {
         cordX: X,
@@ -674,7 +700,7 @@ export class JspdfReportComponent implements OnInit {
         width: 50,
         text: FakerUtil.getLoremText(150),
         rowNo: 2,
-        colNo: 3,
+        columnNo: 3,
       },
 
       {
@@ -683,7 +709,7 @@ export class JspdfReportComponent implements OnInit {
         width: 20,
         text: FakerUtil.getLoremText(10),
         rowNo: 3,
-        colNo: 1,
+        columnNo: 1,
       },
       {
         cordX: X,
@@ -691,7 +717,7 @@ export class JspdfReportComponent implements OnInit {
         width: 80,
         text: FakerUtil.getLoremText(80),
         rowNo: 3,
-        colNo: 2,
+        columnNo: 2,
       },
       // {
       //   cordX: X,
@@ -719,7 +745,11 @@ export class JspdfReportComponent implements OnInit {
       // }
     ];
 
-    const doc = new jsPDF('p', 'pt');
+    const doc = new jsPDF({
+      unit: 'pt',
+      lineHeight: 1,
+      orientation: 'p'
+    });
     doc.setFontSize(10);
     JsPdfHelper.creteTable(doc, template);
 
@@ -735,6 +765,109 @@ export class JspdfReportComponent implements OnInit {
     jsPDFUtil.openPdf(doc);
   }
 
+  editablePDFForm() {
+    // const doc = new jsPDF({
+    //   unit: 'pt',
+    //   lineHeight: 1,
+    //   orientation: 'p'
+    // });
+
+    // doc.setFontSize(12);
+    // doc.text('ComboBox:', 10, 105);
+
+    // const comboBox = new ComboBox();
+    // comboBox.fieldName = 'ChoiceField1';
+    // comboBox.topIndex = 1;
+    // comboBox.Rect = [50, 100, 30, 10];
+    // comboBox.setOptions(['a', 'b', 'c']);
+    // comboBox.value = 'b';
+    // comboBox.defaultValue = 'b';
+    // doc.addField(comboBox);
+
+    // doc.text('ListBox:', 10, 115);
+    // const listbox = new ListBox();
+    // listbox.edit = false;
+    // listbox.fieldName = 'ChoiceField2';
+    // listbox.topIndex = 2;
+    // listbox.Rect = [50, 110, 30, 10];
+    // listbox.setOptions(['c', 'a', 'd', 'f', 'b', 's']);
+    // listbox.value = 's';
+    // doc.addField(listbox);
+
+    // doc.text('CheckBox:', 10, 125);
+    // const checkBox = new CheckBox();
+    // checkBox.fieldName = 'CheckBox1';
+    // checkBox.Rect = [50, 120, 30, 10];
+    // doc.addField(checkBox);
+
+    // doc.text('PushButton:', 10, 135);
+    // const pushButton = new PushButton();
+    // pushButton.fieldName = 'PushButton1';
+    // pushButton.Rect = [50, 130, 30, 10];
+    // doc.addField(pushButton);
+
+    // doc.text('TextField:', 10, 145);
+    // const textField = new TextField();
+    // textField.Rect = [50, 140, 30, 10];
+    // textField.multiline = true;
+    // textField.value =
+    //   'The quick brown fox ate the lazy mouse The quick brown fox ate the lazy mouse The quick brown fox ate the lazy mouse'; //
+    // textField.fieldName = 'TestTextBox';
+    // doc.addField(textField);
+
+    // doc.text('Password:', 10, 155);
+    // const passwordField = new PasswordField();
+    // passwordField.Rect = [50, 150, 30, 10];
+    // doc.addField(passwordField);
+
+    // doc.text('RadioGroup:', 50, 165);
+    // const radioGroup = new RadioButton();
+    // radioGroup.value = 'Test';
+    // radioGroup.Subtype = 'Form';
+
+    // doc.addField(radioGroup);
+
+    // const radioButton1 = radioGroup.createOption('Test');
+    // radioButton1.Rect = [50, 170, 30, 10];
+    // radioButton1.AS = '/Test';
+
+    // const radioButton2 = radioGroup.createOption('Test2');
+    // radioButton2.Rect = [50, 180, 30, 10];
+
+    // const radioButton3 = radioGroup.createOption('Test3');
+    // radioButton3.Rect = [50, 190, 20, 10];
+
+    // radioGroup.setAppearance(AcroForm.Appearance.RadioButton.Cross);
+
+    // Optional - set properties on the document
+
+    // doc.setProperties({
+    //   title: 'Title',
+    //   subject: 'This is the subject',
+    //   author: 'Fardeen Ahmad',
+    //   keywords: 'jsPDF table',
+    //   creator: 'Fardeen'
+    // });
+
+    // doc.save('AcroFomr.pdf');
+    // jsPDFUtil.openPdf(doc);
+
+    acroForm();
+
+  }
+
+  private pdfFromHtml() {
+    const pdf = new jsPDF('p', 'pt', 'letter');
+    pdf.html(document.getElementById('table2'), {
+      callback: function (pdf) {
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:500px');
+        document.body.appendChild(iframe);
+        iframe.src = pdf.output('datauristring');
+      }
+    });
+  }
+
 
   // tslint:disable-next-line:member-ordering
   actions = {
@@ -742,10 +875,14 @@ export class JspdfReportComponent implements OnInit {
       this.genratePdf(key, elementId);
     },
     exportComplex: (id) => {
-      this.createTablePdfByHtmlId(id)
+      this.createTablePdfByHtmlId(id);
     },
     exportPdfTableByJsPdf: () => {
       this.createPdfTableByJsPdf();
+    },
+    pdfForm: () => {
+      this.editablePDFForm();
+      // this.pdfFromHtml();
     }
   };
 

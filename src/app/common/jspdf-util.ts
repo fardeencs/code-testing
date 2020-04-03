@@ -139,6 +139,16 @@ export class jsPDFUtil {
     x.document.close();
   }
 
+  static openPdf2(datauristring: string) {
+    const iframe =
+      '<iframe width=\'100%\' height=\'100%\' src=\'' + datauristring + '\'></iframe>';
+
+    const x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
+  }
+
 
 
 

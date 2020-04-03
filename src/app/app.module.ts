@@ -29,12 +29,12 @@ import { MaterialGridModule } from './material-grid/material-grid.module';
 import { MaterialModule } from './material-module.module';
 import { ResponsiveTableComponent } from './responsive-table/responsive-table.component';
 import { AngularImgComponent } from './router-animation/angular-img/angular-img.component';
-import {
-    DemoDynamicParamsComponent
-} from './router-animation/demo-dynamic-params/demo-dynamic-params.component';
-import {
-    DemoOnEnterOnLeaveComponent
-} from './router-animation/demo-on-enter-on-leave/demo-on-enter-on-leave.component';
+// import {
+//     DemoDynamicParamsComponent
+// } from './router-animation/demo-dynamic-params/demo-dynamic-params.component';
+// import {
+//     DemoOnEnterOnLeaveComponent
+// } from './router-animation/demo-on-enter-on-leave/demo-on-enter-on-leave.component';
 import { TreeviewTableComponent } from './treeview-table/treeview-table.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MultipleObservableComponent } from './multiple-observable/multiple-observable.component';
@@ -51,6 +51,11 @@ import { SvgIconModule } from './common/svg2/svg-icon.module';
 import { GenricSvgTestComponent } from './genric-svg-test/genric-svg-test.component';
 import { AllFlexTableComponent } from './all-flex-table/all-flex-table.component';
 import { JspdfReportComponent } from './jspdf-report/jspdf-report.component';
+import { SizeDetectorComponent } from './common/size-detector/size-detector.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { InlineEditTableComponent } from './inline-edit-table/inline-edit-table.component';
+import { DragableColumnDirective } from './common/directives/dragable-column.directive';
+import { MatGridComponent } from './mat-grid/mat-grid.component';
 
 
 export const ICustomNumberMaskConfig: INumberMaskConfig = {
@@ -108,13 +113,19 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
       //SvgDefinitionsComponent,
       GenricSvgTestComponent,
       AllFlexTableComponent,
-      JspdfReportComponent
+      JspdfReportComponent,
+      SizeDetectorComponent,
+      FormatNumberPipe,
+      ReactiveFormComponent,
+      DragableColumnDirective,
+      InlineEditTableComponent,
+      MatGridComponent
    ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
       NoopAnimationsModule,
-      //DynamicComponentLoaderModule.forRoot(manifests)\\nCommonModule,
+      //DynamicComponentLoaderModule.forRoot(manifests)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\nCommonModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,

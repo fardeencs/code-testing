@@ -1,0 +1,115 @@
+<ng-container *ngIf="matTable">
+  <div [class]="containerStyle">
+      <mat-table id="gridId" #table [dataSource]="dataSource" matSort matSortActive="config?.sortColumn" matSortDisableClear>
+          <ng-container *ngFor="let column of columnsDef" [matColumnDef]="column.field" [sticky]="column.freeze">
+              <ng-container *ngIf="column.cellTemplate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">
+                  {{column.header}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="{{column.clazz}}" [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">
+                      <ng-template [ngTemplateOutletContext]="{ element: element, rowcolumn: column}" [ngTemplateOutlet]="column.cellTemplate">
+                      </ng-template>
+                  </mat-cell>
+              </ng-container>
+              <ng-container *ngIf="!column.cellTemplate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">{{ column.header }}</mat-header-cell>
+                  <ng-container *ngIf="column.titlecase">
+                      <mat-cell *matCellDef="let element" class="{{column.clazz}}" (click)="$event.stopPropagation()" title='{{element[column.field]}}'
+                          [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">{{element[column.field] | titlecase}}</mat-cell>
+                  </ng-container>
+                  <ng-container *ngIf="!column.titlecase">
+                      <mat-cell *matCellDef="let element" class="{{column.clazz}}" (click)="$event.stopPropagation()" title='{{element[column.field]}}'
+                          [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">{{element[column.field]}}</mat-cell>
+                  </ng-container>
+              </ng-container>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns; let ind = index" id="row-{{ind}}" (click)="actions.onRowSelect(row, ind)"></mat-row>
+      </mat-table>
+  </div>
+</ng-container>
+
+<!-- <ng-container *ngIf="!matTable">
+  <div [class]="containerStyle">
+  <table mat-table id="gridId" #table [dataSource]="dataSource" matSort matSortActive="config?.sortColumn" matSortDisableClear>
+      <ng-container *ngFor="let column of columnsDef" [matColumnDef]="column.field" [sticky]="column.freeze">
+          <ng-container *ngIf="column.cellTemplate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">
+                  {{column.header}} </th>
+              <td mat-cell *matCellDef="let element" class="{{column.clazz}}" [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">
+                  <ng-template [ngTemplateOutletContext]="{ element: element, rowcolumn: column}" [ngTemplateOutlet]="column.cellTemplate">
+                  </ng-template>
+              </td>
+          </ng-container>
+          <ng-container *ngIf="!column.cellTemplate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">
+                  {{ column.header }}</th>
+              <ng-container *ngIf="column.titlecase">
+                  <td mat-cell *matCellDef="let element" class="{{column.clazz}}" (click)="$event.stopPropagation()" title='{{element[column.field]}}'
+                      [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">
+                      {{element[column.field] | titlecase}}</td>
+              </ng-container>
+              <ng-container *ngIf="!column.titlecase">
+                  <td mat-cell *matCellDef="let element" class="{{column.clazz}}" (click)="$event.stopPropagation()" title='{{element[column.field]}}'
+                      [style.flex]="column.width ? '0 0 ' + column.width + '%' : null">
+                      {{element[column.field]}}</td>
+              </ng-container>
+          </ng-container>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; let ind = index" id="row-{{ind}}" (click)="actions.onRowSelect(row, ind)"></tr>
+  </table>
+</div>
+</ng-container> -->
+
+<ng-container *ngIf="!matTable">
+  <div [class]="containerStyle">
+  <table mat-table id="gridId" #table [dataSource]="dataSource" matSort matSortActive="config?.sortColumn" matSortDisableClear>
+      <ng-container *ngFor="let column of columnsDef" [matColumnDef]="column.field" [sticky]="column.freeze">
+          <ng-container *ngIf="column.cellTemplate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width]="column.width ? column.width + '%' : null">
+                  {{column.header}} </th>
+              <td mat-cell *matCellDef="let element" class="{{column.clazz}}" [style.width]="column.width ? column.width + '%' : null">
+                  <ng-template [ngTemplateOutletContext]="{ element: element, rowcolumn: column}" [ngTemplateOutlet]="column.cellTemplate">
+                  </ng-template>
+              </td>
+          </ng-container>
+          <ng-container *ngIf="!column.cellTemplate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width]="column.width ? column.width + '%' : null">
+                  {{ column.header }}</th>
+              <ng-container *ngIf="column.titlecase">
+                  <td mat-cell *matCellDef="let element" class="{{column.clazz}}" (click)="$event.stopPropagation()" title='{{element[column.field]}}'
+                      [style.width]="column.width ? column.width + '%' : null">
+                      {{element[column.field] | titlecase}}</td>
+              </ng-container>
+              <ng-container *ngIf="!column.titlecase">
+                  <td mat-cell *matCellDef="let element" class="{{column.clazz}}" (click)="$event.stopPropagation()" title='{{element[column.field]}}'
+                      [style.width]="column.width ? column.width + '%' : null">
+                      {{element[column.field]}}</td>
+              </ng-container>
+          </ng-container>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; let ind = index" id="row-{{ind}}" (click)="actions.onRowSelect(row, ind)"></tr>
+  </table>
+</div>
+</ng-container>
+
+<div>
+  <mat-paginator showFirstLastButtons [pageSizeOptions]="pageSizeOptions" [length]="dataSourceLength" [pageSize]="pagination.pageSize">
+  </mat-paginator>
+</div>
+
+
+
+<ng-template #dateTmpl let-element="element" let-rowcolumn="rowcolumn">
+  <!-- <span title='{{element[rowcolumn.field]}}' (click)="$event.stopPropagation()">{{element[rowcolumn.field] | date: 'dd/MM/yyyy'}}</span> -->
+</ng-template>
+
+<ng-template #dateTimeTmpl let-element="element" let-rowcolumn="rowcolumn">
+  <!-- <span title='{{element[rowcolumn.field] | date: 'dd/MM/yyyy'}}' (click)="$event.stopPropagation()">{{element[rowcolumn.field] | date: 'dd/MM/yyyy'}}</span> -->
+</ng-template>
+
+<ng-template #gridActionTmpl let-element="element">
+  <span *ngIf="config.showEdit" class="actions" (click)="editData($event)"><i class="fa fa-edit"></i></span>
+  <span *ngIf="config.showDelete" class="actions" (click)="deleteData($event)"><i class="fa fa-trash"></i></span>
+</ng-template>

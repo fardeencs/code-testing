@@ -58,6 +58,8 @@ body::-webkit-scrollbar-thumb {
   // display      : flex;
   // flex         : 1 1 100%;
   padding         : 2rem 1rem;
+  // margin          : 2rem;
+  margin: 2rem 0;
   border-radius   : 5px;
   @include boxshadow;
 }

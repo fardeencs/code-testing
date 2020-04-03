@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+// import { Component } from '@angular/core';
 
-@Component({
-  selector: 'svg-definitions',
-  templateUrl: './svg-definitions.component.html'
-})
-export class SvgDefinitionsComponent {
+// @Component({
+//   selector: 'svg-definitions',
+//   templateUrl: './svg-definitions.component.html'
+// })
+// export class SvgDefinitionsComponent {
 
-  constructor() { }
+//   constructor() { }
 
-}
+// }

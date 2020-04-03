@@ -8,6 +8,8 @@
     <div><button (click)="actions.exportToPdf('HTML','tblRowAndColSpan')">Generate PDF(HTML)</button></div>
     <div><button (click)="actions.exportComplex('tblComplex')">Generate Complex PDF(HTML)</button></div>
     <div><button (click)="actions.exportPdfTableByJsPdf()">Generate PDF Table(JSPDF)</button></div>
+    <div><button (click)="actions.pdfForm()">Generate Editable PDF Form</button></div>
+    <div><button (click)="html2PDF()">Html2PDF</button></div>
 
 
   </div>
@@ -17,10 +19,24 @@
 
 </div>
 
+
+<div class="acroform-container">
+
+</div>
+
 <div class="table-conatner" >
 
   <div class="complex-table">
     <table width="0" id="tblComplex">
+      <thead>
+        <tr>
+          <th>Header 1</th>
+          <th>Header 2</th>
+          <th>Header 3</th>
+          <th>Header 4</th>
+          <th>Header 5</th>
+        </tr>
+      </thead>
       <tbody>
         <tr>
           <td>

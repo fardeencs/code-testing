@@ -59,7 +59,7 @@ export class JsPdfHelper {
     const _txtHeight = pdf.internal.getFontSize() * noOfLines;
     const txtHeight = _txtHeight / pdf.internal.scaleFactor;
     const dim = pdf.getTextDimensions(splitText);
-    console.log('dimwnsion', dim, txtMaxWidth, txtHeight);
+    // console.log('dimwnsion', dim, txtMaxWidth, txtHeight);
 
     return {
       txtHeight: dim.h,
@@ -83,17 +83,31 @@ export class JsPdfHelper {
 
   static createCell(pdf: jsPDF, entity: IPdfTemplate): number {
     const { pageWidth } = this.getDocHeightAndWidth(pdf);
-    let { cordY, cordX, cellWidth, rowHeight, splitText, padding } = entity;
+    let { cordY, cordX, cellWidth, rowHeight, splitText, padding, textColor, backGroundColor, borderColor } = entity;
     const { left, right, top, bottom } = padding;
-    // const _x = cordX;
-    pdf.rect(cordX, cordY, cellWidth, rowHeight);
-    // cordY = cordY + 15;
+    if (borderColor) {
+      pdf.setDrawColor(borderColor[0], borderColor[1], borderColor[2]);
+    } else {
+      pdf.setDrawColor(0, 0, 0);
+    }
+    if (backGroundColor) {
+      pdf.setFillColor(backGroundColor[0], backGroundColor[1], backGroundColor[2]);
+      pdf.rect(cordX, cordY, cellWidth, rowHeight, 'FD');
+    } else {
+      pdf.setFillColor(255, 0, 0);
+      pdf.rect(cordX, cordY, cellWidth, rowHeight);
+    }
+    // pdf.rect(120, 20, 10, 10, "FD");
     const x = cordX + left;
     // const y = cordY + bottom;
     //  const y = cordY + bottom;
     const y = cordY + pdf.internal.getFontSize() + top;
+    if (textColor) {
+      pdf.setTextColor(textColor[0], textColor[1], textColor[2]);
+    }
     pdf.text(splitText, x, y);
     cordY = y + rowHeight;
+    pdf.setTextColor(0, 0, 0);
     return cordY;
   }
 
@@ -106,7 +120,7 @@ export class JsPdfHelper {
         const element = rowGrp[key];
         each(element, (tmp: IPdfTemplate, ind: number) => {
           const { cordX, width, text, padding } = tmp;
-          if(isEmpty(padding)){
+          if (isEmpty(padding)) {
             const cPadding: IOption = {
               left: 5,
               right: 5,

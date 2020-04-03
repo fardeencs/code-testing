@@ -1,0 +1,96 @@
+<form class="" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create Employee</h3>
+    </div>
+    <div class="panel-body">
+      <div class="wrapper">
+        <div>
+          <label for="fullName">Full Name</label>
+          <div class="col-sm-8">
+            <input id="fullName" type="text" class="form-control" formControlName="fullName">
+          </div>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <div class="col-sm-8">
+            <input id="email" type="text" class="form-control" formControlName="email">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="well wrapper">
+        <div>
+          <div>
+            <button type="button" (click)="addSkillButtonClick()"> Add Skill</button>
+          </div>
+        </div>
+
+        <div formArrayName="skills" *ngFor="let skill of employeeForm.get('skills').controls; let i = index">
+          <div [formGroupName]="i" class="wrapper">
+            <div>
+              <label for="{{'skillName' + i}}"> Skill</label>
+              <div>
+                <input type="text" class="form-control" [id]="'skillName'+ i" placeholder="Name"
+                  formControlName="skillName">
+              </div>
+              <label for="{{'experienceInYears' + i}}"> Experience</label>
+              <div>
+                <input type="text" [id]="'experienceInYears'+ i" placeholder="Experience in Years" class="form-control"
+                  formControlName="experienceInYears">
+              </div>
+            </div>
+
+            <div>
+              <label>Proficiency</label>
+              <div >
+                <label>
+                  <input [id]="'proficiency' + i" type="radio" value="beginner" formControlName="proficiency">Beginner
+                </label>
+                <label>
+                  <input [id]="'proficiency' + i" type="radio" value="intermediate"
+                    formControlName="proficiency">Intermediate
+                </label>
+                <label>
+                  <input [id]="'proficiency' +i" type="radio" value="advanced" formControlName="proficiency">Advanced
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="panel-footer">
+      <button type="submit">Save</button>
+    </div>
+  </div>
+
+  <div>
+    <table border="1">
+      <tr>
+        <th style="padding: 10px">FormGroup</th>
+        <th style="padding: 10px">FormControl (fullName)</th>
+      </tr>
+      <tr>
+        <td style="padding: 10px">
+          touched : {{ employeeForm.touched }}
+          <br /> dirty : {{ employeeForm.dirty }}
+          <br /> valid : {{ employeeForm.valid }}
+          <br /> Form Values : {{employeeForm.value | json}}
+        </td>
+        <td style="padding: 10px">
+          touched : {{ employeeForm.get('fullName').touched }}
+          <br /> dirty : {{ employeeForm.get('fullName').dirty }}
+          <br /> valid : {{ employeeForm.get('fullName').valid }}
+          <br /> FullName Value : {{employeeForm.get('fullName').value}}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</form>

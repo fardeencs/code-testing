@@ -8,6 +8,8 @@ import { AllFlexTableComponent } from './all-flex-table/all-flex-table.component
 import { HtmlTreeViewComponent } from './html-tree-view/html-tree-view.component';
 import { MaterialGridComponent } from './material-grid/material-grid.component';
 import { JspdfReportComponent } from './jspdf-report/jspdf-report.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { InlineEditTableComponent } from './inline-edit-table/inline-edit-table.component';
 
 export const routes: Routes = [
   {
@@ -45,7 +47,16 @@ export const routes: Routes = [
   {
     path: 'jspdf-report',
     component: JspdfReportComponent
+  },
+  {
+    path: 'reactive-form',
+    component: ReactiveFormComponent
+  },
+  {
+    path: 'inline-edit-table',
+    component: InlineEditTableComponent
   }
+
 ];
 
 

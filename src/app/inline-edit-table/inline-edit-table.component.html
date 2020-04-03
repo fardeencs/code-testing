@@ -1,0 +1,154 @@
+<!-- <header>
+  <div>
+    <h3>Inline Editable Table</h3>
+  </div>
+</header> -->
+<h3>Inline Editable Table (Genric)</h3>
+<form [formGroup]="userTable">
+
+   <div class="box-container">
+    <table class="table table-border" [ngClass]="{'table-dark': mode}">
+      <thead class="text-nowrap">
+        <th *ngFor="let col of colDef">{{col.header}}</th>
+      </thead>
+      <tbody>
+        <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
+          <tr [formGroupName]="i">
+            <td *ngFor="let col of colDef" id="cell-{{i}}-tablId">
+
+                <ng-container *ngIf="col.cellTemplate">
+                  <ng-container [ngTemplateOutlet]="col.cellTemplate"
+                        [ngTemplateOutletContext]="{
+                              ind:i,
+                              group: group,
+                              column: col,
+                              isEdit: group.get('isEditable').value
+                            }">
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="!col.cellTemplate"
+                         [ngTemplateOutlet]="controlTmpl" [ngTemplateOutletContext]="{
+                              ind:i,
+                              gridId:'tablId',
+                              type:col.type,
+                              group: group,
+                              column: col,
+                              isEdit: group.get('isEditable').value
+                            }">
+                </ng-container>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div class="action-container">
+      <button mat-raised-button type="submit" (click)="addRow()">Add row</button>
+      <button mat-raised-button [disabled]="userTable.invalid" type="submit" (click)="submitForm()">Submit</button>
+    </div>
+   </div>
+
+
+  <ng-template #controlTmpl let-type='type' let-group="group" let-column='column' let-ind='ind'
+    let-gridId="gridId" let-appearance="appearance" let-isEdit="isEdit">
+    <ng-container [ngSwitch]="type">
+      <!-- FIELD: {{ column.field | json}} -->
+      <!-- INDEX: {{ ind | json}} -->
+      <!-- CONTROL: {{ group.get(column.field).value | json}} -->
+      <!-- isEdit: {{ isEdit | json}} -->
+
+      <ng-container *ngIf="isEdit">
+
+        <ng-container *ngSwitchCase="fieldType.TEXT_BOX">
+          <mat-form-field>
+            <input matInput type="text"
+             [formControl]="group.get(column.field)">
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="fieldType.DATE_BOX">
+          <mat-form-field>
+            <input matInput matInput [matDatepicker]="picker"
+            [formControl]="group.get(column.field)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="fieldType.NUMBER_BOX">
+          <mat-form-field>
+            <input matInput type="text"
+            [formControl]="group.get(column.field)">
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="fieldType.CHECK_BOX">
+          <input type="checkbox" class="text-box-{{ind}}-{{gridId}}" name='check-box-{{ind}}-{{gridId}}'
+            class="check-box-{{ind}}-{{gridId}}"
+            [formControl]="group.get(column.field)" />
+        </ng-container>
+
+        <ng-container *ngSwitchCase="fieldType.DROPDOWN">
+          <mat-form-field>
+            <mat-select  [formControl]="group.get(column.field)">
+              <mat-option *ngFor="let item of column.collection"
+                  [value]="item.value">{{item.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+      </ng-container>
+
+      <ng-container *ngIf="!isEdit">
+
+        <ng-container *ngSwitchCase="fieldType.NUMBER_BOX">
+          {{ group.get(column.field).value | number}}
+        </ng-container>
+
+        <ng-container *ngSwitchCase="fieldType.TEXT_BOX">
+          {{ group.get(column.field).value}}
+        </ng-container>
+
+        <ng-container *ngSwitchCase="fieldType.DATE_BOX">
+          {{ group.get(column.field).value | date: 'dd/MM/yyyy'}}
+        </ng-container>
+
+        <ng-container *ngSwitchCase="fieldType.DROPDOWN">
+          {{ group.get(column.field).value }}
+        </ng-container>
+
+        <!-- <ng-container *ngIf="fieldType.TEMPLATE">
+          <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
+        </ng-container> -->
+
+      </ng-container>
+
+    </ng-container>
+
+  </ng-template>
+
+
+<ng-template #actionTmpl let-group="group" let-ind="ind" let-isEdit="isEdit">
+  <ng-container *ngIf="isEdit">
+    <mat-icon class="delete" (click)="deleteRow(ind)">delete_forever</mat-icon>
+    <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
+  </ng-container>
+  <ng-container *ngIf="!isEdit">
+    <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
+  </ng-container>
+</ng-template>
+
+
+
+</form>
+
+
+
+  <div class="output">
+    <p>Form Data:  {{userTable.value | json}}</p>
+      <p>Is Valid: {{userTable.valid}}</p>
+  </div>
+
+
+

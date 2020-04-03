@@ -1,0 +1,118 @@
+
+$primaryColor  :#0075b0;
+$highLightColor:#f9f9db;
+$fontSize      : 0.9em;
+
+
+.no-data-found {
+  text-align: center;
+  color     : red;
+}
+
+.tbl-container {
+  display              : -webkit-box;
+  display              : flex;
+  // border            : 1px solid #ddd;
+  -webkit-box-orient   : vertical;
+  -webkit-box-direction: normal;
+  flex-direction       : column;
+  min-height           : calc(100vh - 340px);
+  max-height           : calc(100vh - 340px);
+  overflow             : auto;
+
+  .mat-header-row {
+    // background-color: #0d94d8;
+    min-height         : 33px;
+    line-height        : 1rem;
+    z-index            : 1;
+  }
+
+  .mat-header-cell {
+    // font-weight: bold ;
+    // color      : #fff;
+    // padding    : 0 5px !important;
+  }
+
+  .mat-row {
+    min-height            : 30px;
+    // border-bottom-width: 0px;
+  }
+
+  .mat-cell {
+    font-size  : 12px !important;
+    //  padding: 0 5px !important;
+  }
+
+  // .mat-row:nth-child(even){
+  //     background-color:#f0f4f7;
+  // }
+  // .mat-row:nth-child(odd){
+  //     background-color: #fff;
+  // }
+}
+
+.tbl-container-odd-even {
+  display              : -webkit-box;
+  display              : flex;
+  -webkit-box-orient   : vertical;
+  -webkit-box-direction: normal;
+  flex-direction       : column;
+  min-height           : 20px;
+  max-height           : calc(100vh - 490px);
+  overflow             : auto;
+  border-radius        : 7px;
+
+  table {
+    width: 100%;
+  }
+
+  .mat-header-row {
+    background-color: $primaryColor;
+    height          : 3rem;
+    min-height      : 3rem;
+    line-height     : 1rem;
+
+    button {
+      height: 2.5rem;
+    }
+  }
+
+  .mat-header-cell {
+    border    : 1px solid #ddd;
+    text-align: center;
+    padding   : 0 5px;
+  }
+
+  .mat-table button.mat-sort-header-button {
+    font-weight: 400 !important;
+    color      : white !important;
+  }
+
+  .mat-row:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  // .mat-row:nth-child(odd) {
+  //   background-color: #fff;
+  // }
+
+  .mat-row {
+    height   : 3rem;
+    font-size: 12px;
+
+    // padding: 0 5px !important;
+    td {
+      border : 1px solid #ddd;
+      padding: 0 5px;
+    }
+  }
+
+  // .mat-row:nth-child(odd) {
+  //   background-color: #fff;
+  // }
+}
+
+
+.selected-row {
+  background-color: $highLightColor;
+}
