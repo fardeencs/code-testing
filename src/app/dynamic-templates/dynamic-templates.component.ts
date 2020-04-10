@@ -22,6 +22,9 @@ import { INumberMaskConfig } from '../common/number-mask/contracts';
 import { cloneDeep } from 'lodash';
 import { HelperUtility } from '../pipe-test/helper.util';
 import { DEFAULT_MASKS } from '../directive/KeyFilter';
+import { IGridTemplate } from '../material-grid/grid-model';
+import { FieldType } from '../common/emuns/enumration';
+import { CommonDailogComponent } from '../common/common-dailog/common-dailog.component';
 
 export interface IPanelInformation {
   name: string;
@@ -41,6 +44,7 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges, AfterViewIn
   gridData2: Array<any>;
   columnDef: Array<any>;
   columnDef2: Array<any>;
+  columnsDef2: Array<IGridTemplate>;
   gridId = 'grid01';
   gridId2 = 'grid02';
   showTempl = true;
@@ -59,6 +63,7 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges, AfterViewIn
   // @ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('tableTmpl', { static: false }) tableTmpl: TemplateRef<any>;
   @ViewChild('informationTmpl', { static: false }) informationTmpl: TemplateRef<any>;
+
   // @ViewChild('tmplateHandler', { static: false }) tmplateHandler: TemplateRef<any>;
 
   constructor(private compiler: Compiler,
@@ -229,6 +234,7 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges, AfterViewIn
   }
 
 
+
   loadGridData(rows: number) {
     const loderModel: Array<ILoader> = [
       { elementId: 'loadingDiv', delay: 100 },
@@ -271,8 +277,9 @@ export class DynamicTemplatesComponent implements OnInit, OnChanges, AfterViewIn
   }
 
   ngAfterViewInit(): void {
-    const containerId = this.document.getElementById('dynamic-template-container');
-    const allTbl = this.document.getElementsByTagName('table');
+    // const containerId = this.document.getElementById('dynamic-template-container');
+    // const allTbl = this.document.getElementsByTagName('table');
+    const allTbl = this.document.getElementsByClassName('main-table');
     _.each(allTbl, tbl => {
       console.log('tbl', tbl);
       const tr = tbl.getElementsByTagName('tbody')[0].getElementsByTagName('tr');

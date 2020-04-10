@@ -16,8 +16,7 @@
         <hr>
         <div class="display-info">
           <div appInsertion id="loadingDiv"></div>
-          <ng-container
-            [ngTemplateOutlet]="tableTmpl"
+          <ng-container [ngTemplateOutlet]="tableTmpl"
             [ngTemplateOutletContext]="{data:gridData, columns: columnDef, gridId: gridId}">
           </ng-container>
           <!-- <ng-container
@@ -46,9 +45,8 @@
               <div>
                 <mat-form-field class="highlight" id='address'>
                   <mat-label>Employer Address</mat-label>
-                  <input matInput name='address' placeholder="Employer Address"
-                  keyFilter='pint'
-                  [(ngModel)]="selectedData.address">
+                  <input matInput name='address' placeholder="Employer Address" keyFilter='pint'
+                    [(ngModel)]="selectedData.address">
                 </mat-form-field>
               </div>
               <mat-form-field>
@@ -64,91 +62,46 @@
         <div class="complex-table">
           <table>
             <tbody>
-            <tr>
-            <td >
-            <p>Fardeen</p>
-            </td>
-            <td colspan="2" >
-            <p>Ahmad</p>
-            </td>
-            <td >
-            <p>Siraj</p>
-            </td>
-            </tr>
-            <tr>
-            <td >
-            <p>Shavez</p>
-            </td>
-            <td colspan="2" >
-            <p>Rais Bano</p>
-            </td>
-            <td >
-            <p>Rais Fatima</p>
-            </td>
-            </tr>
-            <tr>
-            <td >
-            <p>Mariyam</p>
-            </td>
-            <td >
-            <p>Abbas</p>
-            </td>
-            <td >
-            <p>Farhat</p>
-            </td>
-            <td rowspan="3" >
-            <p>Lucknow</p>
-            </td>
-            </tr>
-            <tr>
-            <td >
-            <p>Uttar Pradesh</p>
-            </td>
-            <td colspan="2" >
-            <p>Kanpur</p>
-            </td>
-            </tr>
-            <tr>
-            <td >
-            <p>Madhiya</p>
-            </td>
-            <td >
-            <p>45698</p>
-            </td>
-            <td >
-            <p>12365</p>
-            </td>
-            </tr>
-            <tr>
-            <td >
-            <p>Rajisthan</p>
-            </td>
-            <td colspan="2" rowspan="3" >
-            <p>&nbsp;</p>
-            <p>India</p>
-            </td>
-            <td >
-            <p>Unnao</p>
-            </td>
-            </tr>
-            <tr>
-            <td >
-            <p>Bihar</p>
-            </td>
-            <td >
-            <p>Charbhag</p>
-            </td>
-            </tr>
-            <tr>
-            <td >
-            <p>Patna</p>
-            </td>
-            <td >
-            <p>Hazratganj</p>
-            </td>
-            </tr>
+              <tr>
+                <td> Fardeen </td>
+                <td colspan="2"> Ahmad </td>
+                <td> Siraj </td>
+              </tr>
+              <tr>
+                <td> Shavez </td>
+                <td colspan="2"> Rais Bano </td>
+                <td> Rais Fatima </td>
+              </tr>
+              <tr>
+                <td> Mariyam </td>
+                <td> Abbas </td>
+                <td> Farhat </td>
+                <td rowspan="3"> Lucknow </td>
+              </tr>
+              <tr>
+                <td> Uttar Pradesh </td>
+                <td colspan="2"> Kanpur </td>
+              </tr>
+              <tr>
+                <td> Madhiya </td>
+                <td> 45698 </td>
+                <td> 12365 </td>
+              </tr>
+              <tr>
+                <td> Rajisthan </td>
+                <td colspan="2" rowspan="3"> &nbsp; India </td>
+                <td> Unnao </td>
+              </tr>
+              <tr>
+                <td> Bihar </td>
+                <td> Charbhag </td>
+              </tr>
+              <tr>
+                <td> Patna </td>
+                <td> Hazratganj </td>
+              </tr>
             </tbody>
-            </table>
+          </table>
         </div>
 
         <div class="loader-container">
@@ -192,8 +145,8 @@
           </thead>
           <tbody>
             <ng-container *ngIf="data?.length === 0">
-               <tr>
-                 <td class="no-data-found" [attr.colspan]="columns.length">No Data found</td>
+              <tr>
+                <td class="no-data-found" [attr.colspan]="columns.length">No Data found</td>
               </tr>
             </ng-container>
             <ng-container *ngIf="data?.length > 0">
@@ -236,8 +189,7 @@
         <!-- <input type="date" name='text-box-{{ind}}-{{gridId}}' class="date-box-{{ind}}-{{gridId}}"
         [(ngModel)]="element[column.field]"/> -->
         <mat-form-field [appearance]="appearance">
-          <input matInput [matDatepicker]="picker" name='date-box-{{ind}}-{{gridId}}'
-            id='date-box-{{ind}}-{{gridId}}'
+          <input matInput [matDatepicker]="picker" name='date-box-{{ind}}-{{gridId}}' id='date-box-{{ind}}-{{gridId}}'
             [(ngModel)]="element[column.field]">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -245,35 +197,30 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="'TEXT_BOX'">
-        <input type="text" name='text-box-{{ind}}-{{gridId}}'
-        class="text-box-{{ind}}-{{gridId}}"
-        [keyFilter]='twoDigit2' validateOnly='true' vanish='true'
-        [(ngModel)]="element[column.field]"
-        (blur)='onBlur(element, column, ind)' />
+        <input type="text" name='text-box-{{ind}}-{{gridId}}' class="text-box-{{ind}}-{{gridId}}"
+          [keyFilter]='twoDigit2' validateOnly='true' vanish='true' [(ngModel)]="element[column.field]"
+          (blur)='onBlur(element, column, ind)' />
       </ng-container>
 
       <ng-container *ngSwitchCase="'CHECK_BOX'">
-        <input type="checkbox" class="text-box-{{ind}}-{{gridId}}"
-       name='check-box-{{ind}}-{{gridId}}'
-       class="check-box-{{ind}}-{{gridId}}"
-       [(ngModel)]="element[column.field]" />
+        <input type="checkbox" class="text-box-{{ind}}-{{gridId}}" name='check-box-{{ind}}-{{gridId}}'
+          class="check-box-{{ind}}-{{gridId}}" [(ngModel)]="element[column.field]" />
       </ng-container>
 
       <ng-container *ngSwitchCase="'ACTIONS'">
         <div class="action-section">
           <div class="btn-circle">
-            <button class="btn-fab red" (click)="closeCell(element, column, ind, gridId)"><span class="btn-wrapper">+</span>
+            <button class="btn-fab red" (click)="closeCell(element, column, ind, gridId)"><span
+                class="btn-wrapper">+</span>
               <div class="btn-ripple"></div>
               <div class="btn-overlay"></div>
             </button>
           </div>
           <div class="chk-box">
             <!-- [(ngModel)]="element[column.field]" -->
-            <input type="checkbox" name='action-chk-box-{{ind}}-{{gridId}}'
-              id='action-chk-box-{{ind}}-{{gridId}}'
-              class="action-chk-box-{{ind}}-{{gridId}}"
-              [(ngModel)]="element[column.field]"
-              (click)="onChkBoxChange($event, element, column, ind, gridId)"/>
+            <input type="checkbox" name='action-chk-box-{{ind}}-{{gridId}}' id='action-chk-box-{{ind}}-{{gridId}}'
+              class="action-chk-box-{{ind}}-{{gridId}}" [(ngModel)]="element[column.field]"
+              (click)="onChkBoxChange($event, element, column, ind, gridId)" />
           </div>
         </div>
 
@@ -286,31 +233,23 @@
 
   <ng-template #dateCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
     <td>
-      <input type="date" name='text-box-{{ind}}-{{gridId}}'
-        class="text-box-{{ind}}-{{gridId}}"
-        [keyFilter]='twoDigit2' validateOnly='true' vanish='true'
-        [(ngModel)]="element[column.field]"
-        (blur)='onBlur(element, column, ind)' />
+      <input type="date" name='text-box-{{ind}}-{{gridId}}' class="text-box-{{ind}}-{{gridId}}" [keyFilter]='twoDigit2'
+        validateOnly='true' vanish='true' [(ngModel)]="element[column.field]" (blur)='onBlur(element, column, ind)' />
     </td>
   </ng-template>
 
   <ng-template #numberCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
     <td>
       <!-- validateOnly='true' [keyFilter]='blockSpace'      keyFilter='pint' -->
-      <input type="text" name='text-box-{{ind}}-{{gridId}}'
-        class="text-box-{{ind}}-{{gridId}}"
-        [keyFilter]='twoDigit2' validateOnly='true' vanish='true'
-        [(ngModel)]="element[column.field]"
-        (blur)='onBlur(element, column, ind)' />
+      <input type="text" name='text-box-{{ind}}-{{gridId}}' class="text-box-{{ind}}-{{gridId}}" [keyFilter]='twoDigit2'
+        validateOnly='true' vanish='true' [(ngModel)]="element[column.field]" (blur)='onBlur(element, column, ind)' />
     </td>
   </ng-template>
 
   <ng-template #chkboxCellTemplate let-element='element' let-column='column' let-ind='ind' let-gridId="gridId">
     <td>
-      <input type="checkbox" class="text-box-{{ind}}-{{gridId}}"
-       name='check-box-{{ind}}-{{gridId}}'
-       class="check-box-{{ind}}-{{gridId}}"
-       [(ngModel)]="element[column.field]" />
+      <input type="checkbox" class="text-box-{{ind}}-{{gridId}}" name='check-box-{{ind}}-{{gridId}}'
+        class="check-box-{{ind}}-{{gridId}}" [(ngModel)]="element[column.field]" />
     </td>
   </ng-template>
 
@@ -323,12 +262,12 @@
         </button>
       </div>
       <div class="chk-box">
-        <input type="checkbox" name='action-chk-box-{{ind}}-{{gridId}}'
-          id='action-chk-box-{{ind}}-{{gridId}}'
-          class="action-chk-box-{{ind}}-{{gridId}}"
-          (click)="onChkBoxChange($event, element, column, ind)" [(ngModel)]="element[column.field]" />
+        <input type="checkbox" name='action-chk-box-{{ind}}-{{gridId}}' id='action-chk-box-{{ind}}-{{gridId}}'
+          class="action-chk-box-{{ind}}-{{gridId}}" (click)="onChkBoxChange($event, element, column, ind)"
+          [(ngModel)]="element[column.field]" />
       </div>
     </td>
   </ng-template>
+
 
 </div>

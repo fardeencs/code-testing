@@ -9,12 +9,12 @@
    <div class="box-container">
     <table class="table table-border" [ngClass]="{'table-dark': mode}">
       <thead class="text-nowrap">
-        <th *ngFor="let col of colDef">{{col.header}}</th>
+        <th *ngFor="let col of colDef" [ngClass]="col.clazz">{{col.header}}</th>
       </thead>
       <tbody>
         <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
           <tr [formGroupName]="i">
-            <td *ngFor="let col of colDef" id="cell-{{i}}-tablId">
+            <td *ngFor="let col of colDef" id="cell-{{i}}-tablId" [ngClass]="col.clazz">
 
                 <ng-container *ngIf="col.cellTemplate">
                   <ng-container [ngTemplateOutlet]="col.cellTemplate"
@@ -130,13 +130,15 @@
 
 
 <ng-template #actionTmpl let-group="group" let-ind="ind" let-isEdit="isEdit">
-  <ng-container *ngIf="isEdit">
-    <mat-icon class="delete" (click)="deleteRow(ind)">delete_forever</mat-icon>
-    <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
-  </ng-container>
-  <ng-container *ngIf="!isEdit">
-    <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
-  </ng-container>
+  <div class="tbl-action">
+    <ng-container *ngIf="isEdit">
+      <mat-icon class="delete" (click)="deleteRow(ind)">delete_forever</mat-icon>
+      <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="!isEdit">
+      <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
+    </ng-container>
+  </div>
 </ng-template>
 
 

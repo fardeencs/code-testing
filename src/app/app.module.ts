@@ -56,6 +56,8 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { InlineEditTableComponent } from './inline-edit-table/inline-edit-table.component';
 import { DragableColumnDirective } from './common/directives/dragable-column.directive';
 import { MatGridComponent } from './mat-grid/mat-grid.component';
+import { HtmlTableComponent } from './html-table/html-table.component';
+import { CommonDailogComponent } from './common/common-dailog/common-dailog.component';
 
 
 export const ICustomNumberMaskConfig: INumberMaskConfig = {
@@ -119,13 +121,15 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
       ReactiveFormComponent,
       DragableColumnDirective,
       InlineEditTableComponent,
-      MatGridComponent
+      MatGridComponent,
+      HtmlTableComponent,
+      CommonDailogComponent
    ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
       NoopAnimationsModule,
-      //DynamicComponentLoaderModule.forRoot(manifests)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\nCommonModule,
+      //DynamicComponentLoaderModule.forRoot(manifests)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\nCommonModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
@@ -151,7 +155,8 @@ export const ICustomNumberMaskConfig: INumberMaskConfig = {
    entryComponents: [
       ModelPopupComponent,
       PopupComponent,
-      MaterialDailogComponent
+      MaterialDailogComponent,
+      CommonDailogComponent
    ]
 })
 export class AppModule {

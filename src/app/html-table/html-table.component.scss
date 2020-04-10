@@ -1,0 +1,274 @@
+$primaryColor  : #0075b0;
+$boxHeight     : 20px;
+$boxWidth      : 120px;
+$ctrlBorder    : 2px solid #ccc;
+$highLightColor:#f9f9db;
+
+:host{
+  *::-webkit-scrollbar {
+    // width: 0.25rem;
+    height  : 0.50rem;
+    cursor  : pointer;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background        : #a8a8a8;
+    border-radius     : 10px;
+    box-shadow        : inset 0 0 6px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  }
+}
+
+
+// .table-scroll {
+//   // transition: all 400ms ease-in-out;
+//   // transform : scale(0.8);
+//   position     : relative;
+//   max-width    : 700px;
+//   margin       : auto;
+//   // margin    : 40px auto 40px auto;
+//   overflow     : hidden;
+//   // border    :1px solid #000;
+//   // display   : flex;
+// }
+
+// .table-wrap {
+//   width   : 100%;
+//   overflow: auto;
+
+//   table {
+//     th {
+//       background: $primaryColor;;
+//       color           : #fff;
+//     }
+//   }
+// }
+
+.table-scroll{
+    // transition: all 400ms ease-in-out;
+  // transform : scale(0.8);
+  position     : relative;
+  max-width    : 700px;
+  margin       : auto;
+  // margin    : 40px auto 40px auto;
+  overflow     : hidden;
+  // border    :1px solid #000;
+  // display   : flex;
+  .html-table-container{
+    width   : 100%;
+    overflow: auto;
+
+    .first-col {
+      width    : 120px;
+      min-width: 120px;
+      max-width: 120px;
+      left     : 0px;
+    }
+
+    .second-col {
+      width          : 100px;
+      min-width      : 100px;
+      max-width      : 100px;
+      left           : 142px;
+      justify-content: space-around;
+      box-shadow  : 4px 0 10px -3px #c0c0c0;
+    }
+
+  }
+}
+
+.html-table-container {
+
+
+
+  .sticky-col {
+    position        : sticky;
+    position        : -webkit-sticky;
+    background-color: white;
+    // box-shadow  : 2px 0 10px -3px #c0c0c0;
+  }
+
+    .freeze-checkbox {
+        width    : 40px;
+        min-width: 40px;
+        max-width: 40px;
+        left     : 0px;
+    }
+
+
+
+    table {
+        width: 100%;
+
+        border-collapse: collapse;
+        border-spacing: 0;
+
+        tbody>tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        thead {
+            background : $primaryColor;
+            color      : #fff;
+            line-height: 1;
+        }
+
+        thead tr {
+            height: 2.7rem;
+        }
+
+        th,
+        td {
+            white-space: nowrap;
+            padding    : 2px 5px;
+            text-align : left;
+            font-weight: 400;
+            border     : 1px solid #ddd;
+            // box-shadow  : 2px 0 10px -3px #c0c0c0;
+        }
+
+        th {
+            &.header-checkbox {
+                background-color: #c0c0c0;
+            }
+        }
+
+        tr {
+            &.tag-before-body {
+                font-weight: 500;
+            }
+        }
+
+        td {
+            // &.action-checkbox{
+            //  border :1px solid blue;
+            //  padding: 0;
+            //  margin : 0;
+            // }
+
+            input[type=text],
+            input[type=date],
+            select {
+                box-sizing        : border-box;
+                border            : $ctrlBorder;
+                border-radius     : 3px;
+                -webkit-transition: 0.5s;
+                transition        : 0.5s;
+                outline           : none;
+            }
+
+            input[type=text]:focus,
+            input[type=date]:focus,
+            select:focus {
+                border: 2px solid #555;
+            }
+
+            .custom-checkbox {
+                //  border:1px solid $primaryColor;
+                height    : 20px;
+                width     : 20px;
+            }
+
+            .cell-text-box,
+            .cell-number-box {
+                height: $boxHeight;
+                width : $boxWidth;
+            }
+
+            .cell-table-dropdown {
+                width: $boxWidth;
+            }
+        }
+    }
+
+
+
+    .table-container {
+        border-collapse: collapse;
+    }
+
+    .selected-row {
+        background-color: #f9f9db;
+    }
+
+    .no-data-found {
+        text-align: center !important;
+        color     : red;
+    }
+
+    /** custm checkbos class**/
+    .container {
+        display            : block;
+        position           : relative;
+        padding-left       : 15px;
+        margin-bottom      : 14px;
+        cursor             : pointer;
+        -webkit-user-select: none;
+        -moz-user-select   : none;
+        -ms-user-select    : none;
+        user-select        : none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .container input {
+        position: absolute;
+        opacity : 0;
+        cursor  : pointer;
+        height  : 0;
+        width   : 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position        : absolute;
+        top             : 0;
+        left            : 0;
+        height          : 15px;
+        width           : 15px;
+        background-color: white;
+        border          : 1px solid $primaryColor;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input~.checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked~.checkmark {
+        //   background-color: #2196F3;
+        background-color     : #ccc;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content : "";
+        position: absolute;
+        display : none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked~.checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left             : 7px;
+        top              : -6px;
+        width            : 7px;
+        height           : 18px;
+        border           : solid $primaryColor;
+        border-width     : 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        transform        : rotate(45deg);
+    }
+
+    /** end custm checkbos class**/
+
+
+}

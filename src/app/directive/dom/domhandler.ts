@@ -7,6 +7,26 @@
  *  because the value of this variable is needed by the template compiler.
  */
 // @dynamic
+
+export const KEYS = {
+  TAB: 9,
+  RETURN: 13,
+  ESC: 27,
+  BACKSPACE: 8,
+  DELETE: 46
+};
+
+export const SAFARI_KEYS = {
+  63234: 37, // left
+  63235: 39, // right
+  63232: 38, // up
+  63233: 40, // down
+  63276: 33, // page up
+  63277: 34, // page down
+  63272: 46, // delete
+  63273: 36, // home
+  63275: 35  // end
+};
 export class DomHandler {
 
   public static zindex = 1000;
@@ -16,6 +36,36 @@ export class DomHandler {
   private static calculatedScrollbarHeight: number = null;
 
   private static browser: any;
+
+  /** extra function added */
+
+  static isNavKeyPress(e: KeyboardEvent) {
+    // tslint:disable-next-line: deprecation
+    let k = e.keyCode;
+    k = DomHandler.getBrowser().safari ? (SAFARI_KEYS[k] || k) : k;
+
+    return (k >= 33 && k <= 40) || k === KEYS.RETURN || k === KEYS.TAB || k === KEYS.ESC;
+  }
+
+  static isSpecialKey(e: KeyboardEvent) {
+    const k = e.keyCode;
+    const c = e.charCode;
+
+    return k === 9 || k === 13 || k === 27 || k === 16 || k === 17 || (k >= 18 && k <= 20) ||
+      (DomHandler.getBrowser().opera && !e.shiftKey && (k === 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
+  }
+
+
+  static getKey(e: KeyboardEvent) {
+    const k = e.keyCode || e.charCode;
+    return DomHandler.getBrowser().safari ? (SAFARI_KEYS[k] || k) : k;
+  }
+
+  static getCharCode(e: KeyboardEvent) {
+    return e.charCode || e.keyCode || e.which;
+  }
+
+    /** end extra function */
 
   public static addClass(element: any, className: string): void {
     if (element.classList) {

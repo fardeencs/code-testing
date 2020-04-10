@@ -21,6 +21,7 @@ mat-icon {
   cursor: pointer;
 }
 
+
 .action-container {
   display        : flex;
   justify-content: space-between;
@@ -34,11 +35,17 @@ table {
   border-collapse: separate;
   border-spacing : 0;
 
+
+  // display: flex;
+  // flex-direction: column;
+  // overflow: auto;
+
   th {
     background-color: $table-header;
     color           : white;
     border          : 1px solid $table-border;
     padding         : 2px 5px;
+    // width: 200px;
   }
 
   tbody {
@@ -52,6 +59,13 @@ table {
     td {
       border : 1px solid $table-border;
       padding         : 2px 5px;
+
+      // width: 200px;
+      // white-space: pre-wrap;
+      // word-break: break-all;
+      // .tbl-action{
+      //   width: 50px !important;
+      // }
     }
 
     .no-data-found {
@@ -64,6 +78,25 @@ table {
     }
   }
 }
+
+// .tbl-action{
+//   width: 50px !important;
+// }
+
+// :host ::ng-deep {
+//   .mat-form-field-infix {
+//     width: 135px;
+//   }
+//   .cell-dob{
+//     .mat-form-field-infix {
+//       width: 120px;
+//     }
+//   }
+// }
+
+
+
+
 
 
 // .table {

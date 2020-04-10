@@ -15,7 +15,7 @@ export const MENUS: Array<IMenuList> = [
     svgUrl: 'template'
   },
   {
-    label: 'Pipe Test',
+    label: 'Pipes and Directive',
     path: 'pipe-test',
     svgUrl: 'pipe'
   },

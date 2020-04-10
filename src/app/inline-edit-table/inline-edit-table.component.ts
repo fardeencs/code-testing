@@ -92,7 +92,7 @@ export class InlineEditTableComponent implements OnInit {
       email: ['', [Validators.email, Validators.required]],
       dob: ['', [Validators.required]],
       bloodGroup: [''],
-      mobNumber: ['', [Validators.required, Validators.maxLength(10)]],
+      mobNumber: ['', [Validators.required, Validators.max(10)]],
       isEditable: [true]
     });
   }
@@ -162,7 +162,8 @@ export class InlineEditTableComponent implements OnInit {
         field: 'isEditable',
         header: 'Action',
         type: FieldType.TEMPLATE,
-        cellTemplate: this.actionTmpl
+        cellTemplate: this.actionTmpl,
+        clazz: 'tbl-action'
       },
       {
         field: 'name',
@@ -170,14 +171,10 @@ export class InlineEditTableComponent implements OnInit {
         type: FieldType.TEXT_BOX
       },
       {
-        field: 'email',
-        header: 'Email',
-        type: FieldType.TEXT_BOX
-      },
-      {
         field: 'dob',
         header: 'DOB',
-        type: FieldType.DATE_BOX
+        type: FieldType.DATE_BOX,
+        clazz: 'cell-dob'
       },
       {
         field: 'bloodGroup',
@@ -189,7 +186,12 @@ export class InlineEditTableComponent implements OnInit {
         field: 'mobNumber',
         header: 'Mobile Number',
         type: FieldType.NUMBER_BOX
-      }
+      },
+      {
+        field: 'email',
+        header: 'Email',
+        type: FieldType.TEXT_BOX
+      },
     ];
     return colDef;
   }

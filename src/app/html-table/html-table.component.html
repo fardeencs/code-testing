@@ -1,0 +1,114 @@
+<div class="table-scroll">
+  <div class="html-table-container ">
+    <table id={{tblId}} cellspacing="5" [class]="containerStyle">
+      <thead *ngIf="!showHeader">
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <ng-container *ngIf="col.headerCheckBox">
+              <th scope="col" class="header-checkbox sticky-col freeze-checkbox">
+                <mat-checkbox disabled="true" class="custom-checkbox"
+                  (change)="actions.headerCheckBoxChanged($event.checked)"></mat-checkbox>
+              </th>
+            </ng-container>
+            <ng-container *ngIf="!col.headerCheckBox">
+              <th scope="col" [style.width]="col.width ? col.width + '%' : null" [ngClass]='col?.clazz'>{{col.header}}
+              </th>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <!--(click)="actions.onRowSelect(c, ind, $event)"-->
+        <ng-container *ngIf="gridData?.length === 0">
+          <tr>
+            <td class="no-data-found" [attr.colspan]="columns.length">No Data Found</td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="tagBeforeBody" class="tag-before-body">
+          <td>{{tagBeforeBody }}</td>
+        </tr>
+        <tr *ngFor="let c of gridData; let ind = index;" id="row-{{ind+1}}">
+          <ng-container *ngFor="let col of columns">
+            <ng-container *ngIf="col.cellTemplate">
+              <td [style.width]="col.width ? col.width + '%' : null" [ngClass]='col?.clazz'>
+                <ng-template [ngTemplateOutletContext]="{ element: c, rowcolumn: col, index : ind}"
+                  [ngTemplateOutlet]="col.cellTemplate">
+                </ng-template>
+              </td>
+            </ng-container>
+            <ng-container *ngIf="!col.cellTemplate">
+              <td [style.width]="col.width ? col.width + '%' : null" [ngClass]='col?.clazz'
+                (click)="$event.stopPropagation()">{{c[col.field]}}</td>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <ng-template #dateTmpl let-element="element" let-rowcolumn="rowcolumn">
+      <span (click)="$event.stopPropagation()">{{element[rowcolumn.field] | date:'dd/MM/yyy' }}</span>
+    </ng-template>
+
+    <ng-template #numberTmpl let-element="element" let-rowcolumn="rowcolumn">
+      <span (click)="$event.stopPropagation()">{{element[rowcolumn.field] | number }}</span>
+    </ng-template>
+
+    <ng-template #chkBoxTmpl let-element="element" let-rowcolumn="rowcolumn">
+      <!--<label class="container">-->
+      <!--<input type="checkbox" class="custom-checkbox" name={{rowcolumn.field}} [(ngModel)]="element[rowcolumn.field]"
+        (change)="actions.onCheckBoxChanged(rowcolumn.value)" />-->
+      <!--<span class="checkmark"></span>-->
+      <!--</label>-->
+      <mat-checkbox class="custom-checkbox" name={{rowcolumn.field}} [(ngModel)]="element[rowcolumn.field]"
+        (change)="actions.onCheckBoxChanged($event, element, rowcolumn)">
+      </mat-checkbox>
+    </ng-template>
+
+    <ng-template #textBoxTmpl let-element="element" let-rowcolumn="rowcolumn" let-ind="index">
+      <ng-container (click)="$event.stopPropagation()">
+        <input type="text" [ngClass]="rowcolumn?.clazz" name="{{rowcolumn.field}}-{{ind}}"
+          [(ngModel)]="element[rowcolumn.field]">
+      </ng-container>
+    </ng-template>
+
+    <!-- (change)="onChange($event.target.value)" -->
+    <ng-template #dropdownTmpl let-element="element" let-rowcolumn="rowcolumn" let-ind="index">
+      <div (click)="$event.stopPropagation()">
+        <select [ngClass]="rowcolumn?.clazz" name="{{rowcolumn.field}}-{{ind}}" [(ngModel)]="element[rowcolumn.field]"
+          (change)="actions.dropdownChanged(rowcolumn, element, ind, 'DROPDOWN_CHANGED')">
+          <option [value]="item.value" *ngFor="let item of rowcolumn.collection">{{item.label}}</option>
+        </select>
+      </div>
+    </ng-template>
+
+    <ng-template #numberBoxTmpl let-element="element" let-rowcolumn="rowcolumn" let-ind="index">
+      <ng-container (click)="$event.stopPropagation()">
+        <input type="text" [ngClass]="rowcolumn?.clazz" name="{{rowcolumn.field}}-{{ind}}"
+          id="{{rowcolumn.field}}-{{ind}}" [(ngModel)]="element[rowcolumn.field]"
+          keyFilter='pint'
+          (ngModelChange)="actions.onModelChange(rowcolumn, element, ind, 'TEMPLATE_CHANGED')">
+      </ng-container>
+    </ng-template>
+
+    <ng-template #dateBoxTmpl let-element="element" let-rowcolumn="rowcolumn" let-ind="index">
+      <ng-container (click)="$event.stopPropagation()">
+        <!-- <mat-form-field appearance="outline"> -->
+        <!-- <input matInput [matDatepicker]="rowcolumn.field"
+            class="{{rowcolumn?.clazz}}" name="{{rowcolumn.field}}-{{ind}}" id="{{rowcolumn.field}}-{{ind}}"
+            [(ngModel)]="element[rowcolumn.field]"/>
+        <mat-datepicker-toggle matSuffix [for]="dateBoxDate"></mat-datepicker-toggle>
+        <mat-datepicker #dateBoxDate></mat-datepicker>
+      </mat-form-field>  -->
+        <input type="date" [ngClass]="rowcolumn?.clazz" name="{{rowcolumn.field}}-{{ind}}"
+          id="{{rowcolumn.field}}-{{ind}}" [(ngModel)]="element[rowcolumn.field]"
+          (ngModelChange)="actions.onModelChange(rowcolumn, element, ind, 'TEMPLATE_CHANGED')">
+        <!-- <input type="date" class="text-box date-box" [ngClass]="clazz" [name]="field" [id]="field"
+          [placeholder]="header" [title]="header"
+          [(ngModel)]="selectedData[field]"
+          (ngModelChange)="actions.onModelChange($event)" /> -->
+      </ng-container>
+    </ng-template>
+
+  </div>
+</div>

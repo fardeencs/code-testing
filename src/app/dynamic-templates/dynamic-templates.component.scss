@@ -65,7 +65,7 @@ $heighlighted-color : #faffbb;
     .display-info {
       *::-webkit-scrollbar {
         // width: 0.25rem;
-        height  : 0.30rem;
+        height  : 0.50rem;
         cursor  : pointer;
       }
 
@@ -228,8 +228,19 @@ $heighlighted-color : #faffbb;
         // padding-bottom: 0 !important;
 
         .mat-form-field-infix {
-          width  : 5rem !important;
+          width  : 4rem !important;
           padding: 0 !important;
+        }
+
+        // .mat-form-field-suffix .mat-icon-button {
+        //   width: 2em;
+        //   height: 2em;
+        // }
+
+        .mat-datepicker-toggle-default-icon {
+          display: block;
+          width: 1em !important;
+          height: 1em !important;
         }
 
         .mat-form-field-underline {
@@ -297,6 +308,11 @@ $heighlighted-color : #faffbb;
   //   /* background-color: red; */
   //   color              : red;
   //   font-size          : 88%;
+  // }
+
+  // ::ng-deep .mat-datepicker-content .mat-calendar{
+  //   width: 100px !important;
+  //   height: 100px !important;
   // }
 
   .flash {
@@ -422,8 +438,8 @@ $heighlighted-color : #faffbb;
         padding   : 8px;
       }
 
-      tr:nth-child(odd) {
-        background-color: green !important;
+      tr:nth-child(even) {
+        background-color: #fff !important;
       }
     }
   }
