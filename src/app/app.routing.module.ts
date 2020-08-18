@@ -10,6 +10,7 @@ import { MaterialGridComponent } from './material-grid/material-grid.component';
 import { JspdfReportComponent } from './jspdf-report/jspdf-report.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { InlineEditTableComponent } from './inline-edit-table/inline-edit-table.component';
+import { EditablePdfComponent } from './editable-pdf/editable-pdf.component';
 
 export const routes: Routes = [
   {
@@ -55,6 +56,10 @@ export const routes: Routes = [
   {
     path: 'inline-edit-table',
     component: InlineEditTableComponent
+  },
+  {
+    path: 'editable-pdf',
+    component: EditablePdfComponent
   }
 
 ];

@@ -99,7 +99,9 @@
         <div class="action-container">
           <div class="row-align">
             <button [disabled]="dataForm.form.invalid" mat-raised-button color="primary"
-              (click)="actions.onSubmit()">Submit</button>
+              (click)="actions.onSubmit()">
+              <mat-icon *ngIf="dataForm.form.dirty && dataForm.form.valid">report</mat-icon>Submit
+            </button>
             <button mat-mini-fab color="primary">
               <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
             </button>

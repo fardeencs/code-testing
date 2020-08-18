@@ -1,22 +1,4 @@
-<div class="less-more-container">
-  <div class="less-more-panel" [ngClass]="[isShowLess ? 'less' : 'more']">
-    <ng-container *ngFor="let item of list">
-      <div class="row-align">
-        <div class="elemnt">{{item.label}}</div>
-        <div class="elemnt">{{item.value}}</div>
-      </div>
-    </ng-container>
-    <!-- <span class="btn-show" (click)="toggelShowLessPanel()">{{isShowLess ? 'Show More' : 'Show Less'}} >></span> -->
-  </div>
-  <!-- [ngClass]="[isShowLess ? '' : 'btn-more']" -->
-  <div class="btn-panel">
-    <span class="btn-show" (click)="toggelShowLessPanel()">{{isShowLess ? 'Show More' : 'Show Less'}} <span
-        class="arraow">&#62;&#62;</span> </span>
-  </div>
-</div>
-
-
-<hr>
+<!-- <hr/> -->
 
 
 <div id="HTMLtoPDF" class="slide">
@@ -40,13 +22,15 @@
     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-  <!-- <p dir="rtl">
-    لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت ...
-
-وعند موافقه العميل المبدئيه على التصميم يتم ازالة هذا النص من التصميم ويتم وضع النصوص النهائية المطلوبة للتصميم ويقول البعض ان وضع النصوص التجريبية بالتصميم قد تشغل المشاهد عن وضع الكثير من الملاحظات او الانتقادات للتصميم الاساسي.
-
-وخلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد. من كتاب "حول أقاصي الخير والشر"
-  </p> -->
+  <p dir="rtl">
+    لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم
+    مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت ...
+    وعند موافقه العميل المبدئيه على التصميم يتم ازالة هذا النص من التصميم ويتم وضع النصوص النهائية المطلوبة للتصميم
+    ويقول البعض ان وضع النصوص التجريبية بالتصميم قد تشغل المشاهد عن وضع الكثير من الملاحظات او الانتقادات للتصميم
+    الاساسي.
+    وخلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45
+    قبل الميلاد. من كتاب "حول أقاصي الخير والشر"
+  </p>
 
   <div>
     <input type="text" name="lname" id="lname" value="Fardeen Ahmad">
@@ -58,3 +42,43 @@
 <a href="#" onclick="HTMLtoPDF()">Download PDF</a>
 
 <hr>
+<br><br>
+
+
+
+<div class="less-more-container">
+  <div class="slide-out" id="slider">
+    <div id="less-more-panel" class="out-panel">
+      <ng-container *ngFor="let item of list">
+        <div class="row-align">
+          <div class="elemnt">{{item.label}}</div>
+          <div class="elemnt">{{item.value}}</div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="btn-panel">
+      <span class="btn-show" id="toggle">
+        {{!isShowLess ? 'Show More' : 'Show Less'}}
+        <span class="arraow">&#62;&#62;</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="less-more-container">
+  <div class="slide-out" id="slider">
+    <div class="btn-panel">
+      <span class="btn-show" id="toggle">
+        {{!isShowLess ? 'Show More' : 'Show Less'}}
+        <span class="arraow">&#62;&#62;</span>
+      </span>
+    </div>
+    <ng-container *ngFor="let item of list">
+      <div class="row-align">
+        <div class="elemnt">{{item.label}}</div>
+        <div class="elemnt">{{item.value}}</div>
+      </div>
+    </ng-container>
+  </div>
+</div> -->

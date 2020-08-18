@@ -73,5 +73,14 @@ export abstract class BaseComponent {
     });
   }
 
+  markAsPristine(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach((key: string) => {
+      const abstractControl = formGroup.get(key);
+      if(abstractControl){
+        abstractControl.markAsPristine();
+      }
+    });
+  }
+
 
 }

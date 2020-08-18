@@ -18,7 +18,7 @@ import { DomHandler, KEYS } from '../directive/dom/domhandler';
   selector: 'app-pipe-test',
   templateUrl: './pipe-test.component.html',
   styleUrls: ['./pipe-test.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None
 })
 export class PipeTestComponent extends BaseComponent implements OnInit {
   @ViewChild('dataForm', { static: true }) dataForm: NgForm;
@@ -41,6 +41,8 @@ export class PipeTestComponent extends BaseComponent implements OnInit {
 
   animal: string;
   name: string;
+
+  appearanceColor = 'green';
 
   constructor(private fb: FormBuilder,
     private readonly formatNumber: FormatNumberPipe,
@@ -293,6 +295,7 @@ export class PipeTestComponent extends BaseComponent implements OnInit {
       console.log('====================================');
       console.log('submit', valueObj, this.dataForm);
       console.log('====================================');
+      this.markAsPristine(this.dataForm.form);
     }
   };
 

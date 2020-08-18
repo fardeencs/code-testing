@@ -58,5 +58,10 @@ export const MENUS: Array<IMenuList> = [
     label: 'Inline Edit Table',
     path: 'inline-edit-table',
     svgUrl: 'table'
+  },
+  {
+    label: 'Editable PDF',
+    path: 'editable-pdf',
+    svgUrl: 'table'
   }
 ];

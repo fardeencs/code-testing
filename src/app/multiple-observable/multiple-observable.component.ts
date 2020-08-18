@@ -22,7 +22,7 @@ export class MultipleObservableComponent implements OnInit {
         });
         console.log('forkJoin-error', error);
       }
-    )
+    );
   }
 
   private handleMultipleObservable(): Observable<any> {

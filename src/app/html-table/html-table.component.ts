@@ -159,7 +159,7 @@ export class HtmlTableComponent implements OnInit {
         if (c.field === this.H_CHECK_BOX) {
           g[c.field] = val;
         }
-      })
+      });
     });
   }
 
