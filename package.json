@@ -40,7 +40,7 @@
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.15",
     "lodash": "^4.17.15",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "npm": "^6.11.3",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.5.3",
